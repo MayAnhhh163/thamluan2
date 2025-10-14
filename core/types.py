@@ -215,6 +215,8 @@ class ToolResult:
     data: Any = None
     error: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
+    message: Optional[str] = None  # thêm trường này
+
 
     def to_dict(self) -> Dict:
         return {

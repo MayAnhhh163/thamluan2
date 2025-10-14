@@ -1,0 +1,89 @@
+2025-10-14 14:07:58 - root - [32mINFO[0m - ============================================================
+2025-10-14 14:07:58 - root - [32mINFO[0m - Logging initialized
+2025-10-14 14:07:58 - root - [32mINFO[0m - Log level: INFO
+2025-10-14 14:07:58 - root - [32mINFO[0m - Log file: D:\AutoData2\AutoData2\thamluan\logs\autodata_20251014_140758.log
+2025-10-14 14:07:58 - root - [32mINFO[0m - ============================================================
+2025-10-14 14:07:58 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:07:58 - root - [32mINFO[0m - AutoData - HYBRID WORKFLOW (PDF + Opinion Crawler)
+2025-10-14 14:07:58 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:07:58 - root - [32mINFO[0m - Pipeline: Law List → PDF → Extract → Opinions → NLP → Export
+2025-10-14 14:07:58 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m - Topic/Project: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - root - [32mINFO[0m - Running workflow asynchronously...
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - Starting AutoData Workflow (Article-Based)
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - Topic/Project: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m -  Executing workflow asynchronously...
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Starting HYBRID workflow...
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Project/Topic: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Reference URL: Not provided
+2025-10-14 14:08:13 - agents.base - [32mINFO[0m - Created task: manager_20251014_140813 (search_law_list)
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - ✅ Created first task: search_law_list
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m -  Routing: current_task=search_law_list, is_complete=False
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m -  Routing to: law_list_search_agent
+2025-10-14 14:08:13 - agents.hybrid_agents - [32mINFO[0m - 📋 Law List Search Agent executing...
+2025-10-14 14:08:13 - agents.hybrid_agents - [32mINFO[0m - 🔍 Searching law documents for: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - tools.law_list_crawler - [32mINFO[0m - Crawling law list for topic: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - tools.law_list_crawler - [32mINFO[0m - Crawling page 1/5...
+2025-10-14 14:08:13 - tools.law_list_crawler - [32mINFO[0m - No more results at page 1, stopping
+2025-10-14 14:08:13 - tools.law_list_crawler - [32mINFO[0m - ✅ Total: 0 unique documents
+2025-10-14 14:08:13 - agents.hybrid_agents - [32mINFO[0m - ✅ Found 0 law documents
+2025-10-14 14:08:13 - agents.base - [32mINFO[0m - Task completed: manager_20251014_140813
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - Current task: search_law_list - completed
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=False, is_complete=False
+2025-10-14 14:08:13 - agents.manager - [33mWARNING[0m - ⚠️ Current task completed but no next task created
+2025-10-14 14:08:13 - agents.manager - [33mWARNING[0m - ⚠️ Task: search_law_list
+2025-10-14 14:08:13 - agents.manager - [33mWARNING[0m - ⚠️ Marking workflow as complete to avoid infinite loop
+2025-10-14 14:08:13 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=search_law_list
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m -  Routing: current_task=search_law_list, is_complete=True
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m -  Workflow marked as complete, ending
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - Workflow Report
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - project_name: Luật Trí tuệ nhân tạo 2025
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - started_at: 2025-10-14 14:08:13.619275
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - completed_at: 2025-10-14 14:08:13.906485
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - total_tasks: 1
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - completed_tasks: 1
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - failed_tasks: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - errors_count: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - warnings_count: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - law_documents_found: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - pdfs_downloaded: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - keywords_extracted: False
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - opinion_urls_found: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - opinions_crawled: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - opinions_analyzed: 0
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - csv_exported: False
+2025-10-14 14:08:13 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m -  Workflow completed successfully!
+2025-10-14 14:08:13 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m - 
+================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m - HYBRID WORKFLOW RESULTS
+2025-10-14 14:08:13 - root - [32mINFO[0m - ================================================================================
+2025-10-14 14:08:13 - root - [32mINFO[0m - 
+📋 PHASE 1 - Law Documents:
+2025-10-14 14:08:13 - root - [32mINFO[0m -    Law Documents Found: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m -    PDFs Downloaded: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m - 
+💬 PHASE 2 - Opinions:
+2025-10-14 14:08:13 - root - [32mINFO[0m -    Opinion URLs Found: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m -    Opinions Crawled (Full Content): 0
+2025-10-14 14:08:13 - root - [32mINFO[0m - 
+🧠 PHASE 3 - NLP Analysis:
+2025-10-14 14:08:13 - root - [32mINFO[0m -    Opinions Analyzed: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m - 
+💾 PHASE 4 - Export:
+2025-10-14 14:08:13 - root - [32mINFO[0m -  News Articles Crawled: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m -  Opinion Articles Analyzed: 0
+2025-10-14 14:08:13 - root - [32mINFO[0m - ================================================================================
