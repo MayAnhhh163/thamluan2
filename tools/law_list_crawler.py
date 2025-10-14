@@ -132,7 +132,7 @@ class LawListCrawler:
         source: str = 'duthaoonline',
         max_pages: int = 5,
         max_results: int = 30,
-        similarity_threshold: float = 0.3
+        similarity_threshold: float = 0.8
     ) -> ToolResult:
         """
         Crawl danh sách dự thảo luật từ duthaoonline.quochoi.vn
@@ -225,9 +225,8 @@ class LawListCrawler:
 
                         # Try to extract PDF URL (optional, costs time)
                         pdf_url = None
-                        # Uncomment if you want to extract PDF:
-                        # if len(documents) < 5:  # Only for first 5 to save time
-                        #     pdf_url = self._extract_pdf_url_from_detail_page(url)
+                        # Extract PDF URL for all matching documents
+                        pdf_url = self._extract_pdf_url_from_detail_page(url)
 
                         # Create DocumentCard
                         doc = DocumentCard(

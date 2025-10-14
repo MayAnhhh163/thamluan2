@@ -44,7 +44,7 @@ class LawListSearchAgent(BaseAgent):
                 source='duthaoonline',
                 max_pages=1,
                 max_results=20,
-                similarity_threshold=0.3  # Lower threshold for better matching
+                similarity_threshold=0.8  # Higher threshold for precise matching
             )
             
             if not result.success:
