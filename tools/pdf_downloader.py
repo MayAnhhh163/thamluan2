@@ -9,9 +9,13 @@ from typing import Optional, Dict, Any
 import logging
 import json
 from datetime import datetime
+import urllib3
 
 from core.config import config
 from core.types import ToolResult
+
+# Disable SSL warnings for government sites with certificate issues
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 logger = logging.getLogger(__name__)
 
@@ -135,8 +139,8 @@ class PDFDownloader:
             
             pdf_path = self.pdf_dir / filename
             
-            # Download
-            response = self.session.get(url, timeout=60, stream=True)
+            # Download (with SSL verification disabled for government sites)
+            response = self.session.get(url, timeout=60, stream=True, verify=False)
             response.raise_for_status()
             
             # Validate content type

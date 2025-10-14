@@ -118,7 +118,7 @@ class ManagerAgent(BaseAgent):
                     )
                     logger.info(f"📥 Next: Download {len(law_documents)} PDFs")
 
-        # Step 2: DOWNLOAD_PDFS → EXTRACT_PDF_CONTENT
+        # Step 2: DOWNLOAD_PDFS → EXTRACT_PDF_CONTENT or EXPORT (skip if no PDFs)
         elif TaskType.DOWNLOAD_PDFS in completed_types and TaskType.EXTRACT_PDF_CONTENT not in completed_types:
             if not task_already_created(TaskType.EXTRACT_PDF_CONTENT):
                 pdf_paths = state.get('pdf_paths', [])
@@ -128,6 +128,11 @@ class ManagerAgent(BaseAgent):
                         input_data={'pdf_paths': pdf_paths}
                     )
                     logger.info(f"📄 Next: Extract content from {len(pdf_paths)} PDFs")
+                else:
+                    # No PDFs downloaded - skip to completion
+                    logger.warning("⚠️ No PDFs were downloaded successfully. Marking workflow as complete.")
+                    state['is_complete'] = True
+                    return state
 
         # Step 3: EXTRACT_PDF_CONTENT → STORE_VECTOR_DB
         elif TaskType.EXTRACT_PDF_CONTENT in completed_types and TaskType.STORE_VECTOR_DB not in completed_types:

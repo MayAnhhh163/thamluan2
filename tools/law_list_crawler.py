@@ -176,7 +176,7 @@ class LawListCrawler:
                     error="Timeout: Page did not load in time"
                 )
 
-            # Find all article elements
+            # First pass: collect all URLs and titles
             articles = self.driver.find_elements(By.CLASS_NAME, "col-10")
             logger.info(f"📄 Found {len(articles)} articles on page")
 
@@ -187,22 +187,32 @@ class LawListCrawler:
                     error="No articles found on page"
                 )
 
-            # Process each article
-            documents = []
-            processed_urls = set()
-
+            # Extract article data (URL, title) before any navigation
+            article_data = []
             for idx, article in enumerate(articles, 1):
                 try:
-                    # Find link and title
                     link_elem = article.find_element(By.CLASS_NAME, "d-inline-block")
                     url = link_elem.get_attribute("href")
 
                     title_elem = article.find_element(By.TAG_NAME, "h2")
                     title = title_elem.text.strip()
 
-                    if not url or not title:
-                        logger.debug(f"  Article {idx}: Missing URL or title, skipping")
-                        continue
+                    if url and title:
+                        article_data.append({'url': url, 'title': title})
+                except Exception as e:
+                    logger.debug(f"Error extracting article {idx}: {str(e)}")
+                    continue
+
+            logger.info(f"📄 Extracted {len(article_data)} article entries")
+
+            # Process each article
+            documents = []
+            processed_urls = set()
+
+            for idx, article_info in enumerate(article_data, 1):
+                try:
+                    url = article_info['url']
+                    title = article_info['title']
 
                     # Check duplicate
                     if url in processed_urls:
@@ -212,7 +222,7 @@ class LawListCrawler:
                     # Calculate similarity
                     similarity = self._calculate_similarity(topic, title)
 
-                    logger.info(f"📰 Article {idx}/{len(articles)}:")
+                    logger.info(f"📰 Article {idx}/{len(article_data)}:")
                     logger.info(f"   Title: {title[:80]}...")
                     logger.info(f"   Similarity: {similarity:.2%}")
 
@@ -223,10 +233,12 @@ class LawListCrawler:
                         # Create document ID
                         doc_id = hashlib.md5(url.encode()).hexdigest()[:16]
 
-                        # Try to extract PDF URL (optional, costs time)
+                        # Try to extract PDF URL
                         pdf_url = None
-                        # Extract PDF URL for all matching documents
-                        pdf_url = self._extract_pdf_url_from_detail_page(url)
+                        try:
+                            pdf_url = self._extract_pdf_url_from_detail_page(url)
+                        except Exception as e:
+                            logger.warning(f"   ⚠️ Failed to extract PDF URL: {str(e)}")
 
                         # Create DocumentCard
                         doc = DocumentCard(
