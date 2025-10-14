@@ -50,6 +50,7 @@ class TaskType(str, Enum):
 
     # Opinion gathering (common to both workflows)
     SEARCH_OPINIONS = "search_opinions"
+    AUTONOMOUS_OPINION_SEARCH = "autonomous_opinion_search"  # AI tự động search + crawl
     SCRAPE_COMMENTS = "scrape_comments"  # Kept for backward compatibility
     SCRAPE_ARTICLES = "scrape_articles"  # Scrape opinion articles
     EXPORT_DATA = "export_data"

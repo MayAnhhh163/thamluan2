@@ -1,0 +1,474 @@
+2025-10-14 20:04:56 - root - [32mINFO[0m - ============================================================
+2025-10-14 20:04:56 - root - [32mINFO[0m - Logging initialized
+2025-10-14 20:04:56 - root - [32mINFO[0m - Log level: INFO
+2025-10-14 20:04:56 - root - [32mINFO[0m - Log file: D:\AutoData2\AutoData2\thamluan\logs\autodata_20251014_200456.log
+2025-10-14 20:04:56 - root - [32mINFO[0m - ============================================================
+2025-10-14 20:04:56 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:04:56 - root - [32mINFO[0m - AutoData - HYBRID WORKFLOW (PDF + Opinion Crawler)
+2025-10-14 20:04:56 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:04:56 - root - [32mINFO[0m - Pipeline: Law List → PDF → Extract → Opinions → NLP → Export
+2025-10-14 20:04:56 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:05:08 - root - [32mINFO[0m - Topic/Project: Luât trí tuệ nhân tạo
+2025-10-14 20:05:08 - root - [32mINFO[0m - Running workflow asynchronously...
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m - Starting AutoData Workflow (Article-Based)
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m - Topic/Project: Luât trí tuệ nhân tạo
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m -  Executing workflow asynchronously...
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - Starting HYBRID workflow...
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - Project/Topic: Luât trí tuệ nhân tạo
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - Reference URL: Not provided
+2025-10-14 20:05:08 - agents.base - [32mINFO[0m - Created task: manager_20251014_200508 (search_law_list)
+2025-10-14 20:05:08 - agents.manager - [32mINFO[0m - ✅ Created first task: search_law_list
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m -  Routing: current_task=search_law_list, is_complete=False
+2025-10-14 20:05:08 - core.auto - [32mINFO[0m -  Routing to: law_list_search_agent
+2025-10-14 20:05:08 - agents.hybrid_agents - [32mINFO[0m - 📋 Law List Search Agent executing...
+2025-10-14 20:05:08 - agents.hybrid_agents - [32mINFO[0m - 🔍 Searching law documents for: Luât trí tuệ nhân tạo
+2025-10-14 20:05:08 - tools.law_list_crawler - [32mINFO[0m - 🔍 Crawling law list for topic: 'Luât trí tuệ nhân tạo'
+2025-10-14 20:05:08 - tools.law_list_crawler - [32mINFO[0m - 📍 Source: https://duthaoonline.quochoi.vn/du-thao
+2025-10-14 20:05:08 - tools.law_list_crawler - [32mINFO[0m - 🎯 Similarity threshold: 0.8
+2025-10-14 20:05:10 - tools.law_list_crawler - [32mINFO[0m - ✅ Chrome driver initialized (headless mode)
+2025-10-14 20:05:10 - tools.law_list_crawler - [32mINFO[0m - 🌐 Loading page: https://duthaoonline.quochoi.vn/du-thao
+2025-10-14 20:05:10 - tools.law_list_crawler - [32mINFO[0m - ⏳ Waiting for content to load...
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m - ✅ Page loaded successfully
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m - 📄 Found 10 articles on page
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m - 📄 Extracted 10 article entries
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 1/10:
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Trí tuệ nhân tạo...
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 95.24%
+2025-10-14 20:05:16 - tools.law_list_crawler - [32mINFO[0m -    ✅ MATCH! (threshold: 0.8)
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -   → Found PDF: https://gatewayduthaoonline.quochoi.vn/uploadFiles/host/local/2025/10/9/9/75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    💾 Saved: 1/10
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 2/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Đầu tư kinh doanh...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 46.51%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 3/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Quy hoạch Đô thị và nông thôn...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 25.81%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 4/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Xây dựng (sửa đổi)...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 31.82%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 5/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Thống kê số 89/2015/QH13 và Luật số 0...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 9.71%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 6/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Quản lý thuế (sửa đổi)...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 37.50%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 7/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Công nghệ cao (sửa đổi)...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 32.65%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 8/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Kinh doanh bảo hiểm...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 31.33%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 9/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Sở hữu trí tuệ...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 28.21%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 10/10:
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Chuyển giao công nghệ...
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 25.88%
+2025-10-14 20:05:19 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-14 20:05:21 - tools.law_list_crawler - [32mINFO[0m - ✅ Chrome driver closed
+2025-10-14 20:05:21 - tools.law_list_crawler - [32mINFO[0m - ✅ Crawl complete: 1 documents found
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - ✅ Found 1 law documents
+2025-10-14 20:05:21 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200508
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - Current task: search_law_list - completed
+2025-10-14 20:05:21 - agents.base - [32mINFO[0m - Created task: manager_20251014_200521 (download_pdfs)
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 📥 Next: Download 1 PDFs
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ✅ Setting next task: download_pdfs (status: pending)
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=download_pdfs
+2025-10-14 20:05:21 - core.auto - [32mINFO[0m -  Routing: current_task=download_pdfs, is_complete=False
+2025-10-14 20:05:21 - core.auto - [32mINFO[0m -  Routing to: pdf_download_agent
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - 📥 PDF Download Agent executing...
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - 📥 Downloading 1 PDFs...
+2025-10-14 20:05:21 - tools.pdf_downloader - [32mINFO[0m - Downloading 1/1: cfbc89c1df09676e
+2025-10-14 20:05:21 - tools.pdf_downloader - [32mINFO[0m - ✓ PDF already exists (doc_id): cfbc89c1df09676e
+2025-10-14 20:05:21 - tools.pdf_downloader - [32mINFO[0m - ✅ Downloaded: 0 | Cached: 1 | Failed: 0
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - ✅ Downloaded: 0 | Cached: 1 | Total: 1
+2025-10-14 20:05:21 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200521
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - Current task: download_pdfs - completed
+2025-10-14 20:05:21 - agents.base - [32mINFO[0m - Created task: manager_20251014_200521 (extract_pdf_content)
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 📄 Next: Extract content from 1 PDFs
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - ✅ Setting next task: extract_pdf_content (status: pending)
+2025-10-14 20:05:21 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=extract_pdf_content
+2025-10-14 20:05:21 - core.auto - [32mINFO[0m -  Routing: current_task=extract_pdf_content, is_complete=False
+2025-10-14 20:05:21 - core.auto - [32mINFO[0m -  Routing to: pdf_content_extractor_agent
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - 📄 PDF Content Extractor Agent executing...
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - 📄 Extracting content from 1 PDFs...
+2025-10-14 20:05:21 - agents.hybrid_agents - [32mINFO[0m - Extracting PDF 1/1
+2025-10-14 20:05:21 - tools.pdf_extractor - [32mINFO[0m - Extracting text from 75ecb748d62c41659cb717132a353c2a.pdf using pdfplumber
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted 81169 characters from 75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted 50 keywords
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted 20 key phrases
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted all content from 75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-14 20:05:26 - agents.hybrid_agents - [32mINFO[0m - 📝 Combined text: 0 characters
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted 0 keywords
+2025-10-14 20:05:26 - tools.pdf_extractor - [32mINFO[0m - Extracted 0 key phrases
+2025-10-14 20:05:26 - agents.hybrid_agents - [32mINFO[0m - ✅ Extracted 0 keywords, 0 phrases
+2025-10-14 20:05:26 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200521
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - Current task: extract_pdf_content - completed
+2025-10-14 20:05:26 - agents.base - [32mINFO[0m - Created task: manager_20251014_200526 (store_vector_db)
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 💾 Next: Store PDFs in Vector DB
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ✅ Setting next task: store_vector_db (status: pending)
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=store_vector_db
+2025-10-14 20:05:26 - core.auto - [32mINFO[0m -  Routing: current_task=store_vector_db, is_complete=False
+2025-10-14 20:05:26 - core.auto - [32mINFO[0m -  Routing to: vector_db_storage_agent
+2025-10-14 20:05:26 - agents.hybrid_agents - [32mINFO[0m - 💾 Vector DB Storage Agent executing...
+2025-10-14 20:05:26 - agents.hybrid_agents - [33mWARNING[0m - No PDF text to store, skipping Vector DB
+2025-10-14 20:05:26 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200526
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - Current task: store_vector_db - completed
+2025-10-14 20:05:26 - agents.base - [32mINFO[0m - Created task: manager_20251014_200526 (search_opinions)
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 🔍 Next: Search for opinion URLs
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - ✅ Setting next task: search_opinions (status: pending)
+2025-10-14 20:05:26 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=search_opinions
+2025-10-14 20:05:26 - core.auto - [32mINFO[0m -  Routing: current_task=search_opinions, is_complete=False
+2025-10-14 20:05:26 - core.auto - [32mINFO[0m -  Routing to: enhanced_opinion_search_agent
+2025-10-14 20:05:26 - agents.hybrid_agents - [32mINFO[0m - 🔍 Enhanced Opinion Search Agent executing...
+2025-10-14 20:05:26 - agents.hybrid_agents - [32mINFO[0m - 🤖 Using Ollama to generate smart search queries...
+2025-10-14 20:05:26 - tools.ollama_opinion_enhancer - [32mINFO[0m - 🤖 Generating 10 smart search queries using Ollama...
+2025-10-14 20:05:34 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-14 20:05:39 - tools.ollama_opinion_enhancer - [32mINFO[0m - ✅ Generated 10 search queries
+2025-10-14 20:05:39 - tools.ollama_opinion_enhancer - [32mINFO[0m -    1. Luật trí tuệ nhân tạo: Ý kiến chuyên gia
+2025-10-14 20:05:39 - tools.ollama_opinion_enhancer - [32mINFO[0m -    2. Trí tuệ nhân tạo ở Việt Nam: Phản hồi của doanh nghiệp
+2025-10-14 20:05:39 - tools.ollama_opinion_enhancer - [32mINFO[0m -    3. Cần luật gì để bảo vệ quyền lợi về trí tuệ nhân tạo?
+2025-10-14 20:05:39 - agents.hybrid_agents - [32mINFO[0m - 🔍 Searching opinions with 10 queries...
+2025-10-14 20:05:39 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 1/10: 'Luật trí tuệ nhân tạo: Ý kiến chuyên gia'
+2025-10-14 20:05:39 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Luật trí tuệ nhân tạo: Ý kiến chuyên gia
+2025-10-14 20:05:39 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:05:39 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:05:39 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:05:40 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:05:40 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:05:41 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:05:41 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:05:42 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:05:42 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:05:42 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:05:42 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:05:43 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:05:43 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:05:44 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:05:44 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:05:44 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:05:44 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:05:45 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 2/10: 'Trí tuệ nhân tạo ở Việt Nam: Phản hồi của doanh nghiệp'
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Trí tuệ nhân tạo ở Việt Nam: Phản hồi của doanh nghiệp
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:05:45 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:05:46 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:05:46 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:05:47 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:05:47 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:05:48 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:05:49 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 3/10: 'Cần luật gì để bảo vệ quyền lợi về trí tuệ nhân tạo?'
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Cần luật gì để bảo vệ quyền lợi về trí tuệ nhân tạo?
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:05:49 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:05:50 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:05:50 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:05:51 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:05:51 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:05:52 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:05:53 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:05:53 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:05:53 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 4/10: 'Tác động của luật trí tuệ nhân tạo đến nền kinh tế Việt Nam'
+2025-10-14 20:05:53 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Tác động của luật trí tuệ nhân tạo đến nền kinh tế Việt Nam
+2025-10-14 20:05:53 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:05:54 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:05:54 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:05:54 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:05:54 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:05:55 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:05:55 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:05:55 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:05:55 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:05:56 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:12 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:12 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:12 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 5/10: 'Luật trí tuệ nhân tạo: Góp ý của người dân'
+2025-10-14 20:06:12 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Luật trí tuệ nhân tạo: Góp ý của người dân
+2025-10-14 20:06:12 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:06:13 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:06:13 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:06:13 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:06:13 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:06:14 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:06:14 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:06:15 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:06:16 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:06:16 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:06:16 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:06:16 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:17 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 6/10: 'Tranh luận về việc áp dụng luật trí tuệ nhân tạo ở Việt Nam'
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Tranh luận về việc áp dụng luật trí tuệ nhân tạo ở Việt Nam
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:06:17 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:06:18 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:06:18 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:06:19 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:06:19 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:06:20 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:21 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 7/10: 'Phân tích tác động của luật trí tuệ nhân tạo đối với công nghệ'
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Phân tích tác động của luật trí tuệ nhân tạo đối với công nghệ
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:06:21 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:06:22 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:06:22 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:06:23 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:06:23 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:06:23 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:06:23 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:24 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 8/10: 'Việt Nam cần luật trí tuệ nhân tạo như thế nào để phát triển?'
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Việt Nam cần luật trí tuệ nhân tạo như thế nào để phát triển?
+2025-10-14 20:06:24 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:06:25 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:06:25 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:06:25 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:06:25 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:06:26 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:06:26 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:06:27 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:28 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:28 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:28 - agents.hybrid_agents - [32mINFO[0m - 📰 Query 9/10: 'Luật trí tuệ nhân tạo và quyền riêng tư: Bình luận chuyên gia'
+2025-10-14 20:06:28 - tools.direct_news_search - [32mINFO[0m - Searching directly on news sites for: Luật trí tuệ nhân tạo và quyền riêng tư: Bình luận chuyên gia
+2025-10-14 20:06:28 - tools.direct_news_search - [32mINFO[0m - Searching on VNExpress...
+2025-10-14 20:06:29 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VNExpress
+2025-10-14 20:06:29 - tools.direct_news_search - [32mINFO[0m - Searching on Tuổi Trẻ...
+2025-10-14 20:06:29 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tuổi Trẻ
+2025-10-14 20:06:29 - tools.direct_news_search - [32mINFO[0m - Searching on Thanh Niên...
+2025-10-14 20:06:45 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Thanh Niên
+2025-10-14 20:06:45 - tools.direct_news_search - [32mINFO[0m - Searching on Dân Trí...
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Dân Trí
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m - Searching on VietnamNet...
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on VietnamNet
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m - Searching on Báo Mới...
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Báo Mới
+2025-10-14 20:06:46 - tools.direct_news_search - [32mINFO[0m - Searching on Tiền Phong...
+2025-10-14 20:06:51 - tools.direct_news_search - [32mINFO[0m -   → Found 0 results on Tiền Phong
+2025-10-14 20:06:51 - tools.direct_news_search - [32mINFO[0m - Searching on Nhân Dân...
+2025-10-14 20:06:51 - tools.direct_news_search - [32mINFO[0m -   → Found 1 results on Nhân Dân
+2025-10-14 20:06:51 - tools.direct_news_search - [32mINFO[0m - Searching on Bộ KH&CN...
+2025-10-14 20:06:52 - tools.direct_news_search - [32mINFO[0m -   → Found 5 results on Bộ KH&CN
+2025-10-14 20:06:52 - tools.direct_news_search - [32mINFO[0m - Total results from all sites: 6
+2025-10-14 20:06:52 - agents.hybrid_agents - [32mINFO[0m - ✅ Found 5 unique opinion URLs
+2025-10-14 20:06:52 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200526
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - Current task: search_opinions - completed
+2025-10-14 20:06:52 - agents.base - [32mINFO[0m - Created task: manager_20251014_200652 (crawl_opinions_full)
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - 📰 Next: Crawl FULL CONTENT of 5 opinions
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - ✅ Setting next task: crawl_opinions_full (status: pending)
+2025-10-14 20:06:52 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=crawl_opinions_full
+2025-10-14 20:06:52 - core.auto - [32mINFO[0m -  Routing: current_task=crawl_opinions_full, is_complete=False
+2025-10-14 20:06:52 - core.auto - [32mINFO[0m -  Routing to: enhanced_opinion_crawler_agent
+2025-10-14 20:06:52 - agents.hybrid_agents - [32mINFO[0m - 📰 Enhanced Opinion Crawler Agent executing...
+2025-10-14 20:06:52 - agents.hybrid_agents - [32mINFO[0m - 📰 Crawling FULL CONTENT of 5 opinions...
+2025-10-14 20:06:52 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion 1/5
+2025-10-14 20:06:52 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion: https://mst.gov.vn/tin-tuc-su-kien.htm
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [32mINFO[0m - ✅ Crawled: Tin tức Sự kiện... (7696 chars)
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion 2/5
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion: https://dichvucong.mst.gov.vn/
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [33mWARNING[0m - Content too short or not found: https://dichvucong.mst.gov.vn/
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion 3/5
+2025-10-14 20:06:53 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion: https://mst.gov.vn/van-ban-phap-luat.htm
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - ✅ Crawled: Văn bản... (1902 chars)
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion 4/5
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion: https://vanban.mst.gov.vn/
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - ✅ Crawled: Login BTT... (405 chars)
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion 5/5
+2025-10-14 20:07:09 - tools.enhanced_opinion_crawler - [32mINFO[0m - Crawling opinion: https://mail.mst.gov.vn/
+2025-10-14 20:07:10 - tools.enhanced_opinion_crawler - [32mINFO[0m - ✅ Crawled: Outlook... (552 chars)
+2025-10-14 20:07:10 - tools.enhanced_opinion_crawler - [32mINFO[0m - ✅ Crawled 4 opinions, 1 failed/skipped
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - ✅ Crawled 4 opinions with full content
+2025-10-14 20:07:10 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200652
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - Current task: crawl_opinions_full - completed
+2025-10-14 20:07:10 - agents.base - [32mINFO[0m - Created task: manager_20251014_200710 (nlp_analysis)
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 🧠 Next: NLP analysis of 4 opinions
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ✅ Setting next task: nlp_analysis (status: pending)
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=nlp_analysis
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m -  Routing: current_task=nlp_analysis, is_complete=False
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m -  Routing to: nlp_analysis_agent
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 🧠 NLP Analysis Agent executing...
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 🧠 Analyzing 4 opinions with NLP...
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - Analyzing opinion 1/4
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - Performing full NLP analysis (7696 chars)
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - ✅ NLP analysis complete: sentiment=neutral, stance=neutral
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - Analyzing opinion 2/4
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - Performing full NLP analysis (1902 chars)
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - ✅ NLP analysis complete: sentiment=neutral, stance=neutral
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - Analyzing opinion 3/4
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - Performing full NLP analysis (405 chars)
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - ✅ NLP analysis complete: sentiment=neutral, stance=neutral
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - Analyzing opinion 4/4
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - Performing full NLP analysis (552 chars)
+2025-10-14 20:07:10 - tools.nlp_analyzer - [32mINFO[0m - ✅ NLP analysis complete: sentiment=neutral, stance=neutral
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - ✅ NLP analysis complete: 4 opinions analyzed
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 📊 Sentiments: {'neutral': 4}
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 📊 Stances: {'neutral': 4}
+2025-10-14 20:07:10 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200710
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - Current task: nlp_analysis - completed
+2025-10-14 20:07:10 - agents.base - [32mINFO[0m - Created task: manager_20251014_200710 (export_data)
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 💾 Next: Export 4 analyzed opinions
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - ✅ Setting next task: export_data (status: pending)
+2025-10-14 20:07:10 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=export_data
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m -  Routing: current_task=export_data, is_complete=False
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m -  Routing to: hybrid_exporter_agent
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 💾 Hybrid Exporter Agent executing...
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - 💾 Exporting 4 analyzed opinions...
+2025-10-14 20:07:10 - tools.csv_exporter - [32mINFO[0m - Exported DataFrame to D:\AutoData2\AutoData2\thamluan\data\csv\Luât_trí_tuệ_nhân_tạo_opinions_20251014_200710.csv
+2025-10-14 20:07:10 - agents.hybrid_agents - [32mINFO[0m - ✅ Exported to: D:\AutoData2\AutoData2\thamluan\data\csv\Luât_trí_tuệ_nhân_tạo_opinions_20251014_200710.csv
+2025-10-14 20:07:10 - agents.base - [32mINFO[0m - Task completed: manager_20251014_200710
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - Workflow Report
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - project_name: Luât trí tuệ nhân tạo
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - started_at: 2025-10-14 20:05:08.542749
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - completed_at: 2025-10-14 20:07:10.204838
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - total_tasks: 8
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - completed_tasks: 8
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - failed_tasks: 0
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - errors_count: 0
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - warnings_count: 0
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - law_documents_found: 1
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - pdfs_downloaded: 1
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - keywords_extracted: True
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - opinion_urls_found: 5
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - opinions_crawled: 4
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - opinions_analyzed: 4
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - csv_exported: True
+2025-10-14 20:07:10 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - root - [32mINFO[0m -  Workflow completed successfully!
+2025-10-14 20:07:10 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - root - [32mINFO[0m - 
+================================================================================
+2025-10-14 20:07:10 - root - [32mINFO[0m - HYBRID WORKFLOW RESULTS
+2025-10-14 20:07:10 - root - [32mINFO[0m - ================================================================================
+2025-10-14 20:07:10 - root - [32mINFO[0m - 
+📋 PHASE 1 - Law Documents:
+2025-10-14 20:07:10 - root - [32mINFO[0m -    Law Documents Found: 1
+2025-10-14 20:07:10 - root - [32mINFO[0m -    PDFs Downloaded: 1
+2025-10-14 20:07:10 - root - [32mINFO[0m -    Keywords Extracted: 0
+2025-10-14 20:07:10 - root - [32mINFO[0m - 
+💬 PHASE 2 - Opinions:
+2025-10-14 20:07:10 - root - [32mINFO[0m -    Opinion URLs Found: 5
+2025-10-14 20:07:10 - root - [32mINFO[0m -    Opinions Crawled (Full Content): 4
+2025-10-14 20:07:10 - root - [32mINFO[0m - 
+🧠 PHASE 3 - NLP Analysis:
+2025-10-14 20:07:10 - root - [32mINFO[0m -    Opinions Analyzed: 4
+2025-10-14 20:07:10 - root - [32mINFO[0m - 
+💾 PHASE 4 - Export:
+2025-10-14 20:07:10 - root - [32mINFO[0m -    CSV Output: D:\AutoData2\AutoData2\thamluan\data\csv\Luât_trí_tuệ_nhân_tạo_opinions_20251014_200710.csv
+2025-10-14 20:07:10 - root - [32mINFO[0m -  News Articles Crawled: 0
+2025-10-14 20:07:10 - root - [32mINFO[0m -  Keywords Extracted: 0
+2025-10-14 20:07:10 - root - [32mINFO[0m -  Opinion Articles Analyzed: 0
+2025-10-14 20:07:10 - root - [32mINFO[0m -  CSV Output: D:\AutoData2\AutoData2\thamluan\data\csv\Luât_trí_tuệ_nhân_tạo_opinions_20251014_200710.csv
+2025-10-14 20:07:10 - root - [32mINFO[0m - ================================================================================
