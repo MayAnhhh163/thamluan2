@@ -24,7 +24,7 @@ class OllamaOpinionEnhancer:
     4. Phát hiện duplicate/similar opinions
     5. Tạo summary và categorize opinions
     """
-
+    
     def __init__(self):
         self.llm = ChatOllama(
             model=config.LLM_MODEL,
@@ -32,34 +32,34 @@ class OllamaOpinionEnhancer:
             temperature=0.7,  # Higher for creative queries
             num_predict=2048
         )
-
+        
         self.llm_analytical = ChatOllama(
             model=config.LLM_MODEL,
             base_url=config.OLLAMA_BASE_URL,
             temperature=0.2,  # Lower for analytical tasks
             num_predict=1024
         )
-
+    
     def generate_smart_search_queries(
-        self,
-        topic: str,
-        keywords: List[str],
+        self, 
+        topic: str, 
+        keywords: List[str], 
         num_queries: int = 10
     ) -> ToolResult:
         """
         Sinh ra các search queries thông minh để tìm opinions
-
+        
         Args:
             topic: Chủ đề chính (ví dụ: "Luật Trí tuệ nhân tạo")
             keywords: Danh sách keywords từ PDF
             num_queries: Số lượng queries cần sinh
-
+            
         Returns:
             ToolResult với list search queries
         """
         try:
             logger.info(f"🤖 Generating {num_queries} smart search queries using Ollama...")
-
+            
             prompt = f"""Bạn là chuyên gia tìm kiếm thông tin về luật pháp Việt Nam.
 
 Chủ đề: "{topic}"
@@ -92,24 +92,24 @@ Chỉ trả về JSON array các queries, không giải thích:
             messages = [HumanMessage(content=prompt)]
             response = self.llm.invoke(messages)
             response_text = response.content.strip()
-
+            
             # Parse JSON
             json_match = re.search(r'\[[\s\S]*\]', response_text)
             if json_match:
                 queries = json.loads(json_match.group(0))
                 logger.info(f"✅ Generated {len(queries)} search queries")
-
+                
                 # Log a few examples
                 for i, q in enumerate(queries[:3], 1):
                     logger.info(f"   {i}. {q}")
-
+                
                 return ToolResult(
                     success=True,
                     data={'queries': queries[:num_queries]}
                 )
             else:
                 raise ValueError("Could not parse JSON response from LLM")
-
+                
         except Exception as e:
             logger.error(f"Error generating queries: {str(e)}")
             # Fallback to basic queries
@@ -119,7 +119,7 @@ Chỉ trả về JSON array các queries, không giải thích:
                 data={'queries': fallback_queries[:num_queries]},
                 metadata={'method': 'fallback', 'error': str(e)}
             )
-
+    
     def _generate_fallback_queries(self, topic: str, keywords: List[str]) -> List[str]:
         """Fallback query generation without LLM"""
         queries = [
@@ -129,32 +129,32 @@ Chỉ trả về JSON array các queries, không giải thích:
             f"{topic} tranh luận",
             f"{topic} bình luận",
         ]
-
+        
         # Add keyword-based queries
         for kw in keywords[:5]:
             queries.append(f"{topic} {kw} ý kiến")
-
+        
         return queries
-
+    
     def evaluate_opinion_quality(
-        self,
+        self, 
         opinion: Dict[str, Any],
         topic: str
     ) -> ToolResult:
         """
         Đánh giá chất lượng của một opinion
-
+        
         Args:
             opinion: Dict với 'title', 'content', 'url', etc.
             topic: Chủ đề chính để đánh giá relevance
-
+            
         Returns:
             ToolResult với quality score và feedback
         """
         try:
             title = opinion.get('title', '')
             content = opinion.get('content', '')[:2000]  # First 2000 chars
-
+            
             if len(content) < 100:
                 return ToolResult(
                     success=True,
@@ -165,7 +165,7 @@ Chỉ trả về JSON array các queries, không giải thích:
                         'relevance': 'low'
                     }
                 )
-
+            
             prompt = f"""Bạn là chuyên gia đánh giá chất lượng ý kiến về luật pháp.
 
 Chủ đề: "{topic}"
@@ -199,22 +199,22 @@ Chỉ trả về JSON, không giải thích."""
             messages = [HumanMessage(content=prompt)]
             response = self.llm_analytical.invoke(messages)
             response_text = response.content.strip()
-
+            
             # Parse JSON
             json_match = re.search(r'\{[\s\S]*\}', response_text)
             if json_match:
                 result = json.loads(json_match.group(0))
-
+                
                 # Calculate quality_score (0-1)
                 overall = result.get('overall_score', 5)
                 result['quality_score'] = overall / 10.0
-
+                
                 logger.info(f"Quality: {result['quality_score']:.2f} - {result.get('feedback', '')[:50]}")
-
+                
                 return ToolResult(success=True, data=result)
             else:
                 raise ValueError("Could not parse JSON response")
-
+                
         except Exception as e:
             logger.error(f"Error evaluating opinion: {str(e)}")
             # Return neutral score
@@ -228,34 +228,34 @@ Chỉ trả về JSON, không giải thích."""
                 },
                 metadata={'method': 'fallback'}
             )
-
+    
     def extract_insights(
-        self,
+        self, 
         opinions: List[Dict[str, Any]],
         topic: str,
         max_opinions: int = 20
     ) -> ToolResult:
         """
         Trích xuất insights chính từ nhiều opinions
-
+        
         Args:
             opinions: List của opinions
             topic: Chủ đề
             max_opinions: Số lượng opinions tối đa để phân tích
-
+            
         Returns:
             ToolResult với insights summary
         """
         try:
             logger.info(f"🤖 Extracting insights from {len(opinions)} opinions...")
-
+            
             # Combine opinion content
             combined_text = ""
             for i, op in enumerate(opinions[:max_opinions], 1):
                 title = op.get('title', '')
                 content = op.get('content', '')[:500]  # First 500 chars each
                 combined_text += f"\n\n--- Ý kiến {i} ---\nTiêu đề: {title}\nNội dung: {content}"
-
+            
             prompt = f"""Bạn là chuyên gia phân tích dư luận về luật pháp.
 
 Chủ đề: "{topic}"
@@ -285,40 +285,40 @@ Chỉ trả về JSON."""
             messages = [HumanMessage(content=prompt)]
             response = self.llm_analytical.invoke(messages)
             response_text = response.content.strip()
-
+            
             # Parse JSON
             json_match = re.search(r'\{[\s\S]*\}', response_text)
             if json_match:
                 insights = json.loads(json_match.group(0))
-
+                
                 logger.info("✅ Insights extracted:")
                 logger.info(f"   Main themes: {len(insights.get('main_themes', []))}")
                 logger.info(f"   Supporting views: {len(insights.get('supporting_views', []))}")
                 logger.info(f"   Opposing views: {len(insights.get('opposing_views', []))}")
-
+                
                 return ToolResult(success=True, data=insights)
             else:
                 raise ValueError("Could not parse JSON response")
-
+                
         except Exception as e:
             logger.error(f"Error extracting insights: {str(e)}")
             return ToolResult(
                 success=False,
                 error=f"Failed to extract insights: {str(e)}"
             )
-
+    
     def categorize_opinions(
-        self,
+        self, 
         opinions: List[Dict[str, Any]],
         categories: Optional[List[str]] = None
     ) -> ToolResult:
         """
         Phân loại opinions vào các categories
-
+        
         Args:
             opinions: List opinions
             categories: Custom categories (optional)
-
+            
         Returns:
             ToolResult với categorized opinions
         """
@@ -332,16 +332,16 @@ Chỉ trả về JSON."""
                     "Học giả/Nghiên cứu",
                     "Báo chí/Phân tích"
                 ]
-
+            
             logger.info(f"🤖 Categorizing {len(opinions)} opinions into {len(categories)} categories...")
-
+            
             categorized = {cat: [] for cat in categories}
             categorized['Khác'] = []
-
+            
             for opinion in opinions[:50]:  # Limit to 50 for performance
                 title = opinion.get('title', '')
                 content = opinion.get('content', '')[:500]
-
+                
                 prompt = f"""Phân loại ý kiến sau vào MỘT trong các nhóm:
 {json.dumps(categories, ensure_ascii=False)}
 
@@ -354,7 +354,7 @@ Chỉ trả về tên category (chính xác như trong list), không giải thí
                     messages = [HumanMessage(content=prompt)]
                     response = self.llm_analytical.invoke(messages)
                     category = response.content.strip()
-
+                    
                     # Find matching category
                     matched = False
                     for cat in categories:
@@ -362,18 +362,18 @@ Chỉ trả về tên category (chính xác như trong list), không giải thí
                             categorized[cat].append(opinion)
                             matched = True
                             break
-
+                    
                     if not matched:
                         categorized['Khác'].append(opinion)
-
+                        
                 except Exception as e:
                     logger.warning(f"Error categorizing opinion: {str(e)}")
                     categorized['Khác'].append(opinion)
-
+            
             # Summary
             summary = {cat: len(ops) for cat, ops in categorized.items() if ops}
             logger.info(f"✅ Categorization complete: {summary}")
-
+            
             return ToolResult(
                 success=True,
                 data={
@@ -381,45 +381,45 @@ Chỉ trả về tên category (chính xác như trong list), không giải thí
                     'summary': summary
                 }
             )
-
+            
         except Exception as e:
             logger.error(f"Error categorizing opinions: {str(e)}")
             return ToolResult(
                 success=False,
                 error=f"Failed to categorize: {str(e)}"
             )
-
+    
     def detect_duplicate_opinions(
-        self,
+        self, 
         opinions: List[Dict[str, Any]],
         similarity_threshold: float = 0.8
     ) -> ToolResult:
         """
         Phát hiện các opinions duplicate hoặc tương tự nhau
-
+        
         Returns:
             ToolResult với unique opinions và duplicate groups
         """
         try:
             logger.info(f"🤖 Detecting duplicates in {len(opinions)} opinions...")
-
+            
             # Simple hash-based deduplication first
             seen_hashes = set()
             unique_opinions = []
             duplicates = []
-
+            
             for op in opinions:
                 content = op.get('content', '')
                 content_hash = hash(content[:500])  # Hash first 500 chars
-
+                
                 if content_hash in seen_hashes:
                     duplicates.append(op)
                 else:
                     seen_hashes.add(content_hash)
                     unique_opinions.append(op)
-
+            
             logger.info(f"✅ Found {len(unique_opinions)} unique opinions, {len(duplicates)} duplicates")
-
+            
             return ToolResult(
                 success=True,
                 data={
@@ -429,7 +429,7 @@ Chỉ trả về tên category (chính xác như trong list), không giải thí
                     'duplicate_count': len(duplicates)
                 }
             )
-
+            
         except Exception as e:
             logger.error(f"Error detecting duplicates: {str(e)}")
             return ToolResult(

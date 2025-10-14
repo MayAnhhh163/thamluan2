@@ -118,7 +118,7 @@ class ManagerAgent(BaseAgent):
                     )
                     logger.info(f"📥 Next: Download {len(law_documents)} PDFs")
 
-        # Step 2: DOWNLOAD_PDFS → EXTRACT_PDF_CONTENT
+        # Step 2: DOWNLOAD_PDFS → EXTRACT_PDF_CONTENT or EXPORT (skip if no PDFs)
         elif TaskType.DOWNLOAD_PDFS in completed_types and TaskType.EXTRACT_PDF_CONTENT not in completed_types:
             if not task_already_created(TaskType.EXTRACT_PDF_CONTENT):
                 pdf_paths = state.get('pdf_paths', [])

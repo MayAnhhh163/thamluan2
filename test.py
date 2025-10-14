@@ -29,7 +29,7 @@ def test_crawler():
         result = law_list_crawler.crawl_law_list(
             topic=topic,
             max_results=10,
-            similarity_threshold=0.3  # Lower threshold for better matching
+            similarity_threshold=0.8  # Higher threshold for precise matching
         )
 
         if result.success:

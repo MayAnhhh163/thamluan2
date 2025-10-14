@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def test_autonomous_search():
     """Test autonomous search với topic cụ thể"""
-
+    
     print("\n" + "=" * 80)
     print("🤖 TESTING OLLAMA AUTONOMOUS SEARCH AGENT")
     print("=" * 80)
@@ -29,14 +29,14 @@ def test_autonomous_search():
     print("5. Phân tích chất lượng bằng Ollama")
     print("6. Chỉ lưu opinions chất lượng cao")
     print("\n" + "=" * 80)
-
+    
     # Topic để test
     topic = "Luật Trí tuệ nhân tạo ý kiến chuyên gia"
-
+    
     print(f"\n📋 Topic: {topic}")
     print("⏳ Starting autonomous search... (Có thể mất 3-5 phút)")
     print("💡 Chrome sẽ tự động mở và bạn sẽ thấy AI làm việc\n")
-
+    
     # Run autonomous search
     result = ollama_autonomous_search_agent.autonomous_search_and_crawl(
         topic=topic,
@@ -44,12 +44,12 @@ def test_autonomous_search():
         max_search_pages=2,
         quality_threshold=0.6
     )
-
+    
     print("\n" + "=" * 80)
-
+    
     if result.success:
         opinions = result.data['opinions']
-
+        
         print("✅ TEST SUCCESSFUL!")
         print(f"\n📊 RESULTS:")
         print(f"   Collected: {len(opinions)} high-quality opinions")
@@ -58,12 +58,12 @@ def test_autonomous_search():
         print(f"   Sources: {result.data['sources']}")
         print(f"   Sentiments: {result.data.get('sentiments', {})}")
         print(f"   Stances: {result.data.get('stances', {})}")
-
+        
         csv_path = result.data.get('csv_path')
         if csv_path:
             print(f"\n💾 EXPORTED TO CSV:")
             print(f"   {csv_path}")
-
+        
         print(f"\n📰 OPINIONS SUMMARY:")
         for i, op in enumerate(opinions, 1):
             print(f"\n{i}. {op['title'][:70]}...")
@@ -77,7 +77,7 @@ def test_autonomous_search():
                 print(f"   💡 Key points: {', '.join(op['key_points'][:2])}")
     else:
         print(f"❌ TEST FAILED: {result.error}")
-
+    
     print("\n" + "=" * 80)
 
 
@@ -89,14 +89,14 @@ if __name__ == "__main__":
     print("   3. Chrome browser đã cài đặt")
     print("   4. Internet connection")
     print("   5. ⭐ RECOMMENDED: pip install undetected-chromedriver (bypass Google bot)")
-
+    
     print("\n💡 Tip: Nếu Google chặn bot, hệ thống sẽ tự động dùng DuckDuckGo")
     print("   Nhưng tốt nhất là cài: pip install undetected-chromedriver\n")
-
+    
     input("✋ Press Enter to continue...")
-
+    
     test_autonomous_search()
-
+    
     print("\n🎉 Test complete!")
     print("\n📖 If you got 0 results and saw Google CAPTCHA:")
     print("   → Install: pip install undetected-chromedriver")

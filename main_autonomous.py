@@ -38,26 +38,26 @@ def main():
     print("4️⃣  AI phân tích sentiment & stance")
     print("5️⃣  Export CSV đầy đủ")
     print("\n" + "=" * 80)
-
+    
     # Input topic
     print("\n📋 Nhập chủ đề/tên dự luật:")
     topic = input("→ ").strip()
-
+    
     if not topic:
         print("❌ Vui lòng nhập topic!")
         return
-
+    
     print(f"\n✅ Topic: {topic}")
-
+    
     # Configuration
     print("\n⚙️  Configuration (Enter để dùng mặc định):")
-
+    
     max_opinions_input = input("   Số opinions tối đa [20]: ").strip()
     max_opinions = int(max_opinions_input) if max_opinions_input else 20
-
+    
     threshold_input = input("   Quality threshold (0-1) [0.6]: ").strip()
     quality_threshold = float(threshold_input) if threshold_input else 0.6
-
+    
     print("\n" + "=" * 80)
     print("🚀 STARTING FULL AI WORKFLOW...")
     print("=" * 80)
@@ -67,56 +67,56 @@ def main():
     print(f"   Quality threshold: {quality_threshold}")
     print(f"\n⏳ This may take 10-15 minutes...")
     print("💡 AI is working, please wait...\n")
-
+    
     # Run workflow
     result = ollama_full_autonomous_workflow.run_full_workflow(
         topic=topic,
         max_opinions=max_opinions,
         quality_threshold=quality_threshold
     )
-
+    
     print("\n" + "=" * 80)
     print("📊 WORKFLOW COMPLETE")
     print("=" * 80)
-
+    
     if result.success:
         data = result.data
-
+        
         print("\n✅ SUCCESS!")
-
+        
         # Summary
         print(f"\n📋 Law Documents:")
         print(f"   Found: {len(data.get('law_documents', []))}")
         print(f"   PDF downloaded: {'Yes' if data.get('pdf_downloaded') else 'No'}")
-
+        
         print(f"\n📄 PDF Analysis:")
         keywords = data.get('keywords', [])
         print(f"   Keywords: {len(keywords)}")
         if keywords:
             print(f"   → {', '.join(keywords[:8])}")
-
+        
         print(f"\n🔍 Opinions:")
         opinions = data.get('opinions', [])
         print(f"   Collected: {len(opinions)}")
-
+        
         sentiments = data.get('sentiments', {})
         if sentiments:
             print(f"   Sentiments: {sentiments}")
-
+        
         stances = data.get('stances', {})
         if stances:
             print(f"   Stances: {stances}")
-
+        
         csv_path = data.get('csv_path')
         if csv_path:
             print(f"\n💾 Results exported to:")
             print(f"   {csv_path}")
             print(f"\n📖 Open this file in Excel to view results!")
-
+        
         print("\n" + "=" * 80)
         print("✅ ALL DONE!")
         print("=" * 80)
-
+        
     else:
         print(f"\n❌ WORKFLOW FAILED:")
         print(f"   {result.error}")

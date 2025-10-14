@@ -46,7 +46,7 @@ class OllamaAutonomousSearchAgent:
     5. Dùng Ollama để phân tích nội dung
     6. Lặp lại cho đến khi đủ opinions
     """
-
+    
     def __init__(self):
         self.driver = None
         self.llm = ChatOllama(
@@ -55,14 +55,14 @@ class OllamaAutonomousSearchAgent:
             temperature=0.3,  # Lower for decision making
             num_predict=512
         )
-
+        
         self.llm_analyzer = ChatOllama(
             model=config.LLM_MODEL,
             base_url=config.OLLAMA_BASE_URL,
             temperature=0.2,
             num_predict=1024
         )
-
+    
     def _setup_driver(self):
         """Setup Chrome driver with bot detection bypass"""
         try:
@@ -73,16 +73,16 @@ class OllamaAutonomousSearchAgent:
                 options.add_argument("--disable-dev-shm-usage")
                 options.add_argument("--no-sandbox")
                 options.add_argument("--window-size=1920,1080")
-
+                
                 self.driver = uc.Chrome(options=options, version_main=None)
                 self.driver.set_page_load_timeout(30)
-
+                
                 logger.info("✅ Chrome driver initialized (undetected mode)")
             else:
                 # Fallback to regular Selenium with stealth settings
                 from selenium import webdriver
                 from selenium.webdriver.chrome.options import Options
-
+                
                 chrome_options = Options()
                 # chrome_options.add_argument("--headless")  # Comment for visible
                 chrome_options.add_argument("--disable-gpu")
@@ -92,24 +92,24 @@ class OllamaAutonomousSearchAgent:
                 chrome_options.add_argument("--window-size=1920,1080")
                 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
                 chrome_options.add_experimental_option('useAutomationExtension', False)
-
+                
                 chrome_options.add_argument(
                     "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
                 )
-
+                
                 self.driver = webdriver.Chrome(options=chrome_options)
                 self.driver.set_page_load_timeout(30)
-
+                
                 # Execute script to hide webdriver property
                 self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
+                
                 logger.info("✅ Chrome driver initialized (stealth mode)")
-
+            
         except WebDriverException as e:
             logger.error(f"Failed to initialize Chrome: {str(e)}")
             raise
-
+    
     def _cleanup_driver(self):
         """Đóng driver"""
         if self.driver:
@@ -118,7 +118,7 @@ class OllamaAutonomousSearchAgent:
                 logger.info("✅ Chrome driver closed")
             except Exception as e:
                 logger.warning(f"Error closing driver: {str(e)}")
-
+    
     def autonomous_search_and_crawl(
         self,
         topic: str,
@@ -128,13 +128,13 @@ class OllamaAutonomousSearchAgent:
     ) -> ToolResult:
         """
         AI tự động search và crawl opinions
-
+        
         Args:
             topic: Chủ đề cần tìm (ví dụ: "Luật Trí tuệ nhân tạo ý kiến chuyên gia")
             max_articles: Số lượng bài viết tối đa cần thu thập
             max_search_pages: Số trang search tối đa
             quality_threshold: Ngưỡng chất lượng (0-1)
-
+            
         Returns:
             ToolResult với list opinions
         """
@@ -145,86 +145,86 @@ class OllamaAutonomousSearchAgent:
             logger.info(f"Topic: {topic}")
             logger.info(f"Target: {max_articles} high-quality articles")
             logger.info(f"Quality threshold: {quality_threshold}")
-
+            
             # Setup driver
             self._setup_driver()
-
+            
             collected_opinions = []
             visited_urls = set()
-
+            
             # Step 1: Generate search queries using Ollama
             search_queries = self._generate_search_queries(topic)
             logger.info(f"📝 Generated {len(search_queries)} search queries")
-
+            
             # Step 2: For each query, search and collect
             for query_idx, query in enumerate(search_queries, 1):
                 if len(collected_opinions) >= max_articles:
                     logger.info(f"✅ Reached target: {max_articles} articles")
                     break
-
+                
                 logger.info(f"\n{'='*60}")
                 logger.info(f"🔍 Query {query_idx}/{len(search_queries)}: '{query}'")
                 logger.info(f"{'='*60}")
-
+                
                 # Search Google
                 search_results = self._search_google(query)
                 logger.info(f"Found {len(search_results)} search results")
-
+                
                 # Step 3: Evaluate each result with Ollama
                 for result_idx, result in enumerate(search_results, 1):
                     if len(collected_opinions) >= max_articles:
                         break
-
+                    
                     url = result['url']
                     title = result['title']
                     snippet = result.get('snippet', '')
-
+                    
                     # Skip if already visited
                     if url in visited_urls:
                         logger.debug(f"  [{result_idx}] Already visited: {title[:50]}")
                         continue
-
+                    
                     visited_urls.add(url)
-
+                    
                     logger.info(f"\n  [{result_idx}] Evaluating: {title[:60]}...")
-
+                    
                     # Ask Ollama: Should we crawl this?
                     should_crawl = self._should_crawl_url(title, snippet, topic)
-
+                    
                     if not should_crawl:
                         logger.info(f"      ❌ Ollama says: Not relevant, skip")
                         continue
-
+                    
                     logger.info(f"      ✅ Ollama says: Relevant! Crawling...")
-
+                    
                     # Step 4: Crawl the page
                     content_result = self._crawl_page(url, title)
-
+                    
                     if not content_result['success']:
                         logger.warning(f"      ⚠️ Failed to crawl: {content_result.get('error')}")
                         continue
-
+                    
                     content = content_result['content']
                     logger.info(f"      📄 Crawled {len(content)} chars")
-
+                    
                     # Step 5: Analyze quality with Ollama
                     quality_result = self._analyze_content_quality(title, content, topic)
-
+                    
                     quality_score = quality_result['quality_score']
                     is_valuable = quality_result['is_valuable']
-
+                    
                     logger.info(f"      ⭐ Quality: {quality_score:.2f} - {quality_result['feedback'][:50]}")
-
+                    
                     if quality_score >= quality_threshold and is_valuable:
                         # Analyze sentiment and stance
                         logger.info(f"      🧠 Analyzing sentiment & stance...")
-
+                        
                         sentiment = nlp_analyzer.analyze_sentiment(content)
                         stance_result = nlp_analyzer.detect_stance(content, topic)
-
+                        
                         logger.info(f"      📊 Sentiment: {sentiment}")
                         logger.info(f"      📊 Stance: {stance_result['stance']} (confidence: {stance_result['confidence']:.2f})")
-
+                        
                         opinion = {
                             'url': url,
                             'title': title,
@@ -243,18 +243,18 @@ class OllamaAutonomousSearchAgent:
                             'support_score': stance_result.get('support_score', 0),
                             'oppose_score': stance_result.get('oppose_score', 0)
                         }
-
+                        
                         collected_opinions.append(opinion)
                         logger.info(f"      💾 Saved! Total: {len(collected_opinions)}/{max_articles}")
                     else:
                         logger.info(f"      ❌ Quality too low ({quality_score:.2f} < {quality_threshold})")
-
+                    
                     # Sleep to avoid rate limiting
                     time.sleep(2)
-
+            
             # Cleanup
             self._cleanup_driver()
-
+            
             # Final report
             logger.info("\n" + "=" * 80)
             logger.info("📊 AUTONOMOUS SEARCH COMPLETE")
@@ -262,34 +262,34 @@ class OllamaAutonomousSearchAgent:
             logger.info(f"✅ Collected: {len(collected_opinions)} high-quality opinions")
             logger.info(f"🔍 Visited: {len(visited_urls)} URLs")
             logger.info(f"📝 Used: {len(search_queries)} search queries")
-
+            
             # Statistics
             avg_quality = sum(op['quality_score'] for op in collected_opinions) / len(collected_opinions) if collected_opinions else 0
             logger.info(f"⭐ Average quality: {avg_quality:.2f}")
-
+            
             sources = {}
             sentiments = {}
             stances = {}
-
+            
             for op in collected_opinions:
                 src = op['source']
                 sources[src] = sources.get(src, 0) + 1
-
+                
                 sentiment = op.get('sentiment', 'neutral')
                 sentiments[sentiment] = sentiments.get(sentiment, 0) + 1
-
+                
                 stance = op.get('stance', 'neutral')
                 stances[stance] = stances.get(stance, 0) + 1
-
+            
             logger.info(f"📰 Sources: {sources}")
             logger.info(f"😊 Sentiments: {sentiments}")
             logger.info(f"📊 Stances: {stances}")
-
+            
             # Export to CSV
             csv_path = self._export_to_csv(collected_opinions, topic)
             if csv_path:
                 logger.info(f"💾 Exported to: {csv_path}")
-
+            
             return ToolResult(
                 success=True,
                 data={
@@ -304,7 +304,7 @@ class OllamaAutonomousSearchAgent:
                 },
                 message=f"Collected {len(collected_opinions)} high-quality opinions"
             )
-
+            
         except Exception as e:
             logger.error(f"Autonomous search error: {str(e)}")
             self._cleanup_driver()
@@ -312,7 +312,7 @@ class OllamaAutonomousSearchAgent:
                 success=False,
                 error=f"Autonomous search failed: {str(e)}"
             )
-
+    
     def _generate_search_queries(self, topic: str) -> List[str]:
         """Dùng Ollama để sinh search queries"""
         try:
@@ -333,7 +333,7 @@ Chỉ JSON, không giải thích."""
 
             response = self.llm.invoke([HumanMessage(content=prompt)])
             response_text = response.content.strip()
-
+            
             # Parse JSON
             json_match = re.search(r'\[[\s\S]*\]', response_text)
             if json_match:
@@ -347,24 +347,24 @@ Chỉ JSON, không giải thích."""
                     f"{topic} tranh luận",
                     f"{topic} góp ý"
                 ]
-
+                
         except Exception as e:
             logger.warning(f"Error generating queries: {str(e)}")
             return [f"{topic} ý kiến", f"{topic} phản hồi"]
-
+    
     def _search_google(self, query: str) -> List[Dict[str, str]]:
         """Search Google và lấy kết quả"""
         try:
             # Navigate to Google
             self.driver.get("https://www.google.com")
             time.sleep(3)  # Wait longer for page load
-
+            
             # Check if CAPTCHA or bot detection page
             page_source = self.driver.page_source.lower()
             if 'captcha' in page_source or 'unusual traffic' in page_source:
                 logger.warning("⚠️ Google detected bot, trying DuckDuckGo instead...")
                 return self._search_duckduckgo(query)
-
+            
             # Find search box
             try:
                 search_box = self.driver.find_element(By.NAME, "q")
@@ -375,125 +375,125 @@ Chỉ JSON, không giải thích."""
                 except NoSuchElementException:
                     logger.error("Cannot find Google search box, using DuckDuckGo")
                     return self._search_duckduckgo(query)
-
+            
             search_box.clear()
             search_box.send_keys(query)
             search_box.send_keys(Keys.RETURN)
-
+            
             # Wait for results
             time.sleep(4)
-
+            
             # Check again for CAPTCHA
             page_source = self.driver.page_source.lower()
             if 'captcha' in page_source or 'unusual traffic' in page_source:
                 logger.warning("⚠️ Google CAPTCHA detected, switching to DuckDuckGo...")
                 return self._search_duckduckgo(query)
-
+            
             # Parse results
             results = []
-
+            
             # Find all search result divs
             search_results = self.driver.find_elements(By.CSS_SELECTOR, "div.g")
-
+            
             for result in search_results[:10]:  # Top 10 results
                 try:
                     # Extract link
                     link_elem = result.find_element(By.CSS_SELECTOR, "a")
                     url = link_elem.get_attribute("href")
-
+                    
                     # Extract title
                     title_elem = result.find_element(By.CSS_SELECTOR, "h3")
                     title = title_elem.text
-
+                    
                     # Extract snippet
                     try:
                         snippet_elem = result.find_element(By.CSS_SELECTOR, "div.VwiC3b")
                         snippet = snippet_elem.text
                     except:
                         snippet = ""
-
+                    
                     if url and title and url.startswith('http'):
                         results.append({
                             'url': url,
                             'title': title,
                             'snippet': snippet
                         })
-
+                        
                 except Exception as e:
                     continue
-
+            
             if not results:
                 logger.warning("No results from Google, trying DuckDuckGo...")
                 return self._search_duckduckgo(query)
-
+            
             return results
-
+            
         except Exception as e:
             logger.error(f"Google search error: {str(e)}, falling back to DuckDuckGo")
             return self._search_duckduckgo(query)
-
+    
     def _search_duckduckgo(self, query: str) -> List[Dict[str, str]]:
         """Search DuckDuckGo (không có bot detection)"""
         try:
             logger.info("🦆 Searching on DuckDuckGo...")
-
+            
             # Navigate to DuckDuckGo
             self.driver.get("https://duckduckgo.com")
             time.sleep(2)
-
+            
             # Find search box
             search_box = self.driver.find_element(By.NAME, "q")
             search_box.clear()
             search_box.send_keys(query)
             search_box.send_keys(Keys.RETURN)
-
+            
             # Wait for results
             time.sleep(3)
-
+            
             # Parse results
             results = []
-
+            
             # DuckDuckGo results selector
             search_results = self.driver.find_elements(By.CSS_SELECTOR, "article[data-testid='result']")
-
+            
             if not search_results:
                 # Try alternative selector
                 search_results = self.driver.find_elements(By.CSS_SELECTOR, "li[data-layout='organic']")
-
+            
             for result in search_results[:10]:  # Top 10 results
                 try:
                     # Extract link
                     link_elem = result.find_element(By.CSS_SELECTOR, "a[href]")
                     url = link_elem.get_attribute("href")
-
+                    
                     # Extract title
                     title_elem = result.find_element(By.CSS_SELECTOR, "h2")
                     title = title_elem.text
-
+                    
                     # Extract snippet
                     try:
                         snippet_elem = result.find_element(By.CSS_SELECTOR, "div[data-result='snippet']")
                         snippet = snippet_elem.text
                     except:
                         snippet = ""
-
+                    
                     if url and title and url.startswith('http'):
                         results.append({
                             'url': url,
                             'title': title,
                             'snippet': snippet
                         })
-
+                        
                 except Exception as e:
                     continue
-
+            
             logger.info(f"✅ DuckDuckGo found {len(results)} results")
             return results
-
+            
         except Exception as e:
             logger.error(f"DuckDuckGo search error: {str(e)}")
             return []
-
+    
     def _should_crawl_url(self, title: str, snippet: str, topic: str) -> bool:
         """Dùng Ollama để quyết định có nên crawl URL này không"""
         try:
@@ -515,32 +515,32 @@ Chỉ trả về YES hoặc NO."""
 
             response = self.llm.invoke([HumanMessage(content=prompt)])
             decision = response.content.strip().upper()
-
+            
             return "YES" in decision
-
+            
         except Exception as e:
             logger.warning(f"Error in should_crawl: {str(e)}")
             # Default to True (crawl anyway)
             return True
-
+    
     def _crawl_page(self, url: str, title: str) -> Dict[str, Any]:
         """Crawl nội dung từ URL"""
         try:
             self.driver.get(url)
             time.sleep(3)
-
+            
             # Get page source
             page_source = self.driver.page_source
             soup = BeautifulSoup(page_source, 'html.parser')
-
+            
             # Remove script, style tags
             for tag in soup(['script', 'style', 'nav', 'footer', 'header']):
                 tag.decompose()
-
+            
             # Extract main content
             # Try common article selectors
             content = ""
-
+            
             article_selectors = [
                 'article',
                 'div.article-content',
@@ -549,57 +549,57 @@ Chỉ trả về YES hoặc NO."""
                 'div.entry-content',
                 'main',
             ]
-
+            
             for selector in article_selectors:
                 article = soup.select_one(selector)
                 if article:
                     content = article.get_text(separator='\n', strip=True)
                     break
-
+            
             # Fallback: get body text
             if not content or len(content) < 200:
                 body = soup.find('body')
                 if body:
                     content = body.get_text(separator='\n', strip=True)
-
+            
             # Clean content
             lines = [line.strip() for line in content.split('\n') if line.strip()]
             content = '\n'.join(lines)
-
+            
             # Limit length
             if len(content) > 10000:
                 content = content[:10000]
-
+            
             if len(content) < 100:
                 return {
                     'success': False,
                     'error': 'Content too short'
                 }
-
+            
             return {
                 'success': True,
                 'content': content,
                 'length': len(content)
             }
-
+            
         except Exception as e:
             logger.error(f"Crawl error: {str(e)}")
             return {
                 'success': False,
                 'error': str(e)
             }
-
+    
     def _analyze_content_quality(
-        self,
-        title: str,
-        content: str,
+        self, 
+        title: str, 
+        content: str, 
         topic: str
     ) -> Dict[str, Any]:
         """Dùng Ollama phân tích chất lượng nội dung"""
         try:
             # Truncate content
             content_sample = content[:2000]
-
+            
             prompt = f"""Bạn là chuyên gia đánh giá ý kiến về luật pháp.
 
 Chủ đề: "{topic}"
@@ -628,7 +628,7 @@ Chỉ JSON, không giải thích."""
 
             response = self.llm_analyzer.invoke([HumanMessage(content=prompt)])
             response_text = response.content.strip()
-
+            
             # Parse JSON
             json_match = re.search(r'\{[\s\S]*\}', response_text)
             if json_match:
@@ -637,7 +637,7 @@ Chỉ JSON, không giải thích."""
                 return result
             else:
                 raise ValueError("Could not parse JSON")
-
+                
         except Exception as e:
             logger.warning(f"Error analyzing quality: {str(e)}")
             return {
@@ -647,7 +647,7 @@ Chỉ JSON, không giải thích."""
                 'relevance': 'medium',
                 'key_points': []
             }
-
+    
     def _extract_domain(self, url: str) -> str:
         """Extract domain from URL"""
         try:
@@ -660,24 +660,24 @@ Chỉ JSON, không giải thích."""
             return domain
         except:
             return 'unknown'
-
+    
     def _export_to_csv(self, opinions: List[Dict[str, Any]], topic: str) -> Optional[str]:
         """Export opinions to CSV file"""
         try:
             import csv
             from pathlib import Path
             from datetime import datetime
-
+            
             # Create output directory
             output_dir = Path(config.CSV_DIR)
             output_dir.mkdir(parents=True, exist_ok=True)
-
+            
             # Generate filename
             topic_clean = topic.replace(' ', '_').replace('/', '_')[:50]
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f"autonomous_{topic_clean}_{timestamp}.csv"
             csv_path = output_dir / filename
-
+            
             # Define CSV columns
             fieldnames = [
                 'title',
@@ -695,11 +695,11 @@ Chỉ JSON, không giải thích."""
                 'search_query',
                 'content_preview'
             ]
-
+            
             with open(csv_path, 'w', encoding='utf-8-sig', newline='') as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 writer.writeheader()
-
+                
                 for op in opinions:
                     row = {
                         'title': op.get('title', ''),
@@ -718,10 +718,10 @@ Chỉ JSON, không giải thích."""
                         'content_preview': op.get('content', '')[:500] + '...'
                     }
                     writer.writerow(row)
-
+            
             logger.info(f"✅ Exported {len(opinions)} opinions to CSV")
             return str(csv_path)
-
+            
         except Exception as e:
             logger.error(f"Error exporting to CSV: {str(e)}")
             return None

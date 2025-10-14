@@ -43,9 +43,9 @@ class LawListSearchAgent(BaseAgent):
             result = law_list_crawler.crawl_law_list(
                 topic=topic,
                 source='duthaoonline',
-                max_pages=5,
-                max_results=10,
-                similarity_threshold=0.8
+                max_pages=1,
+                max_results=20,
+                similarity_threshold=0.8  # Higher threshold for precise matching
             )
             
             if not result.success:
@@ -167,7 +167,7 @@ class EnhancedOpinionSearchAgent(BaseAgent):
                 return self.log_error(state, error_msg)
             
             project_name = state['project_name']
-
+            
             # Generate search queries - Use Ollama if enabled
             from core.config import config
             if config.OLLAMA_ENABLE_OPINION_ENHANCEMENT:
@@ -185,13 +185,13 @@ class EnhancedOpinionSearchAgent(BaseAgent):
                     extracted_keywords,
                     base_topic=project_name
                 )
-
+            
             if not query_result.success:
                 task = self.complete_task(current_task, {}, error=query_result.error)
                 return self.log_error(state, query_result.error)
-
+            
             search_queries = query_result.data['queries'][:10]
-
+            
             # Search on news sites
             logger.info(f"🔍 Searching opinions with {len(search_queries)} queries...")
             
@@ -364,7 +364,7 @@ class NLPAnalysisAgent(BaseAgent):
             
             logger.info(f"📊 Sentiments: {sentiments}")
             logger.info(f"📊 Stances: {stances}")
-
+            
             # Extract insights using Ollama if enabled
             from core.config import config
             if config.OLLAMA_ENABLE_OPINION_ENHANCEMENT and len(analyzed_opinions) >= 5:
@@ -374,13 +374,13 @@ class NLPAnalysisAgent(BaseAgent):
                     topic=topic,
                     max_opinions=20
                 )
-
+                
                 if insights_result.success:
                     insights = insights_result.data
                     logger.info(f"📊 Main themes: {len(insights.get('main_themes', []))}")
                     logger.info(f"📊 Overall summary: {insights.get('overall_summary', '')[:100]}...")
                     state['opinion_insights'] = insights
-
+            
             task = self.complete_task(current_task, {
                 'analyzed_count': len(analyzed_opinions),
                 'sentiments': sentiments,

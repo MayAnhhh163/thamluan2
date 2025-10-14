@@ -9,7 +9,7 @@ from typing import Optional, Dict, Any
 import logging
 import json
 from datetime import datetime
-import  urllib3
+import urllib3
 
 from core.config import config
 from core.types import ToolResult
@@ -138,7 +138,7 @@ class PDFDownloader:
                 filename += '.pdf'
             
             pdf_path = self.pdf_dir / filename
-
+            
             # Download (with SSL verification disabled for government sites)
             response = self.session.get(url, timeout=60, stream=True, verify=False)
             response.raise_for_status()
