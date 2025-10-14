@@ -1,0 +1,49 @@
+2025-10-14 13:49:59 - root - [32mINFO[0m - ============================================================
+2025-10-14 13:49:59 - root - [32mINFO[0m - Logging initialized
+2025-10-14 13:49:59 - root - [32mINFO[0m - Log level: INFO
+2025-10-14 13:49:59 - root - [32mINFO[0m - Log file: D:\AutoData2\AutoData2\thamluan\logs\autodata_20251014_134959.log
+2025-10-14 13:49:59 - root - [32mINFO[0m - ============================================================
+2025-10-14 13:49:59 - root - [32mINFO[0m - ================================================================================
+2025-10-14 13:49:59 - root - [32mINFO[0m - AutoData - HYBRID WORKFLOW (PDF + Opinion Crawler)
+2025-10-14 13:49:59 - root - [32mINFO[0m - ================================================================================
+2025-10-14 13:49:59 - root - [32mINFO[0m - Pipeline: Law List → PDF → Extract → Opinions → NLP → Export
+2025-10-14 13:49:59 - root - [32mINFO[0m - ================================================================================
+2025-10-14 13:50:23 - root - [32mINFO[0m - Topic/Project: Luật trí tuệ nhân tạo 2025
+2025-10-14 13:50:23 - root - [32mINFO[0m - Running workflow asynchronously...
+2025-10-14 13:50:23 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 13:50:23 - core.auto - [32mINFO[0m - Starting AutoData Workflow (Article-Based)
+2025-10-14 13:50:23 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 13:50:23 - core.auto - [32mINFO[0m - Topic/Project: Luật trí tuệ nhân tạo 2025
+2025-10-14 13:50:23 - core.auto - [32mINFO[0m - ================================================================================
+2025-10-14 13:50:23 - core.auto - [31mERROR[0m - Workflow execution failed: Branch with name `should_continue` already exists for node `news_search_agent`
+Traceback (most recent call last):
+  File "D:\AutoData2\AutoData2\thamluan\core\auto.py", line 196, in run_workflow_async
+    workflow = create_workflow()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\AutoData2\AutoData2\thamluan\core\auto.py", line 173, in create_workflow
+    workflow.add_conditional_edges(node, should_continue)
+  File "C:\python\Lib\site-packages\langgraph\graph\state.py", line 653, in add_conditional_edges
+    raise ValueError(
+ValueError: Branch with name `should_continue` already exists for node `news_search_agent`
+2025-10-14 13:50:23 - root - [31mERROR[0m -  Workflow failed: Branch with name `should_continue` already exists for node `news_search_agent`
+Traceback (most recent call last):
+  File "D:\AutoData2\AutoData2\thamluan\main.py", line 59, in main
+    final_state = asyncio.run(run_workflow_async(project_name))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\python\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\python\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\python\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\AutoData2\AutoData2\thamluan\core\auto.py", line 196, in run_workflow_async
+    workflow = create_workflow()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\AutoData2\AutoData2\thamluan\core\auto.py", line 173, in create_workflow
+    workflow.add_conditional_edges(node, should_continue)
+  File "C:\python\Lib\site-packages\langgraph\graph\state.py", line 653, in add_conditional_edges
+    raise ValueError(
+ValueError: Branch with name `should_continue` already exists for node `news_search_agent`
