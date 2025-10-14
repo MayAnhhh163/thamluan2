@@ -56,17 +56,25 @@ def test_autonomous_search():
         print(f"   Average quality: {result.data['average_quality']:.2f}")
         print(f"   Visited URLs: {result.data['visited_urls']}")
         print(f"   Sources: {result.data['sources']}")
+        print(f"   Sentiments: {result.data.get('sentiments', {})}")
+        print(f"   Stances: {result.data.get('stances', {})}")
         
-        print(f"\n📰 OPINIONS:")
+        csv_path = result.data.get('csv_path')
+        if csv_path:
+            print(f"\n💾 EXPORTED TO CSV:")
+            print(f"   {csv_path}")
+        
+        print(f"\n📰 OPINIONS SUMMARY:")
         for i, op in enumerate(opinions, 1):
-            print(f"\n{i}. {op['title'][:80]}...")
+            print(f"\n{i}. {op['title'][:70]}...")
             print(f"   URL: {op['url']}")
             print(f"   Source: {op['source']}")
             print(f"   Quality: {op['quality_score']:.2f}")
-            print(f"   Feedback: {op['quality_feedback'][:100]}...")
-            print(f"   Content length: {len(op['content'])} chars")
+            print(f"   😊 Sentiment: {op.get('sentiment', 'N/A')}")
+            print(f"   📊 Stance: {op.get('stance', 'N/A')} (confidence: {op.get('stance_confidence', 0):.2f})")
+            print(f"   Feedback: {op['quality_feedback'][:80]}...")
             if op.get('key_points'):
-                print(f"   Key points: {', '.join(op['key_points'][:2])}")
+                print(f"   💡 Key points: {', '.join(op['key_points'][:2])}")
     else:
         print(f"❌ TEST FAILED: {result.error}")
     

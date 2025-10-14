@@ -31,6 +31,7 @@ except ImportError:
 
 from core.config import config
 from core.types import ToolResult
+from tools.nlp_analyzer import nlp_analyzer
 
 logger = logging.getLogger(__name__)
 
@@ -215,6 +216,15 @@ class OllamaAutonomousSearchAgent:
                     logger.info(f"      ⭐ Quality: {quality_score:.2f} - {quality_result['feedback'][:50]}")
                     
                     if quality_score >= quality_threshold and is_valuable:
+                        # Analyze sentiment and stance
+                        logger.info(f"      🧠 Analyzing sentiment & stance...")
+                        
+                        sentiment = nlp_analyzer.analyze_sentiment(content)
+                        stance_result = nlp_analyzer.detect_stance(content, topic)
+                        
+                        logger.info(f"      📊 Sentiment: {sentiment}")
+                        logger.info(f"      📊 Stance: {stance_result['stance']} (confidence: {stance_result['confidence']:.2f})")
+                        
                         opinion = {
                             'url': url,
                             'title': title,
@@ -225,7 +235,13 @@ class OllamaAutonomousSearchAgent:
                             'key_points': quality_result.get('key_points', []),
                             'relevance': quality_result.get('relevance', 'medium'),
                             'source': self._extract_domain(url),
-                            'search_query': query
+                            'search_query': query,
+                            # NLP Analysis
+                            'sentiment': sentiment,
+                            'stance': stance_result['stance'],
+                            'stance_confidence': stance_result['confidence'],
+                            'support_score': stance_result.get('support_score', 0),
+                            'oppose_score': stance_result.get('oppose_score', 0)
                         }
                         
                         collected_opinions.append(opinion)
@@ -252,11 +268,27 @@ class OllamaAutonomousSearchAgent:
             logger.info(f"⭐ Average quality: {avg_quality:.2f}")
             
             sources = {}
+            sentiments = {}
+            stances = {}
+            
             for op in collected_opinions:
                 src = op['source']
                 sources[src] = sources.get(src, 0) + 1
+                
+                sentiment = op.get('sentiment', 'neutral')
+                sentiments[sentiment] = sentiments.get(sentiment, 0) + 1
+                
+                stance = op.get('stance', 'neutral')
+                stances[stance] = stances.get(stance, 0) + 1
             
             logger.info(f"📰 Sources: {sources}")
+            logger.info(f"😊 Sentiments: {sentiments}")
+            logger.info(f"📊 Stances: {stances}")
+            
+            # Export to CSV
+            csv_path = self._export_to_csv(collected_opinions, topic)
+            if csv_path:
+                logger.info(f"💾 Exported to: {csv_path}")
             
             return ToolResult(
                 success=True,
@@ -265,7 +297,10 @@ class OllamaAutonomousSearchAgent:
                     'count': len(collected_opinions),
                     'visited_urls': len(visited_urls),
                     'average_quality': avg_quality,
-                    'sources': sources
+                    'sources': sources,
+                    'sentiments': sentiments,
+                    'stances': stances,
+                    'csv_path': csv_path
                 },
                 message=f"Collected {len(collected_opinions)} high-quality opinions"
             )
@@ -625,6 +660,71 @@ Chỉ JSON, không giải thích."""
             return domain
         except:
             return 'unknown'
+    
+    def _export_to_csv(self, opinions: List[Dict[str, Any]], topic: str) -> Optional[str]:
+        """Export opinions to CSV file"""
+        try:
+            import csv
+            from pathlib import Path
+            from datetime import datetime
+            
+            # Create output directory
+            output_dir = Path(config.CSV_DIR)
+            output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Generate filename
+            topic_clean = topic.replace(' ', '_').replace('/', '_')[:50]
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f"autonomous_{topic_clean}_{timestamp}.csv"
+            csv_path = output_dir / filename
+            
+            # Define CSV columns
+            fieldnames = [
+                'title',
+                'url',
+                'source',
+                'quality_score',
+                'sentiment',
+                'stance',
+                'stance_confidence',
+                'support_score',
+                'oppose_score',
+                'relevance',
+                'quality_feedback',
+                'key_points',
+                'search_query',
+                'content_preview'
+            ]
+            
+            with open(csv_path, 'w', encoding='utf-8-sig', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                
+                for op in opinions:
+                    row = {
+                        'title': op.get('title', ''),
+                        'url': op.get('url', ''),
+                        'source': op.get('source', ''),
+                        'quality_score': f"{op.get('quality_score', 0):.2f}",
+                        'sentiment': op.get('sentiment', 'neutral'),
+                        'stance': op.get('stance', 'neutral'),
+                        'stance_confidence': f"{op.get('stance_confidence', 0):.2f}",
+                        'support_score': op.get('support_score', 0),
+                        'oppose_score': op.get('oppose_score', 0),
+                        'relevance': op.get('relevance', 'medium'),
+                        'quality_feedback': op.get('quality_feedback', ''),
+                        'key_points': '; '.join(op.get('key_points', [])),
+                        'search_query': op.get('search_query', ''),
+                        'content_preview': op.get('content', '')[:500] + '...'
+                    }
+                    writer.writerow(row)
+            
+            logger.info(f"✅ Exported {len(opinions)} opinions to CSV")
+            return str(csv_path)
+            
+        except Exception as e:
+            logger.error(f"Error exporting to CSV: {str(e)}")
+            return None
 
 
 # Singleton instance
