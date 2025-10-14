@@ -42,9 +42,9 @@ class LawListSearchAgent(BaseAgent):
             result = law_list_crawler.crawl_law_list(
                 topic=topic,
                 source='duthaoonline',
-                max_pages=1,
-                max_results=20,
-                similarity_threshold=0.3  # Lower threshold for better matching
+                max_pages=5,
+                max_results=10,
+                similarity_threshold=0.8
             )
             
             if not result.success:
