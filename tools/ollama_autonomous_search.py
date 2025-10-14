@@ -6,17 +6,28 @@ import logging
 import time
 import json
 from typing import List, Dict, Any, Optional
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.common.exceptions import TimeoutException, WebDriverException, NoSuchElementException
 from bs4 import BeautifulSoup
 from langchain_ollama import ChatOllama
 from langchain.schema import HumanMessage
 import re
+
+# Try to use undetected-chromedriver to bypass bot detection
+try:
+    import undetected_chromedriver as uc
+    UNDETECTED_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("✅ Using undetected-chromedriver for bot bypass")
+except ImportError:
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    UNDETECTED_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning("⚠️ undetected-chromedriver not available, using regular Selenium")
 
 from core.config import config
 from core.types import ToolResult
@@ -52,24 +63,47 @@ class OllamaAutonomousSearchAgent:
         )
     
     def _setup_driver(self):
-        """Setup Chrome driver"""
+        """Setup Chrome driver with bot detection bypass"""
         try:
-            chrome_options = Options()
-            # Không dùng headless để user có thể thấy
-            # chrome_options.add_argument("--headless")
-            chrome_options.add_argument("--disable-gpu")
-            chrome_options.add_argument("--no-sandbox")
-            chrome_options.add_argument("--disable-dev-shm-usage")
-            chrome_options.add_argument("--window-size=1920,1080")
-            chrome_options.add_argument(
-                "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-            )
-            
-            self.driver = webdriver.Chrome(options=chrome_options)
-            self.driver.set_page_load_timeout(30)
-            
-            logger.info("✅ Chrome driver initialized")
+            if UNDETECTED_AVAILABLE:
+                # Use undetected-chromedriver to bypass bot detection
+                options = uc.ChromeOptions()
+                options.add_argument("--disable-blink-features=AutomationControlled")
+                options.add_argument("--disable-dev-shm-usage")
+                options.add_argument("--no-sandbox")
+                options.add_argument("--window-size=1920,1080")
+                
+                self.driver = uc.Chrome(options=options, version_main=None)
+                self.driver.set_page_load_timeout(30)
+                
+                logger.info("✅ Chrome driver initialized (undetected mode)")
+            else:
+                # Fallback to regular Selenium with stealth settings
+                from selenium import webdriver
+                from selenium.webdriver.chrome.options import Options
+                
+                chrome_options = Options()
+                # chrome_options.add_argument("--headless")  # Comment for visible
+                chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument("--no-sandbox")
+                chrome_options.add_argument("--disable-dev-shm-usage")
+                chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+                chrome_options.add_argument("--window-size=1920,1080")
+                chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+                chrome_options.add_experimental_option('useAutomationExtension', False)
+                
+                chrome_options.add_argument(
+                    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+                )
+                
+                self.driver = webdriver.Chrome(options=chrome_options)
+                self.driver.set_page_load_timeout(30)
+                
+                # Execute script to hide webdriver property
+                self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+                
+                logger.info("✅ Chrome driver initialized (stealth mode)")
             
         except WebDriverException as e:
             logger.error(f"Failed to initialize Chrome: {str(e)}")
@@ -288,16 +322,37 @@ Chỉ JSON, không giải thích."""
         try:
             # Navigate to Google
             self.driver.get("https://www.google.com")
-            time.sleep(2)
+            time.sleep(3)  # Wait longer for page load
+            
+            # Check if CAPTCHA or bot detection page
+            page_source = self.driver.page_source.lower()
+            if 'captcha' in page_source or 'unusual traffic' in page_source:
+                logger.warning("⚠️ Google detected bot, trying DuckDuckGo instead...")
+                return self._search_duckduckgo(query)
             
             # Find search box
-            search_box = self.driver.find_element(By.NAME, "q")
+            try:
+                search_box = self.driver.find_element(By.NAME, "q")
+            except NoSuchElementException:
+                # Try alternative selector
+                try:
+                    search_box = self.driver.find_element(By.CSS_SELECTOR, "textarea[name='q']")
+                except NoSuchElementException:
+                    logger.error("Cannot find Google search box, using DuckDuckGo")
+                    return self._search_duckduckgo(query)
+            
             search_box.clear()
             search_box.send_keys(query)
             search_box.send_keys(Keys.RETURN)
             
             # Wait for results
-            time.sleep(3)
+            time.sleep(4)
+            
+            # Check again for CAPTCHA
+            page_source = self.driver.page_source.lower()
+            if 'captcha' in page_source or 'unusual traffic' in page_source:
+                logger.warning("⚠️ Google CAPTCHA detected, switching to DuckDuckGo...")
+                return self._search_duckduckgo(query)
             
             # Parse results
             results = []
@@ -332,10 +387,76 @@ Chỉ JSON, không giải thích."""
                 except Exception as e:
                     continue
             
+            if not results:
+                logger.warning("No results from Google, trying DuckDuckGo...")
+                return self._search_duckduckgo(query)
+            
             return results
             
         except Exception as e:
-            logger.error(f"Google search error: {str(e)}")
+            logger.error(f"Google search error: {str(e)}, falling back to DuckDuckGo")
+            return self._search_duckduckgo(query)
+    
+    def _search_duckduckgo(self, query: str) -> List[Dict[str, str]]:
+        """Search DuckDuckGo (không có bot detection)"""
+        try:
+            logger.info("🦆 Searching on DuckDuckGo...")
+            
+            # Navigate to DuckDuckGo
+            self.driver.get("https://duckduckgo.com")
+            time.sleep(2)
+            
+            # Find search box
+            search_box = self.driver.find_element(By.NAME, "q")
+            search_box.clear()
+            search_box.send_keys(query)
+            search_box.send_keys(Keys.RETURN)
+            
+            # Wait for results
+            time.sleep(3)
+            
+            # Parse results
+            results = []
+            
+            # DuckDuckGo results selector
+            search_results = self.driver.find_elements(By.CSS_SELECTOR, "article[data-testid='result']")
+            
+            if not search_results:
+                # Try alternative selector
+                search_results = self.driver.find_elements(By.CSS_SELECTOR, "li[data-layout='organic']")
+            
+            for result in search_results[:10]:  # Top 10 results
+                try:
+                    # Extract link
+                    link_elem = result.find_element(By.CSS_SELECTOR, "a[href]")
+                    url = link_elem.get_attribute("href")
+                    
+                    # Extract title
+                    title_elem = result.find_element(By.CSS_SELECTOR, "h2")
+                    title = title_elem.text
+                    
+                    # Extract snippet
+                    try:
+                        snippet_elem = result.find_element(By.CSS_SELECTOR, "div[data-result='snippet']")
+                        snippet = snippet_elem.text
+                    except:
+                        snippet = ""
+                    
+                    if url and title and url.startswith('http'):
+                        results.append({
+                            'url': url,
+                            'title': title,
+                            'snippet': snippet
+                        })
+                        
+                except Exception as e:
+                    continue
+            
+            logger.info(f"✅ DuckDuckGo found {len(results)} results")
+            return results
+            
+        except Exception as e:
+            logger.error(f"DuckDuckGo search error: {str(e)}")
             return []
     
     def _should_crawl_url(self, title: str, snippet: str, topic: str) -> bool:

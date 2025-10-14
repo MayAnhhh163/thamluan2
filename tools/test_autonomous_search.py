@@ -80,9 +80,16 @@ if __name__ == "__main__":
     print("   2. Model llama3.1:8b đã pull (ollama pull llama3.1:8b)")
     print("   3. Chrome browser đã cài đặt")
     print("   4. Internet connection")
+    print("   5. ⭐ RECOMMENDED: pip install undetected-chromedriver (bypass Google bot)")
     
-    input("\n✋ Press Enter to continue...")
+    print("\n💡 Tip: Nếu Google chặn bot, hệ thống sẽ tự động dùng DuckDuckGo")
+    print("   Nhưng tốt nhất là cài: pip install undetected-chromedriver\n")
+    
+    input("✋ Press Enter to continue...")
     
     test_autonomous_search()
     
     print("\n🎉 Test complete!")
+    print("\n📖 If you got 0 results and saw Google CAPTCHA:")
+    print("   → Install: pip install undetected-chromedriver")
+    print("   → Read: INSTALL_AUTONOMOUS.md for details")

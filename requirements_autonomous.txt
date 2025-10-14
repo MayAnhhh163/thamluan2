@@ -1,0 +1,13 @@
+# Requirements for Autonomous Search Agent
+
+# Core packages (already in main requirements)
+selenium>=4.0.0
+beautifulsoup4>=4.9.0
+langchain-ollama>=0.1.0
+requests>=2.31.0
+
+# NEW: Bot detection bypass (RECOMMENDED)
+undetected-chromedriver>=3.5.0
+
+# Optional: Additional search engines
+# duckduckgo-search>=3.9.0  # Alternative API-based search
