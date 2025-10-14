@@ -29,6 +29,7 @@ class Config:
 
     # ========== LLM Settings ==========
     OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    OLLAMA_ENABLE_OPINION_ENHANCEMENT = os.getenv("OLLAMA_ENABLE_OPINION_ENHANCEMENT", "true").lower() == "true"
     LLM_MODEL = os.getenv("LLM_MODEL", "llama3.1:8b")
     LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.7"))
     LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "2048"))

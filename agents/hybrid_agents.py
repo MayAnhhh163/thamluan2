@@ -12,6 +12,7 @@ from tools.law_list_crawler import law_list_crawler
 from tools.pdf_downloader import pdf_downloader
 from tools.enhanced_opinion_crawler import enhanced_opinion_crawler
 from tools.nlp_analyzer import nlp_analyzer
+from tools.ollama_opinion_enhancer import ollama_opinion_enhancer
 
 logger = logging.getLogger(__name__)
 
@@ -167,18 +168,29 @@ class EnhancedOpinionSearchAgent(BaseAgent):
             
             project_name = state['project_name']
             
-            # Generate search queries
-            from tools.text_analyzer import text_analyzer_tool
-            query_result = text_analyzer_tool.generate_search_queries(
-                extracted_keywords,
-                base_topic=project_name
-            )
+            # Generate search queries - Use Ollama if enabled
+            from core.config import config
+            if config.OLLAMA_ENABLE_OPINION_ENHANCEMENT:
+                logger.info("🤖 Using Ollama to generate smart search queries...")
+                keywords_list = extracted_keywords.main_keywords + extracted_keywords.key_phrases
+                query_result = ollama_opinion_enhancer.generate_smart_search_queries(
+                    topic=project_name,
+                    keywords=keywords_list,
+                    num_queries=10
+                )
+            else:
+                logger.info("Using traditional query generation...")
+                from tools.text_analyzer import text_analyzer_tool
+                query_result = text_analyzer_tool.generate_search_queries(
+                    extracted_keywords,
+                    base_topic=project_name
+                )
             
             if not query_result.success:
                 task = self.complete_task(current_task, {}, error=query_result.error)
                 return self.log_error(state, query_result.error)
             
-            search_queries = query_result.data['queries'][:8]
+            search_queries = query_result.data['queries'][:10]
             
             # Search on news sites
             logger.info(f"🔍 Searching opinions with {len(search_queries)} queries...")
@@ -352,6 +364,22 @@ class NLPAnalysisAgent(BaseAgent):
             
             logger.info(f"📊 Sentiments: {sentiments}")
             logger.info(f"📊 Stances: {stances}")
+            
+            # Extract insights using Ollama if enabled
+            from core.config import config
+            if config.OLLAMA_ENABLE_OPINION_ENHANCEMENT and len(analyzed_opinions) >= 5:
+                logger.info("🤖 Extracting insights using Ollama...")
+                insights_result = ollama_opinion_enhancer.extract_insights(
+                    opinions=analyzed_opinions,
+                    topic=topic,
+                    max_opinions=20
+                )
+                
+                if insights_result.success:
+                    insights = insights_result.data
+                    logger.info(f"📊 Main themes: {len(insights.get('main_themes', []))}")
+                    logger.info(f"📊 Overall summary: {insights.get('overall_summary', '')[:100]}...")
+                    state['opinion_insights'] = insights
             
             task = self.complete_task(current_task, {
                 'analyzed_count': len(analyzed_opinions),
