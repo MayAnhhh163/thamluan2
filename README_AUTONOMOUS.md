@@ -1,311 +1,332 @@
-# Autonomous AI Agent Workflow - LangGraph Integration
+# Autonomous AI Agent - LangGraph Framework
 
 ## Overview
 
-The autonomous workflow has been fully integrated into the LangGraph AI Agent framework. The AI now automatically handles the entire process from finding law documents to analyzing opinions.
+Hệ thống AI Agent hoàn toàn tự động, sử dụng LangGraph framework để thu thập và phân tích ý kiến về dự luật.
 
-## Workflow Types
+## Workflow (3 Steps)
 
-### 1. **AUTONOMOUS Workflow** (Recommended - 3 Steps)
-Full AI-powered workflow that handles everything automatically:
-
-1. **AUTONOMOUS_LAW_SEARCH**: AI tìm và download PDF văn bản luật
-2. **AUTONOMOUS_PDF_ANALYSIS**: AI extract PDF và tạo keywords  
-3. **AUTONOMOUS_OPINION_SEARCH**: AI search + crawl + analyze opinions + export
-
-### 2. **HYBRID Workflow** (8 Steps)
-More control over each step, suitable for advanced users.
-
-## Quick Start - Autonomous Workflow
-
-### Installation
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Make sure Ollama is running
-ollama serve
-
-# Pull required model (if not already)
-ollama pull llama3.2:3b
-```
-
-### Basic Usage
-
+### Phase 1: Autonomous Law Search Agent
 ```python
-import asyncio
-from core.auto import run_workflow_async
-
-async def main():
-    # Simple autonomous workflow - just provide topic
-    result = await run_workflow_async(
-        project_name="Luật Trí tuệ nhân tạo 2025",
-        workflow_type='autonomous',  # This is default
-        max_opinions=20,
-        quality_threshold=0.6
-    )
-    
-    print(f"✅ Workflow complete!")
-    print(f"CSV exported to: {result.get('csv_output_path')}")
-
-if __name__ == "__main__":
-    asyncio.run(main())
+from agents.autonomous_agents import autonomous_law_search_agent
 ```
 
-### Configuration Options
+**Nhiệm vụ:**
+- Tìm văn bản luật trên duthaoonline
+- AI đánh giá và chọn document tốt nhất
+- Download PDF tự động
 
-The autonomous workflow accepts these parameters:
+**TaskType:** `AUTONOMOUS_LAW_SEARCH`
 
-- `project_name` (required): Tên dự luật/chủ đề
-- `workflow_type` (optional): `'autonomous'` (default) hoặc `'hybrid'`
-- `max_opinions` (optional): Số opinions tối đa (default: 20)
-- `quality_threshold` (optional): Ngưỡng chất lượng 0-1 (default: 0.6)
-
-### Example: Main Script
-
-Create `main.py`:
-
+### Phase 2: Autonomous PDF Analysis Agent
 ```python
-import asyncio
-import logging
-from core.auto import run_workflow_async
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
-async def main():
-    """
-    Run autonomous AI workflow
-    """
-    print("\n" + "=" * 80)
-    print("🤖 AUTONOMOUS AI WORKFLOW")
-    print("=" * 80)
-    
-    # Get topic from user
-    topic = input("\n📋 Nhập chủ đề/tên dự luật: ").strip()
-    
-    if not topic:
-        print("❌ Vui lòng nhập topic!")
-        return
-    
-    # Configuration
-    max_opinions = int(input("   Số opinions tối đa [20]: ").strip() or "20")
-    quality_threshold = float(input("   Quality threshold (0-1) [0.6]: ").strip() or "0.6")
-    
-    print("\n" + "=" * 80)
-    print("🚀 STARTING AUTONOMOUS WORKFLOW...")
-    print("=" * 80)
-    print(f"\n📊 Config:")
-    print(f"   Topic: {topic}")
-    print(f"   Max opinions: {max_opinions}")
-    print(f"   Quality threshold: {quality_threshold}")
-    print(f"\n⏳ This may take 10-15 minutes...")
-    
-    # Run workflow
-    result = await run_workflow_async(
-        project_name=topic,
-        workflow_type='autonomous',
-        max_opinions=max_opinions,
-        quality_threshold=quality_threshold
-    )
-    
-    # Display results
-    print("\n" + "=" * 80)
-    print("📊 WORKFLOW COMPLETE")
-    print("=" * 80)
-    
-    print(f"\n✅ SUCCESS!")
-    print(f"\n📋 Law Documents: {len(result.get('law_documents', []))}")
-    print(f"📄 PDF Downloaded: {result.get('pdf_local_path') is not None}")
-    print(f"🔍 Opinions Collected: {len(result.get('analyzed_opinions', []))}")
-    
-    csv_path = result.get('csv_output_path')
-    if csv_path:
-        print(f"\n💾 Results exported to:")
-        print(f"   {csv_path}")
-        print(f"\n📖 Open this file in Excel to view results!")
-    
-    print("\n" + "=" * 80)
-    print("✅ ALL DONE!")
-    print("=" * 80)
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\n\n⚠️  Workflow interrupted by user")
-    except Exception as e:
-        print(f"\n❌ Error: {str(e)}")
+from agents.autonomous_agents import autonomous_pdf_analysis_agent
 ```
 
-Run it:
+**Nhiệm vụ:**
+- Extract nội dung từ PDF
+- AI extract keywords quan trọng (10-15 keywords)
+- Chuẩn bị keywords cho opinion search
+
+**TaskType:** `AUTONOMOUS_PDF_ANALYSIS`
+
+### Phase 3: Autonomous Opinion Search Agent
+```python
+from agents.autonomous_agents import autonomous_opinion_search_agent
+```
+
+**Nhiệm vụ:**
+- AI sinh 5 search queries đa dạng
+- Search DuckDuckGo tự động với Selenium
+- AI đánh giá từng kết quả (relevant hay không)
+- Crawl nội dung từ URLs relevant
+- AI đánh giá chất lượng nội dung (0-10)
+- Phân tích sentiment và stance tự động
+- Export CSV
+
+**TaskType:** `AUTONOMOUS_OPINION_SEARCH`
+
+## Sử dụng
+
+### Basic
 
 ```bash
 python main.py
 ```
 
-## Architecture
+### Programmatic
 
-### LangGraph Agents
+```python
+import asyncio
+from core.workflow import run_autonomous_workflow
 
-The autonomous workflow uses 3 specialized agents:
+async def main():
+    result = await run_autonomous_workflow(
+        project_name="Luật Trí tuệ nhân tạo 2025",
+        max_opinions=20,
+        quality_threshold=0.6
+    )
+    
+    print(f"PDF: {result['pdf_local_path']}")
+    print(f"Keywords: {result['search_queries']}")
+    print(f"Opinions: {len(result['analyzed_opinions'])}")
+    print(f"CSV: {result['csv_output_path']}")
 
-1. **AutonomousLawSearchAgent** (`agents/autonomous_agents.py`)
-   - Tìm văn bản luật trên duthaoonline
-   - AI đánh giá và chọn document tốt nhất
-   - Download PDF tự động
+asyncio.run(main())
+```
 
-2. **AutonomousPdfAnalysisAgent** (`agents/autonomous_agents.py`)
-   - Extract nội dung từ PDF
-   - AI extract keywords quan trọng
-   - Chuẩn bị keywords cho search opinions
+## Configuration
 
-3. **AutonomousOpinionSearchAgent** (`agents/autonomous_agents.py`)
-   - AI sinh search queries tự động
-   - Search Google/DuckDuckGo với Selenium
-   - AI đánh giá relevance của mỗi kết quả
-   - Crawl nội dung từ URLs relevant
-   - AI đánh giá chất lượng nội dung
-   - Phân tích sentiment và stance
-   - Export CSV tự động
+### Parameters
 
-### Manager Orchestration
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| project_name | str | required | Tên dự luật/chủ đề |
+| max_opinions | int | 20 | Số opinions tối đa |
+| quality_threshold | float | 0.6 | Ngưỡng chất lượng (0-1) |
 
-The `ManagerAgent` (`agents/manager.py`) automatically:
-- Detects workflow type (autonomous vs hybrid)
-- Routes tasks to appropriate agents
-- Monitors progress
-- Handles errors gracefully
-- Generates final report
+### Example
 
-## Features
+```python
+result = await run_autonomous_workflow(
+    project_name="Luật Trí tuệ nhân tạo 2025",
+    max_opinions=50,  # Thu thập nhiều hơn
+    quality_threshold=0.8  # Chất lượng cao hơn
+)
+```
 
-### AI-Powered Capabilities
+## State Management
 
-✅ **Intelligent Document Search**: AI selects most relevant law documents  
-✅ **Smart Keyword Extraction**: AI extracts key concepts from PDFs  
-✅ **Autonomous Search**: AI generates diverse search queries  
-✅ **DuckDuckGo Search**: Uses DuckDuckGo for reliable, bot-friendly search  
-✅ **Quality Assessment**: AI evaluates content quality before saving  
-✅ **Sentiment Analysis**: Automatic sentiment detection  
-✅ **Stance Detection**: Identifies support/oppose/neutral stances  
+### AgentState
 
-### Output
+```python
+from core.types import AgentState
 
-The workflow produces a CSV file with:
-- Title, URL, Source
-- Quality score (0-1)
-- Sentiment (positive/negative/neutral)
-- Stance (support/oppose/neutral) + confidence
-- Support/oppose scores
-- Relevance level
-- Quality feedback
-- Key points
-- Content preview
+state = {
+    # Input
+    'project_name': str,
+    'max_opinions': int,
+    'quality_threshold': float,
+    
+    # Tracking
+    'current_task': Task,
+    'task_history': List[Task],
+    
+    # Phase 1 results
+    'law_documents': List[Dict],
+    'pdf_local_path': str,
+    
+    # Phase 2 results
+    'search_queries': List[str],  # Keywords
+    
+    # Phase 3 results
+    'analyzed_opinions': List[Dict],
+    
+    # Output
+    'csv_output_path': str,
+    
+    # Error handling
+    'errors': List[Dict],
+    'warnings': List[str],
+    
+    # Metadata
+    'started_at': datetime,
+    'last_updated': datetime,
+    'is_complete': bool
+}
+```
+
+## Manager Orchestration
+
+Manager Agent điều phối workflow:
+
+```python
+# Step 1
+AUTONOMOUS_LAW_SEARCH → AUTONOMOUS_PDF_ANALYSIS
+
+# Step 2
+AUTONOMOUS_PDF_ANALYSIS → AUTONOMOUS_OPINION_SEARCH
+
+# Step 3
+AUTONOMOUS_OPINION_SEARCH → Complete
+```
+
+## Output Format
+
+### CSV Columns
+
+```
+title, url, source, quality_score, sentiment, stance, 
+stance_confidence, support_score, oppose_score, relevance,
+quality_feedback, key_points, search_query, content_preview
+```
+
+### Example Row
+
+```csv
+"Chuyên gia đánh giá cao Luật AI",
+"https://example.com/article",
+"example.com",
+0.85,
+"positive",
+"support",
+0.92,
+8,
+2,
+"high",
+"Bài viết có phân tích chuyên sâu",
+"AI sẽ thay đổi tương lai; Quy định rõ ràng",
+"Luật Trí tuệ nhân tạo ý kiến chuyên gia",
+"Chuyên gia cho rằng dự luật có nhiều điểm tích cực..."
+```
+
+## AI Capabilities
+
+### 1. Document Selection
+AI đánh giá documents dựa trên:
+- Độ chính xác với topic
+- Tính chính thức của văn bản
+- Mức độ liên quan
+
+### 2. Keyword Extraction
+AI extract keywords dựa trên:
+- Khái niệm chính trong văn bản
+- Quyền lợi và nghĩa vụ
+- Quy định quan trọng
+
+### 3. Search Query Generation
+AI tạo queries đa dạng:
+- Góc nhìn khác nhau
+- Tập trung vào ý kiến chuyên gia
+- Tự nhiên như người Việt search
+
+### 4. Relevance Assessment
+AI đánh giá mỗi kết quả search:
+- Có chứa ý kiến không?
+- Có phân tích chuyên sâu không?
+- Có liên quan trực tiếp không?
+
+### 5. Quality Evaluation
+AI đánh giá chất lượng content:
+- Relevance score (0-10)
+- Depth score (0-10)
+- Credibility score (0-10)
+- Overall score (0-10)
+
+## Search Engine
+
+Sử dụng **DuckDuckGo** để tránh bot detection:
+- Không cần CAPTCHA
+- Kết quả ổn định
+- Bảo mật và riêng tư
+
+## Error Handling
+
+### Graceful Degradation
+
+- Nếu không tìm thấy PDF: Dùng topic làm keywords
+- Nếu không extract được PDF: Dùng topic split
+- Nếu search thất bại: Retry với query khác
+- Nếu crawl thất bại: Skip URL đó
+
+### Error Tracking
+
+```python
+errors = final_state.get('errors', [])
+for error in errors:
+    print(f"{error['agent']}: {error['message']}")
+```
+
+## Performance
+
+### Typical Runtime
+
+- **Phase 1**: 30-60 giây (tìm và download PDF)
+- **Phase 2**: 10-20 giây (extract và keywords)
+- **Phase 3**: 10-15 phút (search và crawl 20 opinions)
+
+**Total**: ~15-20 phút cho 20 opinions
+
+### Optimization Tips
+
+1. **Giảm max_opinions**: Thu thập ít hơn = nhanh hơn
+2. **Tăng quality_threshold**: Chọn lọc kỹ hơn = ít crawl hơn
+3. **Parallel processing**: Sẽ được implement trong tương lai
 
 ## Troubleshooting
 
-### Ollama Not Running
+### PDF không download được
+- Kiểm tra kết nối internet
+- Thử lại với topic khác
+- Workflow vẫn chạy với keywords từ topic
 
-```bash
-# Start Ollama server
-ollama serve
+### DuckDuckGo không có kết quả
+- Đợi vài phút và thử lại
+- Kiểm tra kết nối internet
+- Thử với search query đơn giản hơn
 
-# In another terminal, check models
-ollama list
+### Opinions chất lượng thấp
+- Tăng `quality_threshold` lên 0.7-0.8
+- Tăng `max_opinions` để có nhiều lựa chọn hơn
+- Refine topic để specific hơn
 
-# Pull model if needed
-ollama pull llama3.2:3b
-```
-
-### Chrome Driver Issues
-
-```bash
-# Install undetected-chromedriver
-pip install undetected-chromedriver
-
-# If still issues, install regular Chrome
-# Ubuntu/Debian:
-sudo apt-get install chromium-browser chromium-chromedriver
-```
-
-### Search Engine
-
-The workflow uses DuckDuckGo for reliable search without bot detection issues.
+### Ollama chậm
+- Sử dụng model nhỏ hơn (llama3.2:1b)
+- Tăng RAM cho Ollama
+- Chạy trên máy có GPU
 
 ## Advanced Usage
 
-### Use Hybrid Workflow
+### Custom Agent Behavior
+
+Modify agents trong `agents/autonomous_agents.py`:
 
 ```python
-result = await run_workflow_async(
-    project_name="Luật Trí tuệ nhân tạo 2025",
-    workflow_type='hybrid',  # More control
-    target_url="https://example.com/draft-law"  # Optional reference
-)
+class AutonomousLawSearchAgent(BaseAgent):
+    async def execute(self, state: AgentState) -> AgentState:
+        # Your custom logic here
+        pass
 ```
 
-### Custom Configuration
+### Custom Workflow
+
+Modify workflow trong `core/workflow.py`:
 
 ```python
-from core.types import create_initial_state
-from core.auto import create_workflow
-
-# Create custom state
-state = create_initial_state(
-    project_name="My Topic",
-    workflow_type='autonomous',
-    max_opinions=50,  # More opinions
-    quality_threshold=0.8  # Higher quality threshold
-)
-
-# Run workflow
-workflow = create_workflow()
-app = workflow.compile()
-final_state = await app.ainvoke(state)
+def create_workflow() -> StateGraph:
+    workflow = StateGraph(AgentState)
+    # Add your custom nodes/edges
+    return workflow
 ```
 
-## Migration from Old Autonomous Workflow
+### Custom Manager Logic
 
-If you were using `main_autonomous.py`, the new integrated workflow is simpler:
+Modify orchestration trong `agents/manager.py`:
 
-**Old:**
 ```python
-from tools.ollama_full_autonomous_workflow import ollama_full_autonomous_workflow
-
-result = ollama_full_autonomous_workflow.run_full_workflow(
-    topic="Luật AI",
-    max_opinions=20,
-    quality_threshold=0.6
-)
+async def _monitor_and_decide(self, state: AgentState) -> AgentState:
+    # Your custom routing logic
+    pass
 ```
 
-**New:**
-```python
-from core.auto import run_workflow_async
+## Best Practices
 
-result = await run_workflow_async(
-    project_name="Luật AI",
-    max_opinions=20,
-    quality_threshold=0.6
-)
-```
+1. **Topic Selection**: Chọn topic cụ thể và rõ ràng
+2. **Quality First**: Ưu tiên chất lượng hơn số lượng
+3. **Monitor Logs**: Theo dõi logs để debug
+4. **Validate Output**: Kiểm tra CSV output
+5. **Iterative Refinement**: Chạy nhiều lần với configs khác nhau
 
-Benefits of new approach:
-- ✅ Standard LangGraph framework
-- ✅ Better error handling
-- ✅ State management
-- ✅ Async support
-- ✅ Easier to extend
-- ✅ Better logging and monitoring
+## Future Enhancements
 
-## Support
+- [ ] Parallel opinion crawling
+- [ ] Caching for repeated searches
+- [ ] Multi-LLM support
+- [ ] Web UI for monitoring
+- [ ] Checkpoint/resume functionality
+- [ ] Advanced NLP analysis
+- [ ] Multi-language support
 
-For issues or questions:
-1. Check logs in `logs/` directory
-2. Enable debug mode: `logging.basicConfig(level=logging.DEBUG)`
-3. Review error messages in state: `result.get('errors', [])`
+---
+
+For more information, see main `README.md`
