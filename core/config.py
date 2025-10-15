@@ -6,10 +6,13 @@ Clean, minimal configuration for autonomous workflow only.
 import os
 from pathlib import Path
 from typing import Optional
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv is optional
 
 
 class Config:
@@ -47,6 +50,19 @@ class Config:
 
     # ========== PDF Processing Settings ==========
     PDF_MAX_SIZE_MB = int(os.getenv("PDF_MAX_SIZE_MB", "50"))
+    
+    # Keyword extraction settings
+    MIN_KEYWORD_LENGTH = int(os.getenv("MIN_KEYWORD_LENGTH", "3"))
+    MAX_KEYWORDS = int(os.getenv("MAX_KEYWORDS", "50"))
+    MIN_KEYWORD_FREQUENCY = int(os.getenv("MIN_KEYWORD_FREQUENCY", "2"))
+    
+    # Vietnamese stopwords (common words to ignore)
+    VIETNAMESE_STOPWORDS = set([
+        "và", "của", "có", "các", "được", "là", "cho", "với", "để", "từ",
+        "trong", "này", "đó", "hay", "hoặc", "nhưng", "vì", "nên", "thì",
+        "đã", "sẽ", "bị", "bởi", "theo", "như", "về", "tại", "trên", "dưới",
+        "một", "hai", "ba", "khi", "nếu", "mà", "cũng", "đều", "không", "chỉ"
+    ])
 
     # ========== Logging Settings ==========
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
