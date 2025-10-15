@@ -30,6 +30,11 @@ class TaskStatus(str, Enum):
 
 class TaskType(str, Enum):
     """Các loại task trong workflow"""
+    # AUTONOMOUS WORKFLOW (Full AI-powered workflow)
+    AUTONOMOUS_LAW_SEARCH = "autonomous_law_search"  # AI tự động tìm và download PDF luật
+    AUTONOMOUS_PDF_ANALYSIS = "autonomous_pdf_analysis"  # AI extract PDF và tạo keywords
+    AUTONOMOUS_OPINION_SEARCH = "autonomous_opinion_search"  # AI tự động search + crawl opinions
+    
     # HYBRID WORKFLOW (Full pipeline - recommended)
     SEARCH_LAW_LIST = "search_law_list"  # Tìm danh sách văn bản luật (với pagination)
     DOWNLOAD_PDFS = "download_pdfs"  # Download PDFs (với hash dedup)
@@ -50,7 +55,6 @@ class TaskType(str, Enum):
 
     # Opinion gathering (common to both workflows)
     SEARCH_OPINIONS = "search_opinions"
-    AUTONOMOUS_OPINION_SEARCH = "autonomous_opinion_search"  # AI tự động search + crawl
     SCRAPE_COMMENTS = "scrape_comments"  # Kept for backward compatibility
     SCRAPE_ARTICLES = "scrape_articles"  # Scrape opinion articles
     EXPORT_DATA = "export_data"
@@ -139,6 +143,9 @@ class AgentState(TypedDict):
     # Input ban đầu
     target_url: Optional[str]  # URL reference (optional, không bắt buộc)
     project_name: str  # Tên dự án/chủ đề (BẮT BUỘC)
+    workflow_type: str  # 'autonomous' hoặc 'hybrid' (mặc định: 'autonomous')
+    max_opinions: int  # Số opinions tối đa (cho autonomous workflow)
+    quality_threshold: float  # Ngưỡng chất lượng (cho autonomous workflow)
 
     # Workflow tracking
     current_task: Optional[Task]
@@ -229,12 +236,21 @@ class ToolResult:
 
 
 # Helper functions
-def create_initial_state(project_name: str, target_url: str = None) -> AgentState:
+def create_initial_state(
+    project_name: str, 
+    target_url: str = None,
+    workflow_type: str = 'autonomous',
+    max_opinions: int = 20,
+    quality_threshold: float = 0.6
+) -> AgentState:
     """Tạo initial state cho workflow"""
     now = datetime.now()
     return AgentState(
         target_url=target_url,
         project_name=project_name,
+        workflow_type=workflow_type,
+        max_opinions=max_opinions,
+        quality_threshold=quality_threshold,
         current_task=None,
         task_history=[],
         current_agent=None,

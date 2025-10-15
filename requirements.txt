@@ -1,13 +1,30 @@
-# Requirements for Autonomous Search Agent
+# Core LangGraph and LangChain dependencies
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-ollama>=0.1.0
+langchain-core>=0.3.0
 
-# Core packages (already in main requirements)
+# Web scraping and automation
 selenium>=4.0.0
 beautifulsoup4>=4.9.0
-langchain-ollama>=0.1.0
 requests>=2.31.0
+undetected-chromedriver>=3.5.0  # Bot detection bypass
 
-# NEW: Bot detection bypass (RECOMMENDED)
-undetected-chromedriver>=3.5.0
+# PDF handling
+PyPDF2>=3.0.0
+pdfplumber>=0.10.0
 
-# Optional: Additional search engines
-duckduckgo-search>=3.9.0  # Alternative API-based search
+# Vector database
+chromadb>=0.4.0
+
+# Data processing and NLP
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Alternative search engines (optional)
+duckduckgo-search>=3.9.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0

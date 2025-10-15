@@ -9,6 +9,10 @@ from langgraph.graph import StateGraph, END
 from core.types import AgentState, TaskType, create_initial_state
 from agents import (
     manager_agent,
+    # Autonomous workflow agents (Full AI-powered)
+    autonomous_law_search_agent,
+    autonomous_pdf_analysis_agent,
+    autonomous_opinion_search_agent,
     # Hybrid workflow agents (RECOMMENDED)
     law_list_search_agent,
     pdf_download_agent,
@@ -19,7 +23,6 @@ from agents import (
     nlp_analysis_agent,
     hybrid_exporter_agent,
     # Article-based workflow agents
-    # New workflow agents
     news_search_agent,
     news_scraper_agent,
     keyword_extractor_agent,
@@ -27,7 +30,6 @@ from agents import (
     web_crawler_agent,
     pdf_handler_agent,
     content_extractor_agent,
-    # Opinion search agents (legacy)
     # Opinion search agents
     search_agent,
     article_analyzer_agent,
@@ -43,6 +45,11 @@ def create_workflow() -> StateGraph:
 
     # Nodes
     workflow.add_node("manager", manager_agent.execute)
+
+    # Autonomous workflow nodes (Full AI-powered)
+    workflow.add_node("autonomous_law_search_agent", autonomous_law_search_agent.execute)
+    workflow.add_node("autonomous_pdf_analysis_agent", autonomous_pdf_analysis_agent.execute)
+    workflow.add_node("autonomous_opinion_search_agent", autonomous_opinion_search_agent.execute)
 
     # Hybrid workflow nodes (RECOMMENDED - Full pipeline)
     workflow.add_node("law_list_search_agent", law_list_search_agent.execute)
@@ -89,6 +96,10 @@ def create_workflow() -> StateGraph:
 
         task_type = current_task.task_type
         next_agent = {
+            # Autonomous workflow routing (Full AI-powered)
+            TaskType.AUTONOMOUS_LAW_SEARCH: "autonomous_law_search_agent",
+            TaskType.AUTONOMOUS_PDF_ANALYSIS: "autonomous_pdf_analysis_agent",
+            TaskType.AUTONOMOUS_OPINION_SEARCH: "autonomous_opinion_search_agent",
             # Hybrid workflow routing (RECOMMENDED)
             TaskType.SEARCH_LAW_LIST: "law_list_search_agent",
             TaskType.DOWNLOAD_PDFS: "pdf_download_agent",
@@ -127,6 +138,10 @@ def create_workflow() -> StateGraph:
         "manager",
         route_from_manager,
         {
+            # Autonomous workflow edges (Full AI-powered)
+            "autonomous_law_search_agent": "autonomous_law_search_agent",
+            "autonomous_pdf_analysis_agent": "autonomous_pdf_analysis_agent",
+            "autonomous_opinion_search_agent": "autonomous_opinion_search_agent",
             # Hybrid workflow edges (RECOMMENDED)
             "law_list_search_agent": "law_list_search_agent",
             "pdf_download_agent": "pdf_download_agent",
@@ -155,6 +170,8 @@ def create_workflow() -> StateGraph:
 
     # All nodes return to manager after completion
     all_nodes = [
+        # Autonomous workflow nodes
+        "autonomous_law_search_agent", "autonomous_pdf_analysis_agent", "autonomous_opinion_search_agent",
         # Hybrid workflow nodes
         "law_list_search_agent", "pdf_download_agent", "pdf_content_extractor_agent",
         "vector_db_storage_agent", "enhanced_opinion_search_agent",
@@ -171,7 +188,13 @@ def create_workflow() -> StateGraph:
 
     return workflow
 
-async def run_workflow_async(project_name: str, target_url: str = None) -> Dict[str, Any]:
+async def run_workflow_async(
+    project_name: str, 
+    target_url: str = None,
+    workflow_type: str = 'autonomous',
+    max_opinions: int = 20,
+    quality_threshold: float = 0.6
+) -> Dict[str, Any]:
     """
     Chạy workflow bất đồng bộ với project name (chủ đề).
     
@@ -179,17 +202,29 @@ async def run_workflow_async(project_name: str, target_url: str = None) -> Dict[
     Args:
         project_name: Tên dự luật/chủ đề (BẮT BUỘC)
         target_url: URL tham khảo (KHÔNG BẮT BUỘC, có thể None)
+        workflow_type: 'autonomous' hoặc 'hybrid' (mặc định: 'autonomous')
+        max_opinions: Số opinions tối đa cho autonomous workflow (mặc định: 20)
+        quality_threshold: Ngưỡng chất lượng cho autonomous workflow (mặc định: 0.6)
     """
     try:
         logger.info("=" * 80)
-        logger.info("Starting AutoData Workflow (Article-Based)")
+        logger.info(f"Starting AutoData Workflow ({workflow_type.upper()})")
         logger.info("=" * 80)
         logger.info(f"Topic/Project: {project_name}")
         if target_url:
             logger.info(f"Reference URL: {target_url}")
+        if workflow_type == 'autonomous':
+            logger.info(f"Max Opinions: {max_opinions}")
+            logger.info(f"Quality Threshold: {quality_threshold}")
         logger.info("=" * 80)
 
-        initial_state = create_initial_state(project_name, target_url)
+        initial_state = create_initial_state(
+            project_name=project_name,
+            target_url=target_url,
+            workflow_type=workflow_type,
+            max_opinions=max_opinions,
+            quality_threshold=quality_threshold
+        )
         workflow = create_workflow()
         app = workflow.compile(
             checkpointer=None,

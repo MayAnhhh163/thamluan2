@@ -15,9 +15,14 @@ logger = logging.getLogger(__name__)
 
 class ManagerAgent(BaseAgent):
     """
-    Manager Agent - Orchestrator của HYBRID WORKFLOW.
+    Manager Agent - Orchestrator cho cả AUTONOMOUS và HYBRID workflows.
 
-    Pipeline:
+    AUTONOMOUS WORKFLOW (Full AI-powered - 3 steps):
+    1. AUTONOMOUS_LAW_SEARCH → AI tìm và download PDF luật
+    2. AUTONOMOUS_PDF_ANALYSIS → AI extract PDF + tạo keywords
+    3. AUTONOMOUS_OPINION_SEARCH → AI search + crawl + analyze opinions + export
+    
+    HYBRID WORKFLOW (Manual control - 8 steps):
     1. SEARCH_LAW_LIST → Tìm danh sách dự thảo luật
     2. DOWNLOAD_PDFS → Download PDFs
     3. EXTRACT_PDF_CONTENT → Extract nội dung + keywords
@@ -32,7 +37,7 @@ class ManagerAgent(BaseAgent):
         super().__init__(
             role=AgentRole.MANAGER,
             name="Manager Agent",
-            description="Orchestrates HYBRID workflow"
+            description="Orchestrates AUTONOMOUS and HYBRID workflows"
         )
         self.system_prompt = load_prompt("manager_system.md")
 
@@ -53,23 +58,35 @@ class ManagerAgent(BaseAgent):
             return self.log_error(state, f"Manager execution failed: {str(e)}")
 
     async def _start_workflow(self, state: AgentState) -> AgentState:
-        """Bắt đầu HYBRID workflow."""
-        logger.info("Starting HYBRID workflow...")
-
+        """Bắt đầu workflow - Auto-detect AUTONOMOUS hoặc HYBRID."""
         target_url = state.get('target_url')
         project_name = state['project_name']
-
+        
+        # Check if user wants autonomous workflow
+        # If workflow_type is specified in state, use it
+        # Otherwise, default to AUTONOMOUS (simpler and faster)
+        workflow_type = state.get('workflow_type', 'autonomous')
+        
         logger.info(f"Project/Topic: {project_name}")
         if target_url:
             logger.info(f"Reference URL: {target_url}")
         else:
             logger.info("Reference URL: Not provided")
-
-        # Start with SEARCH_LAW_LIST
-        task = self.create_task(
-            task_type=TaskType.SEARCH_LAW_LIST.value,
-            input_data={'topic': project_name, 'reference_url': target_url}
-        )
+        
+        if workflow_type == 'autonomous':
+            logger.info("Starting AUTONOMOUS workflow (Full AI-powered)...")
+            # Start with AUTONOMOUS_LAW_SEARCH
+            task = self.create_task(
+                task_type=TaskType.AUTONOMOUS_LAW_SEARCH.value,
+                input_data={'topic': project_name}
+            )
+        else:
+            logger.info("Starting HYBRID workflow...")
+            # Start with SEARCH_LAW_LIST
+            task = self.create_task(
+                task_type=TaskType.SEARCH_LAW_LIST.value,
+                input_data={'topic': project_name, 'reference_url': target_url}
+            )
 
         state = self.update_state(state, {'current_task': task})
         from core.types import update_state_task
@@ -102,6 +119,42 @@ class ManagerAgent(BaseAgent):
                    (current_task and current_task.task_type == task_type)
 
         next_task = None
+
+        # ========================================================================
+        # AUTONOMOUS WORKFLOW LOGIC (3 Steps - Full AI-powered)
+        # ========================================================================
+        
+        # Step 1: AUTONOMOUS_LAW_SEARCH → AUTONOMOUS_PDF_ANALYSIS
+        if TaskType.AUTONOMOUS_LAW_SEARCH in completed_types and TaskType.AUTONOMOUS_PDF_ANALYSIS not in completed_types:
+            if not task_already_created(TaskType.AUTONOMOUS_PDF_ANALYSIS):
+                # PDF may or may not have been downloaded, that's OK
+                next_task = self.create_task(
+                    task_type=TaskType.AUTONOMOUS_PDF_ANALYSIS.value,
+                    input_data={}
+                )
+                logger.info("📄 Next: AI extract PDF and create keywords")
+        
+        # Step 2: AUTONOMOUS_PDF_ANALYSIS → AUTONOMOUS_OPINION_SEARCH
+        elif TaskType.AUTONOMOUS_PDF_ANALYSIS in completed_types and TaskType.AUTONOMOUS_OPINION_SEARCH not in completed_types:
+            if not task_already_created(TaskType.AUTONOMOUS_OPINION_SEARCH):
+                # Get config from state or use defaults
+                max_articles = state.get('max_opinions', 20)
+                quality_threshold = state.get('quality_threshold', 0.6)
+                
+                next_task = self.create_task(
+                    task_type=TaskType.AUTONOMOUS_OPINION_SEARCH.value,
+                    input_data={
+                        'max_articles': max_articles,
+                        'quality_threshold': quality_threshold
+                    }
+                )
+                logger.info(f"🔍 Next: AI autonomous search (max={max_articles}, threshold={quality_threshold})")
+        
+        # Step 3: AUTONOMOUS_OPINION_SEARCH → Complete (autonomous search already includes export)
+        elif TaskType.AUTONOMOUS_OPINION_SEARCH in completed_types:
+            logger.info("✅ AUTONOMOUS Workflow completed successfully!")
+            state['is_complete'] = True
+            return state
 
         # ========================================================================
         # HYBRID WORKFLOW LOGIC (8 Steps)

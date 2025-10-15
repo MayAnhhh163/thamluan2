@@ -23,10 +23,19 @@ from .hybrid_agents import (
     nlp_analysis_agent,
     hybrid_exporter_agent
 )
+from .autonomous_agents import (
+    autonomous_law_search_agent,
+    autonomous_pdf_analysis_agent,
+    autonomous_opinion_search_agent
+)
 
 __all__ = [
     "BaseAgent",
     "manager_agent",
+    # Autonomous workflow agents (Full AI-powered)
+    "autonomous_law_search_agent",
+    "autonomous_pdf_analysis_agent",
+    "autonomous_opinion_search_agent",
     # Hybrid workflow agents (RECOMMENDED)
     "law_list_search_agent",
     "pdf_download_agent",
@@ -41,15 +50,6 @@ __all__ = [
     "news_scraper_agent",
     "keyword_extractor_agent",
     # Old PDF workflow agents (legacy)
-    "web_crawler_agent",
-    "pdf_handler_agent",
-    "content_extractor_agent",
-    # Opinion search agents (legacy)
-    # New workflow agents
-    "news_search_agent",
-    "news_scraper_agent",
-    "keyword_extractor_agent",
-    # Old PDF workflow agents
     "web_crawler_agent",
     "pdf_handler_agent",
     "content_extractor_agent",
