@@ -1,91 +1,80 @@
 # 🤖 Autonomous AI Agent System - LangGraph
 
-Hệ thống AI Agent tự động thu thập và phân tích ý kiến về dự luật sử dụng framework LangGraph.
+Hệ thống AI Agent tự động thu thập và phân tích ý kiến về dự luật, được xây dựng trên framework LangGraph.
 
-## 🎯 Tổng quan
+## 📋 Tổng quan
 
-Autonomous AI Agent System là một workflow hoàn toàn tự động, sử dụng AI để:
+**Autonomous AI Agent** là một workflow hoàn toàn tự động, chỉ cần nhập tên dự luật, AI sẽ tự động:
 
-1. **Tìm văn bản luật**: AI tự động tìm và download PDF văn bản luật chính thức
-2. **Phân tích PDF**: AI extract nội dung và tạo keywords
-3. **Thu thập ý kiến**: AI tự động search, crawl và phân tích opinions với sentiment/stance
+1. 🔍 **Tìm văn bản luật** - AI tìm và download PDF chính thức
+2. 📄 **Phân tích PDF** - AI extract keywords quan trọng
+3. 💬 **Thu thập ý kiến** - AI search, crawl và phân tích opinions
 
 ## 🏗️ Kiến trúc LangGraph
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                   MANAGER AGENT                      │
-│            (Điều phối workflow)                      │
-└────────────┬────────────────────────────────────────┘
-             │
-             ▼
-┌────────────────────────────────────────────────────┐
-│  PHASE 1: Autonomous Law Search Agent              │
-│  - AI tìm văn bản luật                             │
-│  - AI đánh giá và chọn document tốt nhất           │
-│  - Download PDF tự động                            │
-└────────────┬───────────────────────────────────────┘
-             │
-             ▼
-┌────────────────────────────────────────────────────┐
-│  PHASE 2: Autonomous PDF Analysis Agent            │
-│  - Extract nội dung từ PDF                         │
-│  - AI extract keywords quan trọng                  │
-│  - Chuẩn bị keywords cho search                    │
-└────────────┬───────────────────────────────────────┘
-             │
-             ▼
-┌────────────────────────────────────────────────────┐
-│  PHASE 3: Autonomous Opinion Search Agent          │
-│  - AI sinh search queries                          │
-│  - Search DuckDuckGo tự động                       │
-│  - AI đánh giá relevance                           │
-│  - Crawl nội dung                                  │
-│  - AI đánh giá chất lượng                          │
-│  - Phân tích sentiment & stance                    │
-│  - Export CSV tự động                              │
-└────────────────────────────────────────────────────┘
+┌────────────────────────────────────┐
+│        MANAGER AGENT                │
+│     (Orchestrator)                  │
+└──────────┬─────────────────────────┘
+           │
+           ▼
+┌────────────────────────────────────┐
+│  Phase 1: Law Search Agent          │
+│  • Tìm văn bản luật                 │
+│  • AI chọn document tốt nhất        │
+│  • Download PDF                     │
+└──────────┬─────────────────────────┘
+           │
+           ▼
+┌────────────────────────────────────┐
+│  Phase 2: PDF Analysis Agent        │
+│  • Extract nội dung PDF             │
+│  • AI extract keywords              │
+└──────────┬─────────────────────────┘
+           │
+           ▼
+┌────────────────────────────────────┐
+│  Phase 3: Opinion Search Agent      │
+│  • AI sinh search queries           │
+│  • Search DuckDuckGo                │
+│  • AI đánh giá relevance            │
+│  • Crawl nội dung                   │
+│  • AI đánh giá chất lượng           │
+│  • Phân tích sentiment & stance     │
+│  • Export CSV                       │
+└────────────────────────────────────┘
 ```
 
-## 📁 Cấu trúc thư mục
+## 📁 Cấu trúc
 
 ```
-/
-├── agents/                      # LangGraph AI Agents
-│   ├── __init__.py
-│   ├── base.py                 # Base Agent class
-│   ├── manager.py              # Manager Agent (orchestrator)
-│   └── autonomous_agents.py    # 3 autonomous agents
+autonomous-ai-agent/
+├── agents/                 # 🤖 LangGraph Agents
+│   ├── base.py            # Base Agent class
+│   ├── manager.py         # Manager (orchestrator)
+│   └── autonomous_agents.py   # 3 autonomous agents
 │
-├── core/                       # Core system
-│   ├── __init__.py
-│   ├── config.py              # Configuration
-│   ├── types.py               # Type definitions
-│   └── workflow.py            # LangGraph workflow setup
+├── core/                   # 🏗️ Core System
+│   ├── config.py          # Configuration
+│   ├── types.py           # State & Task definitions
+│   └── workflow.py        # LangGraph workflow
 │
-├── tools/                      # Tools for agents
-│   ├── law_list_crawler.py   # Tìm văn bản luật
-│   ├── pdf_downloader.py     # Download PDFs
-│   ├── pdf_extractor.py      # Extract PDF content
-│   ├── ollama_autonomous_search.py  # Autonomous search
-│   └── nlp_analyzer.py       # NLP analysis
+├── tools/                  # 🔧 Tools
+│   ├── law_list_crawler.py
+│   ├── pdf_downloader.py
+│   ├── pdf_extractor.py
+│   ├── ollama_autonomous_search.py
+│   └── nlp_analyzer.py
 │
-├── utils/                      # Utilities
-│   ├── logging.py            # Logging setup
-│   └── cli.py                # CLI argument parsing
+├── utils/                  # 🛠️ Utilities
+│   ├── logging.py
+│   └── cli.py
 │
-├── prompts/                    # Prompts for LLM
-│   └── manager_system.md
-│
-├── data/                       # Data storage
-│   ├── pdfs/                 # Downloaded PDFs
-│   └── csv/                  # CSV outputs
-│
-├── logs/                       # Log files
-│
-├── main.py                     # Entry point
-├── requirements.txt            # Dependencies
-└── README.md                   # This file
+├── prompts/               # 💬 LLM Prompts
+├── data/                  # 📦 Data (PDFs, CSVs)
+├── logs/                  # 📝 Logs
+└── main.py               # 🚀 Entry point
 ```
 
 ## 🚀 Quick Start
@@ -95,13 +84,12 @@ Autonomous AI Agent System là một workflow hoàn toàn tự động, sử d�
 ```bash
 # Clone repository
 git clone <repo-url>
-cd <repo-name>
+cd autonomous-ai-agent
 
 # Tạo virtual environment
 python3 -m venv .venv
 source .venv/bin/activate  # Linux/Mac
-# hoặc
-.venv\Scripts\activate  # Windows
+# .venv\Scripts\activate   # Windows
 
 # Cài đặt dependencies
 pip install -r requirements.txt
@@ -113,22 +101,22 @@ pip install -r requirements.txt
 # Start Ollama server
 ollama serve
 
-# Pull model (trong terminal khác)
+# Pull model (terminal khác)
 ollama pull llama3.2:3b
 ```
 
-### 3. Chạy workflow
+### 3. Chạy
 
 ```bash
 python main.py
 ```
 
-Sau đó nhập:
-- Tên dự luật/chủ đề
-- Số opinions tối đa (mặc định: 20)
-- Quality threshold (mặc định: 0.6)
+Nhập:
+- **Tên dự luật**: ví dụ "Luật Trí tuệ nhân tạo 2025"
+- **Số opinions**: mặc định 20
+- **Quality threshold**: mặc định 0.6 (0-1)
 
-## 💻 Sử dụng trong code
+## 💻 Sử dụng trong Code
 
 ```python
 import asyncio
@@ -141,58 +129,87 @@ async def main():
         quality_threshold=0.6
     )
     
+    print(f"✅ PDF: {result['pdf_local_path']}")
+    print(f"✅ Keywords: {result['search_queries']}")
+    print(f"✅ Opinions: {len(result['analyzed_opinions'])}")
     print(f"✅ CSV: {result['csv_output_path']}")
-    print(f"📊 Opinions: {len(result['analyzed_opinions'])}")
 
 asyncio.run(main())
 ```
 
-## 🎨 Tính năng
+## 🎯 Workflow (3 Steps)
 
-### AI-Powered
-✅ **Intelligent Document Search**: AI chọn văn bản luật chính xác nhất  
-✅ **Smart Keyword Extraction**: AI extract keywords từ PDF  
-✅ **Autonomous Search**: AI sinh search queries đa dạng  
-✅ **DuckDuckGo Search**: Search đáng tin cậy, không bot detection  
-✅ **Quality Assessment**: AI đánh giá chất lượng trước khi lưu  
-✅ **Sentiment Analysis**: Phân tích cảm xúc tự động  
-✅ **Stance Detection**: Phát hiện quan điểm (ủng hộ/phản đối/trung lập)
+### Step 1: Autonomous Law Search
+**Agent**: `AutonomousLawSearchAgent`  
+**Task**: `AUTONOMOUS_LAW_SEARCH`
 
-### LangGraph Framework
-✅ **State Management**: Quản lý state chuẩn LangGraph  
-✅ **Agent Orchestration**: Manager điều phối các agents  
-✅ **Error Handling**: Xử lý lỗi tích hợp  
-✅ **Async Support**: Hỗ trợ async/await đầy đủ  
-✅ **Logging**: Centralized logging  
-✅ **Type Safety**: TypedDict và dataclass
+- Tìm văn bản luật trên duthaoonline
+- AI đánh giá và chọn document relevant nhất
+- Download PDF tự động
 
-## 📊 Output
+### Step 2: Autonomous PDF Analysis
+**Agent**: `AutonomousPdfAnalysisAgent`  
+**Task**: `AUTONOMOUS_PDF_ANALYSIS`
 
-Workflow tạo file CSV với các cột:
+- Extract nội dung từ PDF
+- AI extract 10-15 keywords quan trọng
+- Chuẩn bị keywords cho opinion search
 
-| Cột | Mô tả |
-|-----|-------|
+### Step 3: Autonomous Opinion Search
+**Agent**: `AutonomousOpinionSearchAgent`  
+**Task**: `AUTONOMOUS_OPINION_SEARCH`
+
+- AI sinh 5 search queries đa dạng
+- Search DuckDuckGo tự động
+- AI đánh giá từng kết quả (relevant?)
+- Crawl nội dung từ URLs relevant
+- AI đánh giá chất lượng (0-10)
+- Phân tích sentiment và stance
+- Export CSV
+
+## 📊 Output CSV
+
+| Column | Description |
+|--------|-------------|
 | title | Tiêu đề bài viết |
 | url | URL nguồn |
 | source | Domain |
 | quality_score | Điểm chất lượng (0-1) |
 | sentiment | positive/negative/neutral |
 | stance | support/oppose/neutral |
-| stance_confidence | Độ tin cậy stance (0-1) |
+| stance_confidence | Độ tin cậy (0-1) |
 | support_score | Điểm ủng hộ |
 | oppose_score | Điểm phản đối |
 | relevance | high/medium/low |
 | quality_feedback | Nhận xét AI |
-| key_points | Các điểm chính |
+| key_points | Điểm chính |
 | search_query | Query đã dùng |
 | content_preview | Preview nội dung |
 
-## 🔧 Configuration
+## 🎨 Tính năng
 
-File `.env` (tùy chọn):
+### AI-Powered
+✅ Intelligent Document Search  
+✅ Smart Keyword Extraction  
+✅ Autonomous Search Query Generation  
+✅ DuckDuckGo Search (no bot detection)  
+✅ Quality Assessment  
+✅ Sentiment Analysis  
+✅ Stance Detection  
+
+### LangGraph Framework
+✅ State Management  
+✅ Agent Orchestration  
+✅ Error Handling  
+✅ Async Support  
+✅ Type Safety  
+
+## ⚙️ Configuration
+
+Create `.env` file (optional):
 
 ```env
-# LLM Model
+# LLM
 LLM_MODEL=llama3.2:3b
 OLLAMA_BASE_URL=http://localhost:11434
 
@@ -200,67 +217,68 @@ OLLAMA_BASE_URL=http://localhost:11434
 DATA_DIR=data
 PDF_DIR=data/pdfs
 CSV_DIR=data/csv
-VECTOR_DB_DIR=data/vector_db
 
 # Logging
 LOG_LEVEL=INFO
 LOG_FILE=logs/autodata.log
 ```
 
-## 🐛 Troubleshooting
+## 🔧 Troubleshooting
 
 ### Ollama không chạy
 ```bash
-# Start Ollama
 ollama serve
-
-# Kiểm tra models
 ollama list
-
-# Pull model nếu cần
 ollama pull llama3.2:3b
 ```
 
 ### Chrome Driver lỗi
 ```bash
-# Cài đặt undetected-chromedriver
 pip install undetected-chromedriver
-
-# Ubuntu/Debian - cài Chrome
-sudo apt-get install chromium-browser chromium-chromedriver
+# Ubuntu: sudo apt-get install chromium-browser chromium-chromedriver
 ```
 
-### DuckDuckGo không trả kết quả
-- Kiểm tra kết nối internet
-- Thử lại sau vài phút
-- DuckDuckGo có thể giới hạn requests
+### DuckDuckGo không có kết quả
+- Kiểm tra internet
+- Đợi vài phút và thử lại
 
-## 📖 Documentation
+## 📈 Performance
 
-- **README_AUTONOMOUS.md**: Hướng dẫn chi tiết autonomous workflow
-- **CHANGELOG.md**: Lịch sử thay đổi
-- **REFACTORING_SUMMARY.md**: Tổng kết refactoring
+**Typical Runtime** (20 opinions):
+- Phase 1: 30-60 giây
+- Phase 2: 10-20 giây
+- Phase 3: 10-15 phút
+
+**Total**: ~15-20 phút
+
+## 🛠️ Extend
+
+Để thêm agent mới:
+
+1. Tạo agent trong `agents/autonomous_agents.py`
+2. Thêm TaskType trong `core/types.py`
+3. Update routing trong `core/workflow.py`
+4. Update Manager trong `agents/manager.py`
+
+## 📚 Documentation
+
+- **README.md** - This file
+- **LANGGRAPH_STRUCTURE.md** - Chi tiết kiến trúc LangGraph
 
 ## 🤝 Contributing
 
-Workflow này được xây dựng theo chuẩn LangGraph AI Agent framework. Để mở rộng:
-
-1. Tạo agent mới trong `agents/`
-2. Thêm TaskType mới vào `core/types.py`
-3. Cập nhật routing trong `core/workflow.py`
-4. Update Manager orchestration trong `agents/manager.py`
+Follow LangGraph best practices:
+- Single responsibility per agent
+- Clear state management
+- Proper error handling
+- Type safety
 
 ## 📝 License
 
 MIT License
 
-## 👥 Support
-
-Nếu gặp vấn đề:
-1. Kiểm tra logs trong `logs/`
-2. Enable debug: `logging.basicConfig(level=logging.DEBUG)`
-3. Xem errors trong state: `result.get('errors', [])`
-
 ---
 
-Made with ❤️ using LangGraph AI Agent Framework
+**Made with ❤️ using LangGraph AI Agent Framework**
+
+🚀 **Ready to use!** Run `python main.py`

@@ -1,29 +1,28 @@
-# Core LangGraph and LangChain dependencies
+# AUTONOMOUS AI AGENT SYSTEM - LangGraph
+# Minimal dependencies for autonomous workflow
+
+# LangGraph & LangChain (Core AI Agent Framework)
 langgraph>=0.2.0
 langchain>=0.3.0
 langchain-ollama>=0.1.0
 langchain-core>=0.3.0
 
-# Web scraping and automation
+# Web Automation (DuckDuckGo search with Selenium)
 selenium>=4.0.0
 beautifulsoup4>=4.9.0
-requests>=2.31.0
-undetected-chromedriver>=3.5.0  # Bot detection bypass
+undetected-chromedriver>=3.5.0
 
-# PDF handling
+# PDF Processing
 PyPDF2>=3.0.0
 pdfplumber>=0.10.0
 
-# Vector database
-chromadb>=0.4.0
-
-# Data processing and NLP
+# NLP & Data Processing
 pandas>=2.0.0
 numpy>=1.24.0
 scikit-learn>=1.3.0
 
-# Alternative search engines (optional)
-duckduckgo-search>=3.9.0
+# HTTP Requests
+requests>=2.31.0
 
 # Utilities
 python-dotenv>=1.0.0
