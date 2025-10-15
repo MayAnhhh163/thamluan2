@@ -1,0 +1,657 @@
+2025-10-15 19:35:15 - root - [32mINFO[0m - ============================================================
+2025-10-15 19:35:15 - root - [32mINFO[0m - Logging initialized
+2025-10-15 19:35:15 - root - [32mINFO[0m - Log level: INFO
+2025-10-15 19:35:15 - root - [32mINFO[0m - Log file: D:\AutoData2\AutoData2\LawInTech\logs\autodata_20251015_193515.log
+2025-10-15 19:35:15 - root - [32mINFO[0m - ============================================================
+2025-10-15 19:35:15 - root - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:15 - root - [32mINFO[0m - 🤖 AUTONOMOUS AI AGENT SYSTEM - LangGraph
+2025-10-15 19:35:15 - root - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:15 - root - [32mINFO[0m - Full AI-powered workflow:
+2025-10-15 19:35:15 - root - [32mINFO[0m -   1. AI tìm và download PDF văn bản luật
+2025-10-15 19:35:15 - root - [32mINFO[0m -   2. AI extract PDF và tạo keywords
+2025-10-15 19:35:15 - root - [32mINFO[0m -   3. AI search + crawl + analyze opinions
+2025-10-15 19:35:15 - root - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:29 - root - [32mINFO[0m - Topic/Project: Luật trí tuệ nhân tạo
+2025-10-15 19:35:38 - root - [32mINFO[0m - Max Opinions: 20
+2025-10-15 19:35:38 - root - [32mINFO[0m - Quality Threshold: 0.8
+2025-10-15 19:35:38 - root - [32mINFO[0m - 
+🚀 Starting AUTONOMOUS workflow...
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - 🤖 AUTONOMOUS AI WORKFLOW - LangGraph
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - Topic/Project: Luật trí tuệ nhân tạo
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - Max Opinions: 20
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - Quality Threshold: 0.8
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - → Executing workflow...
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - Starting AUTONOMOUS AI workflow...
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - Project/Topic: Luật trí tuệ nhân tạo
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - Max Opinions: 20
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - Quality Threshold: 0.8
+2025-10-15 19:35:38 - agents.base - [32mINFO[0m - Created task: manager_20251015_193538 (autonomous_law_search)
+2025-10-15 19:35:38 - agents.manager - [32mINFO[0m - ✅ Created first task: autonomous_law_search
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - → Routing: current_task=autonomous_law_search, is_complete=False
+2025-10-15 19:35:38 - core.workflow - [32mINFO[0m - → Routing to: autonomous_law_search
+2025-10-15 19:35:38 - agents.autonomous_agents - [32mINFO[0m - 🤖 Autonomous Law Search Agent executing...
+2025-10-15 19:35:38 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:38 - agents.autonomous_agents - [32mINFO[0m - 📋 PHASE 1: AI TÌM VĂN BẢN LUẬT CHÍNH THỨC
+2025-10-15 19:35:38 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:38 - agents.autonomous_agents - [32mINFO[0m - 🔍 Searching for law documents: 'Luật trí tuệ nhân tạo'
+2025-10-15 19:35:38 - tools.law_list_crawler - [32mINFO[0m - 🔍 Crawling law list for topic: 'Luật trí tuệ nhân tạo'
+2025-10-15 19:35:38 - tools.law_list_crawler - [32mINFO[0m - 📍 Source: https://duthaoonline.quochoi.vn/du-thao
+2025-10-15 19:35:38 - tools.law_list_crawler - [32mINFO[0m - 🎯 Similarity threshold: 0.8
+2025-10-15 19:35:40 - tools.law_list_crawler - [32mINFO[0m - ✅ Chrome driver initialized (headless mode)
+2025-10-15 19:35:40 - tools.law_list_crawler - [32mINFO[0m - 🌐 Loading page: https://duthaoonline.quochoi.vn/du-thao
+2025-10-15 19:35:40 - tools.law_list_crawler - [32mINFO[0m - ⏳ Waiting for content to load...
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m - ✅ Page loaded successfully
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m - 📄 Found 10 articles on page
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m - 📄 Extracted 10 article entries
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 1/10:
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Trí tuệ nhân tạo...
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 100.00%
+2025-10-15 19:35:44 - tools.law_list_crawler - [32mINFO[0m -    ✅ MATCH! (threshold: 0.8)
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -   → Found PDF: https://gatewayduthaoonline.quochoi.vn/uploadFiles/host/local/2025/10/9/9/75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    💾 Saved: 1/10
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 2/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Đầu tư kinh doanh...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 51.16%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 3/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Quy hoạch Đô thị và nông thôn...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 27.96%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 4/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Xây dựng (sửa đổi)...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 36.36%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 5/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Thống kê số 89/2015/QH13 và Luật số 0...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 10.68%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 6/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Quản lý thuế (sửa đổi)...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 41.67%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 7/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật Công nghệ cao (sửa đổi)...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 36.73%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 8/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Kinh doanh bảo hiểm...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 33.73%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 9/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Sở hữu trí tuệ...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 30.77%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m - 📰 Article 10/10:
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Title: Luật sửa đổi, bổ sung một số điều của Luật Chuyển giao công nghệ...
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    Similarity: 28.24%
+2025-10-15 19:35:48 - tools.law_list_crawler - [32mINFO[0m -    ❌ Below threshold, skipping
+2025-10-15 19:35:51 - tools.law_list_crawler - [32mINFO[0m - ✅ Chrome driver closed
+2025-10-15 19:35:51 - tools.law_list_crawler - [32mINFO[0m - ✅ Crawl complete: 1 documents found
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - ✅ Found 1 relevant law documents
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - 📥 Downloading PDF: Luật Trí tuệ nhân tạo
+2025-10-15 19:35:51 - tools.pdf_downloader - [32mINFO[0m - ✓ PDF already exists (doc_id): cfbc89c1df09676e
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - ✅ PDF downloaded: D:\AutoData2\AutoData2\thamluan\data\pdfs\75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-15 19:35:51 - agents.base - [32mINFO[0m - Task completed: manager_20251015_193538
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - Current task: autonomous_law_search - completed
+2025-10-15 19:35:51 - agents.base - [32mINFO[0m - Created task: manager_20251015_193551 (autonomous_pdf_analysis)
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - 📄 Next: AI extract PDF and create keywords
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - ✅ Setting next task: autonomous_pdf_analysis (status: pending)
+2025-10-15 19:35:51 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=autonomous_pdf_analysis
+2025-10-15 19:35:51 - core.workflow - [32mINFO[0m - → Routing: current_task=autonomous_pdf_analysis, is_complete=False
+2025-10-15 19:35:51 - core.workflow - [32mINFO[0m - → Routing to: autonomous_pdf_analysis
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - 🤖 Autonomous PDF Analysis Agent executing...
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - 📄 PHASE 2: AI EXTRACT NỘI DUNG PDF
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:35:51 - agents.autonomous_agents - [32mINFO[0m - 📄 Extracting PDF: D:\AutoData2\AutoData2\thamluan\data\pdfs\75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-15 19:35:51 - tools.pdf_extractor - [32mINFO[0m - Extracting text from 75ecb748d62c41659cb717132a353c2a.pdf using pdfplumber
+2025-10-15 19:35:56 - tools.pdf_extractor - [32mINFO[0m - Extracted 81169 characters from 75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-15 19:35:56 - tools.pdf_extractor - [32mINFO[0m - Extracted 50 keywords
+2025-10-15 19:35:56 - tools.pdf_extractor - [32mINFO[0m - Extracted 20 key phrases
+2025-10-15 19:35:56 - tools.pdf_extractor - [32mINFO[0m - Extracted all content from 75ecb748d62c41659cb717132a353c2a.pdf
+2025-10-15 19:35:56 - agents.autonomous_agents - [32mINFO[0m - ✅ Extracted 0 characters
+2025-10-15 19:35:56 - agents.autonomous_agents - [32mINFO[0m - 🧠 AI extracting keywords from PDF content...
+2025-10-15 19:36:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - ✅ AI extracted 5 keywords
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m -    Keywords: Quyền, Miễn, Đóng, Bảo hiểm, Y tế...
+2025-10-15 19:36:04 - agents.base - [32mINFO[0m - Task completed: manager_20251015_193551
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - Current task: autonomous_pdf_analysis - completed
+2025-10-15 19:36:04 - agents.base - [32mINFO[0m - Created task: manager_20251015_193604 (autonomous_opinion_search)
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - 🔍 Next: AI autonomous search (max=20, threshold=0.8)
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - 🔍 End of Manager logic: next_task=True, is_complete=False
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - ✅ Setting next task: autonomous_opinion_search (status: pending)
+2025-10-15 19:36:04 - agents.manager - [32mINFO[0m - 🔄 Manager returning state with current_task=autonomous_opinion_search
+2025-10-15 19:36:04 - core.workflow - [32mINFO[0m - → Routing: current_task=autonomous_opinion_search, is_complete=False
+2025-10-15 19:36:04 - core.workflow - [32mINFO[0m - → Routing to: autonomous_opinion_search
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - 🤖 Autonomous Opinion Search Agent executing...
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - 🔍 PHASE 3: AI AUTONOMOUS SEARCH OPINIONS
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - ================================================================================
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - Target: 20 articles (quality >= 0.8)
+2025-10-15 19:36:04 - agents.autonomous_agents - [32mINFO[0m - Using 5 keywords from PDF
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - ================================================================================
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - 🤖 OLLAMA AUTONOMOUS SEARCH AGENT
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - ================================================================================
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - Topic: Luật trí tuệ nhân tạo Quyền Miễn Đóng
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - Target: 20 high-quality articles
+2025-10-15 19:36:04 - tools.ollama_autonomous_search - [32mINFO[0m - Quality threshold: 0.8
+2025-10-15 19:36:05 - undetected_chromedriver.patcher - [32mINFO[0m - patching driver executable C:\Users\huyen\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-15 19:36:08 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ Chrome driver initialized (undetected mode)
+2025-10-15 19:36:11 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:13 - tools.ollama_autonomous_search - [32mINFO[0m - 📝 Generated 5 search queries
+2025-10-15 19:36:13 - tools.ollama_autonomous_search - [32mINFO[0m - 
+============================================================
+2025-10-15 19:36:13 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Query 1/5: 'Ý kiến chuyên gia luật trí tuệ nhân tạo Quyền Miễn Đóng'
+2025-10-15 19:36:13 - tools.ollama_autonomous_search - [32mINFO[0m - ============================================================
+2025-10-15 19:36:13 - tools.ollama_autonomous_search - [32mINFO[0m - 🦆 Searching on DuckDuckGo...
+2025-10-15 19:36:19 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ DuckDuckGo found 10 results
+2025-10-15 19:36:19 - tools.ollama_autonomous_search - [32mINFO[0m - Found 10 search results
+2025-10-15 19:36:19 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [1] Evaluating: Tổng hợp nội dung đáng chú ý của dự thảo Luật Trí tuệ nhân t...
+2025-10-15 19:36:22 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:22 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:36:27 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 642 chars
+2025-10-15 19:36:29 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:32 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung tổng hợp thông tin về dự thảo Luật Trí tu
+2025-10-15 19:36:32 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:36:34 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [2] Evaluating: Dự thảo Luật Trí tuệ nhân tạo - baochinhphu.vn...
+2025-10-15 19:36:37 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:37 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:36:41 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 506 chars
+2025-10-15 19:36:44 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:46 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung liên quan và có giá trị
+2025-10-15 19:36:46 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:36:48 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [3] Evaluating: 10 nội dung đáng chú ý tại dự thảo Luật Trí tuệ nhân tạo...
+2025-10-15 19:36:50 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:36:50 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:36:54 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 559 chars
+2025-10-15 19:36:57 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:00 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung chi tiết và chính xác về dự thảo Luật Trí
+2025-10-15 19:37:00 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:37:02 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [4] Evaluating: Luật Trí tuệ nhân tạo - Bước đi chiến lược kiến tạo nền tảng...
+2025-10-15 19:37:05 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:05 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:37:09 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 653 chars
+2025-10-15 19:37:12 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:14 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung cung cấp thông tin chi tiết về dự thảo Lu
+2025-10-15 19:37:14 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:37:16 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [5] Evaluating: Góp ý Luật Trí tuệ nhân tạo: Không nên quy định cứng nhắc gâ...
+2025-10-15 19:37:19 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:19 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:37:23 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 630 chars
+2025-10-15 19:37:26 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:28 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Góp ý cụ thể và có liên quan đến chủ đề
+2025-10-15 19:37:28 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:37:30 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [6] Evaluating: Dự thảo Luật Trí tuệ nhân tạo: 9 trường hợp bị cấm - VnEcono...
+2025-10-15 19:37:33 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:33 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:37:37 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 540 chars
+2025-10-15 19:37:40 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:42 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung liên quan đến dự thảo Luật Trí tuệ nhân t
+2025-10-15 19:37:42 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:37:44 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [7] Evaluating: Ngoại lệ quyền tác giả đối với huấn luyện trí tuệ nhân tạo t...
+2025-10-15 19:37:47 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:47 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:37:51 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 532 chars
+2025-10-15 19:37:54 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:37:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề và cung cấp thông
+2025-10-15 19:37:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:37:59 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [8] Evaluating: Dự thảo Luật Trí tuệ nhân tạo: AI không thay thế con người t...
+2025-10-15 19:38:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:38:01 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:38:08 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 481 chars
+2025-10-15 19:38:11 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:38:13 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề và đưa ra ý kiến 
+2025-10-15 19:38:13 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:38:15 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [9] Evaluating: Hội thảo "Pháp luật về trí tuệ nhân tạo": Đề xuất nhiều kiến...
+2025-10-15 19:38:18 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:38:18 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:38:46 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 530 chars
+2025-10-15 19:38:49 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:38:51 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Bài viết cung cấp thông tin tổng quan về trí tuệ n
+2025-10-15 19:38:51 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:38:53 - tools.ollama_autonomous_search - [32mINFO[0m - 
+============================================================
+2025-10-15 19:38:53 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Query 2/5: 'Phản hồi của giới chuyên môn về Quyền Miễn Đóng trong Luật trí tuệ nhân tạo'
+2025-10-15 19:38:53 - tools.ollama_autonomous_search - [32mINFO[0m - ============================================================
+2025-10-15 19:38:53 - tools.ollama_autonomous_search - [32mINFO[0m - 🦆 Searching on DuckDuckGo...
+2025-10-15 19:38:59 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ DuckDuckGo found 10 results
+2025-10-15 19:38:59 - tools.ollama_autonomous_search - [32mINFO[0m - Found 10 search results
+2025-10-15 19:38:59 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [1] Evaluating: PDF Tổng Quan Về Trí Tuệ Nhân Tạo Và Những Vấn Đề Pháp Lý...
+2025-10-15 19:39:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:01 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:39:05 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 530 chars
+2025-10-15 19:39:08 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:10 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung tổng quan về trí tuệ nhân tạo và các vấn 
+2025-10-15 19:39:10 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:39:12 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [2] Evaluating: 10 nội dung đáng chú ý tại dự thảo Luật Trí tuệ nhân tạo...
+2025-10-15 19:39:15 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:15 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:39:19 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 560 chars
+2025-10-15 19:39:22 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:24 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung chi tiết và chính xác về dự thảo Luật Trí
+2025-10-15 19:39:24 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:39:26 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [3] Evaluating: Pháp luật về trí tuệ nhân tạo: Kinh nghiệm quốc tế và khuyến...
+2025-10-15 19:39:29 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:29 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:39:33 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 665 chars
+2025-10-15 19:39:36 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:38 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Nội dung có liên quan và sâu sắc về pháp luật trí 
+2025-10-15 19:39:38 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:39:38 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:39:38 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:39:38 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 1/20
+2025-10-15 19:39:40 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [4] Evaluating: Ngoại lệ quyền tác giả đối với huấn luyện trí tuệ nhân tạo t...
+2025-10-15 19:39:43 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:43 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:39:46 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 622 chars
+2025-10-15 19:39:49 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:52 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung liên quan đến chủ đề và có dẫn chứng
+2025-10-15 19:39:52 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:39:54 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [5] Evaluating: Pháp luật về trí tuệ nhân tạo ở một số quốc gia và khuyến ng...
+2025-10-15 19:39:57 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:39:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:40:00 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 623 chars
+2025-10-15 19:40:03 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:06 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.90 - Nội dung chi tiết và đầy đủ về pháp luật trí tuệ n
+2025-10-15 19:40:06 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:40:06 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:40:06 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: support (confidence: 0.90)
+2025-10-15 19:40:06 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 2/20
+2025-10-15 19:40:08 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [6] Evaluating: (Pdf) Bảo Hộ Quyền Tác Giả Trong Đạo Luật Trí Tuệ Nhân Tạo C...
+2025-10-15 19:40:10 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:10 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:40:14 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 471 chars
+2025-10-15 19:40:17 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:19 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Nội dung có liên quan và phân tích sâu về quyền tá
+2025-10-15 19:40:19 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:40:19 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: neutral
+2025-10-15 19:40:19 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:40:19 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 3/20
+2025-10-15 19:40:21 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [7] Evaluating: Pháp luật bồi thường thiệt hại ngoài hợp đồng trước thách th...
+2025-10-15 19:40:24 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:24 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:40:29 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 482 chars
+2025-10-15 19:40:31 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:33 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung liên quan đến chủ đề và có phân tích chuy
+2025-10-15 19:40:33 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:40:35 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [8] Evaluating: Trí tuệ nhân tạo với pháp luật và quyền con người...
+2025-10-15 19:40:38 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:38 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:40:44 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 577 chars
+2025-10-15 19:40:47 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:49 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung cung cấp thông tin cơ bản về trí tuệ nhân
+2025-10-15 19:40:49 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:40:51 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [9] Evaluating: Công nghệ trí tuệ nhân tạo (AI) nhìn từ góc độ pháp luật sở ...
+2025-10-15 19:40:54 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:40:54 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:40:58 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 641 chars
+2025-10-15 19:41:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:03 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung có liên quan đến chủ đề và chứa ý kiến ch
+2025-10-15 19:41:03 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:41:05 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [10] Evaluating: PDF Những Nội Dung Chính Trong Luật Trí Tuệ Nhân Tạo Của Li...
+2025-10-15 19:41:08 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:08 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:41:12 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 554 chars
+2025-10-15 19:41:15 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:17 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung chi tiết về Luật Trí Tuệ Nhân Tạo của EU
+2025-10-15 19:41:17 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:41:19 - tools.ollama_autonomous_search - [32mINFO[0m - 
+============================================================
+2025-10-15 19:41:19 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Query 3/5: 'Góp ý cải thiện quy định Quyền Miễn Đóng theo Luật trí tuệ nhân tạo'
+2025-10-15 19:41:19 - tools.ollama_autonomous_search - [32mINFO[0m - ============================================================
+2025-10-15 19:41:19 - tools.ollama_autonomous_search - [32mINFO[0m - 🦆 Searching on DuckDuckGo...
+2025-10-15 19:41:25 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ DuckDuckGo found 10 results
+2025-10-15 19:41:25 - tools.ollama_autonomous_search - [32mINFO[0m - Found 10 search results
+2025-10-15 19:41:25 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [1] Evaluating: Góp ý hoàn thiện Dự thảo Luật Trí tuệ nhân tạo...
+2025-10-15 19:41:28 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:28 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:41:32 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 506 chars
+2025-10-15 19:41:35 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:37 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Góp ý hữu ích về Dự thảo Luật Trí tuệ nhân tạo
+2025-10-15 19:41:37 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:41:39 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [2] Evaluating: Tổng hợp nội dung đáng chú ý của dự thảo Luật Trí tuệ nhân t...
+2025-10-15 19:41:42 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:42 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:41:52 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 642 chars
+2025-10-15 19:41:55 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:41:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung tổng hợp thông tin về dự thảo Luật Trí tu
+2025-10-15 19:41:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:41:59 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [3] Evaluating: Góp ý Luật Trí tuệ nhân tạo: Không nên quy định cứng nhắc gâ...
+2025-10-15 19:42:02 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:02 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:42:06 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 631 chars
+2025-10-15 19:42:08 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:11 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Góp ý hữu ích về quy định cứng nhắc trong Luật Trí
+2025-10-15 19:42:11 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:42:13 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [4] Evaluating: Sửa Luật Sở hữu trí tuệ lấp khoảng trống pháp lý về AI...
+2025-10-15 19:42:16 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:16 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:42:20 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 451 chars
+2025-10-15 19:42:22 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:25 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung liên quan và có ý kiến chuyên sâu nhưng t
+2025-10-15 19:42:25 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:42:27 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [5] Evaluating: Dự thảo Luật Trí tuệ nhân tạo: Quản lý AI dựa trên 4 cấp độ ...
+2025-10-15 19:42:29 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:29 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:42:33 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 615 chars
+2025-10-15 19:42:36 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:38 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Đề xuất xây dựng luật trí tuệ nhân tạo để quản lý 
+2025-10-15 19:42:38 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:42:40 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [6] Evaluating: 10 nội dung đáng chú ý tại dự thảo Luật Trí tuệ nhân tạo...
+2025-10-15 19:42:43 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:43 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:42:47 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 559 chars
+2025-10-15 19:42:50 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:53 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung chi tiết và cụ thể về dự thảo Luật Trí tu
+2025-10-15 19:42:53 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:42:55 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [7] Evaluating: Kiến nghị hoàn thiện quy định pháp luật tạo điều kiện cho ho...
+2025-10-15 19:42:57 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:42:57 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:43:03 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 576 chars
+2025-10-15 19:43:06 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:09 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Bài viết đề xuất các giải pháp cụ thể và có liên q
+2025-10-15 19:43:09 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:43:09 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:43:09 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:43:09 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 4/20
+2025-10-15 19:43:11 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [8] Evaluating: Hoàn thiện pháp luật về sở hữu trí tuệ trong kỷ nguyên mới...
+2025-10-15 19:43:13 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:13 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:43:17 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 488 chars
+2025-10-15 19:43:20 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:22 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Nội dung có liên quan và phân tích sâu về vấn đề t
+2025-10-15 19:43:22 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:43:22 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:43:22 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: support (confidence: 0.91)
+2025-10-15 19:43:22 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 5/20
+2025-10-15 19:43:24 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [9] Evaluating: Góp ý hoàn thiện quy định pháp luật về trách nhiệm pháp lý c...
+2025-10-15 19:43:27 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:27 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:43:31 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 574 chars
+2025-10-15 19:43:33 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:36 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Góp ý cụ thể và có liên quan đến chủ đề
+2025-10-15 19:43:36 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:43:38 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [10] Evaluating: Pháp luật về trí tuệ nhân tạo: Kinh nghiệm quốc tế và khuyến...
+2025-10-15 19:43:40 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:40 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:43:44 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 600 chars
+2025-10-15 19:43:47 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:43:50 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề và cung cấp thông
+2025-10-15 19:43:50 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:43:52 - tools.ollama_autonomous_search - [32mINFO[0m - 
+============================================================
+2025-10-15 19:43:52 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Query 4/5: 'Tranh luận về hiệu quả thực tế của Quyền Miễn Đóng trong Luật trí tuệ nhân tạo'
+2025-10-15 19:43:52 - tools.ollama_autonomous_search - [32mINFO[0m - ============================================================
+2025-10-15 19:43:52 - tools.ollama_autonomous_search - [32mINFO[0m - 🦆 Searching on DuckDuckGo...
+2025-10-15 19:43:58 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ DuckDuckGo found 10 results
+2025-10-15 19:43:58 - tools.ollama_autonomous_search - [32mINFO[0m - Found 10 search results
+2025-10-15 19:43:58 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [1] Evaluating: Hoàn thiện pháp luật về sở hữu trí tuệ trong kỷ nguyên mới...
+2025-10-15 19:44:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:01 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:44:04 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 479 chars
+2025-10-15 19:44:07 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:10 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.85 - Bài viết phân tích sâu về hoàn thiện pháp luật sở 
+2025-10-15 19:44:10 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:44:10 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:44:10 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:44:10 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 6/20
+2025-10-15 19:44:12 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [2] Evaluating: Pháp luật bảo hộ quyền tác giả đối với tác phẩm AI ở một số ...
+2025-10-15 19:44:14 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:14 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:44:18 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 731 chars
+2025-10-15 19:44:21 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:23 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung chi tiết về bảo hộ quyền tác giả đối với 
+2025-10-15 19:44:23 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:44:25 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [3] Evaluating: PDF Tổng Quan Về Trí Tuệ Nhân Tạo Và Những Vấn Đề Pháp Lý...
+2025-10-15 19:44:28 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:28 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:44:34 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 529 chars
+2025-10-15 19:44:37 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:39 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung tổng quan về trí tuệ nhân tạo và vấn đề p
+2025-10-15 19:44:39 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:44:41 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [4] Evaluating: PDF Giải Quyết Tranh Chấp Về Bảo Hộ Quyền Sở Hữu Trí Tuệ The...
+2025-10-15 19:44:44 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:44 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:44:48 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 644 chars
+2025-10-15 19:44:51 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:53 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Nội dung liên quan và có giá trị
+2025-10-15 19:44:53 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:44:53 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: negative
+2025-10-15 19:44:53 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:44:53 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 7/20
+2025-10-15 19:44:55 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [5] Evaluating: 10 nội dung đáng chú ý tại dự thảo Luật Trí tuệ nhân tạo...
+2025-10-15 19:44:58 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:44:58 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:45:01 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 576 chars
+2025-10-15 19:45:04 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung có liên quan đến chủ đề và cung cấp thông
+2025-10-15 19:45:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:45:09 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [6] Evaluating: Nghiên Cứu Tổng Quan Về Quyền Sở Hữu Trí Tuệ...
+2025-10-15 19:45:11 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:12 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:45:15 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 518 chars
+2025-10-15 19:45:18 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:20 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Nghiên cứu sâu về quyền sở hữu trí tuệ trong CPTPP
+2025-10-15 19:45:20 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:45:20 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:45:20 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:45:20 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 8/20
+2025-10-15 19:45:22 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [7] Evaluating: Dự thảo Luật Trí tuệ nhân tạo - baochinhphu.vn...
+2025-10-15 19:45:25 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:25 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:45:29 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 635 chars
+2025-10-15 19:45:32 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:34 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề và cung cấp thông
+2025-10-15 19:45:34 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:45:36 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [8] Evaluating: Tổng hợp nội dung đáng chú ý của dự thảo Luật Trí tuệ nhân t...
+2025-10-15 19:45:39 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:39 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:45:43 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 588 chars
+2025-10-15 19:45:45 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:47 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề nhưng không chứa 
+2025-10-15 19:45:47 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:45:49 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [9] Evaluating: Phát triển trí tuệ nhân tạo và sử dụng dữ liệu có bản quyền:...
+2025-10-15 19:45:52 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:45:52 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:45:56 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 503 chars
+2025-10-15 19:45:59 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:02 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Bài viết phân tích sâu về vấn đề pháp lý liên quan
+2025-10-15 19:46:02 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:46:02 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:46:02 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:46:02 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 9/20
+2025-10-15 19:46:04 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [10] Evaluating: Chia sẻ kinh nghiệm quốc gia và quốc tế trong giải quyết tra...
+2025-10-15 19:46:06 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:46:10 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 590 chars
+2025-10-15 19:46:13 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:16 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung có liên quan đến chủ đề và cung cấp thông
+2025-10-15 19:46:16 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:46:18 - tools.ollama_autonomous_search - [32mINFO[0m - 
+============================================================
+2025-10-15 19:46:18 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Query 5/5: 'Bình luận chất lượng cao về tác động của Quyền Miễn Đóng đến Luật trí tuệ nhân tạo'
+2025-10-15 19:46:18 - tools.ollama_autonomous_search - [32mINFO[0m - ============================================================
+2025-10-15 19:46:18 - tools.ollama_autonomous_search - [32mINFO[0m - 🦆 Searching on DuckDuckGo...
+2025-10-15 19:46:23 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ DuckDuckGo found 10 results
+2025-10-15 19:46:23 - tools.ollama_autonomous_search - [32mINFO[0m - Found 10 search results
+2025-10-15 19:46:23 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [1] Evaluating: [Tiểu luận 2024] Bình luận, cho ví dụ về quyền miễn trừ tư p...
+2025-10-15 19:46:26 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:26 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:46:30 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 534 chars
+2025-10-15 19:46:33 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:35 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung liên quan nhưng chưa sâu sắc
+2025-10-15 19:46:35 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:46:37 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [2] Evaluating: Tác động của trí tuệ nhân tạo tới pháp luật lao động - Kinh ...
+2025-10-15 19:46:39 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:39 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:46:45 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 537 chars
+2025-10-15 19:46:48 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:50 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.80 - Bài viết phân tích sâu về tác động của trí tuệ nhâ
+2025-10-15 19:46:50 - tools.ollama_autonomous_search - [32mINFO[0m -       🧠 Analyzing sentiment & stance...
+2025-10-15 19:46:50 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Sentiment: positive
+2025-10-15 19:46:50 - tools.ollama_autonomous_search - [32mINFO[0m -       📊 Stance: neutral (confidence: 0.60)
+2025-10-15 19:46:50 - tools.ollama_autonomous_search - [32mINFO[0m -       💾 Saved! Total: 10/20
+2025-10-15 19:46:52 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [3] Evaluating: [Tạp chí 2022] Một số vấn đề về bảo vệ quyền của người lao đ...
+2025-10-15 19:46:55 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:46:55 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:47:02 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 438 chars
+2025-10-15 19:47:05 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.75 - Nội dung liên quan đến chủ đề nhưng chưa sâu sắc
+2025-10-15 19:47:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.75 < 0.8)
+2025-10-15 19:47:09 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [4] Evaluating: Tiểu luận KTCT: Lý luận Mác-Lênin về Độc quyền tại Việt Nam...
+2025-10-15 19:47:11 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:11 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:47:16 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 463 chars
+2025-10-15 19:47:19 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:21 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung liên quan đến chủ đề và có dẫn chứng
+2025-10-15 19:47:21 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:47:23 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [6] Evaluating: Tiểu luận Quyền con người ở Việt Nam hiện nay Thực trạng và ...
+2025-10-15 19:47:26 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:26 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:47:30 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 513 chars
+2025-10-15 19:47:33 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:35 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.70 - Nội dung có liên quan đến chủ đề nhưng chưa sâu sắ
+2025-10-15 19:47:35 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.70 < 0.8)
+2025-10-15 19:47:37 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [7] Evaluating: PDF Báo Cáo Nhân Quyền Việt Nam 2023...
+2025-10-15 19:47:39 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:39 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:47:44 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 567 chars
+2025-10-15 19:47:46 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:49 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.70 - Báo cáo nhân quyền Việt Nam 2023 có liên quan đến 
+2025-10-15 19:47:49 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.70 < 0.8)
+2025-10-15 19:47:51 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [8] Evaluating: THƯ VIỆN PHÁP LUẬT _ Tra cứu, Nắm bắt Pháp Luật Việt Nam...
+2025-10-15 19:47:54 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:47:54 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:47:58 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 637 chars
+2025-10-15 19:48:01 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:48:03 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.77 - Nội dung liên quan và có giá trị
+2025-10-15 19:48:03 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.77 < 0.8)
+2025-10-15 19:48:05 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [9] Evaluating: PDF BÁO CÁO NHÂN QUYỀN VIỆT NAM - Hội Anh Em Dân Chủ...
+2025-10-15 19:48:07 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:48:07 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:48:11 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 519 chars
+2025-10-15 19:48:14 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:48:17 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.60 - Báo cáo nhân quyền Việt Nam có liên quan đến chủ đ
+2025-10-15 19:48:17 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.60 < 0.8)
+2025-10-15 19:48:19 - tools.ollama_autonomous_search - [32mINFO[0m - 
+  [10] Evaluating: Luận án Pháp luật Việt Nam về bảo vệ quyền của người lao độn...
+2025-10-15 19:48:21 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:48:21 - tools.ollama_autonomous_search - [32mINFO[0m -       ✅ Ollama says: Relevant! Crawling...
+2025-10-15 19:48:26 - tools.ollama_autonomous_search - [32mINFO[0m -       📄 Crawled 625 chars
+2025-10-15 19:48:28 - httpx - [32mINFO[0m - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2025-10-15 19:48:30 - tools.ollama_autonomous_search - [32mINFO[0m -       ⭐ Quality: 0.40 - Nội dung có liên quan đến chủ đề nhưng chưa sâu sắ
+2025-10-15 19:48:30 - tools.ollama_autonomous_search - [32mINFO[0m -       ❌ Quality too low (0.40 < 0.8)
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ Chrome driver closed
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 
+================================================================================
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 📊 AUTONOMOUS SEARCH COMPLETE
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - ================================================================================
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ Collected: 10 high-quality opinions
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 🔍 Visited: 48 URLs
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 📝 Used: 5 search queries
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - ⭐ Average quality: 0.81
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 📰 Sources: {'duckduckgo.com': 10}
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 😊 Sentiments: {'positive': 8, 'neutral': 1, 'negative': 1}
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 📊 Stances: {'neutral': 8, 'support': 2}
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - ✅ Exported 10 opinions to CSV
+2025-10-15 19:48:32 - tools.ollama_autonomous_search - [32mINFO[0m - 💾 Exported to: D:\AutoData2\AutoData2\LawInTech\data\csv\autonomous_Luật_trí_tuệ_nhân_tạo_Quyền_Miễn_Đóng_20251015_194832.csv
+2025-10-15 19:48:32 - agents.autonomous_agents - [32mINFO[0m - ✅ Autonomous search complete: 10 opinions collected
+2025-10-15 19:48:32 - agents.base - [32mINFO[0m - Task completed: manager_20251015_193604
+2025-10-15 19:48:32 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:48:32 - agents.manager - [32mINFO[0m - Manager Agent executing...
+2025-10-15 19:48:32 - agents.manager - [32mINFO[0m - ============================================================
+2025-10-15 19:48:32 - agents.manager - [32mINFO[0m - Current task: autonomous_opinion_search - completed
+2025-10-15 19:48:32 - agents.manager - [32mINFO[0m - ✅ AUTONOMOUS Workflow completed successfully!
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - → Routing: current_task=autonomous_opinion_search, is_complete=True
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - → Workflow marked as complete, ending
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - 📊 Workflow Report
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - project_name: Luật trí tuệ nhân tạo
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - started_at: 2025-10-15 19:35:38.788456
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - completed_at: 2025-10-15 19:48:32.994571
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - total_tasks: 3
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - completed_tasks: 3
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - failed_tasks: 0
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - errors_count: 0
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - warnings_count: 0
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - law_documents_found: 1
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - pdf_downloaded: True
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - keywords_extracted: 5
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - opinions_analyzed: 10
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - csv_exported: True
+2025-10-15 19:48:32 - core.workflow - [32mINFO[0m - ================================================================================
+2025-10-15 19:48:32 - root - [32mINFO[0m - 
+================================================================================
+2025-10-15 19:48:32 - root - [32mINFO[0m - ✅ Workflow completed successfully!
+2025-10-15 19:48:32 - root - [32mINFO[0m - ================================================================================
+2025-10-15 19:48:32 - root - [32mINFO[0m - 
+📋 Law Documents Found: 1
+2025-10-15 19:48:32 - root - [32mINFO[0m - 📄 PDF Downloaded: Yes
+2025-10-15 19:48:32 - root - [32mINFO[0m - 🔑 Keywords Extracted: 5
+2025-10-15 19:48:32 - root - [32mINFO[0m - 💬 Opinions Analyzed: 10
+2025-10-15 19:48:32 - root - [32mINFO[0m - 
+💾 CSV Output: D:\AutoData2\AutoData2\LawInTech\data\csv\autonomous_Luật_trí_tuệ_nhân_tạo_Quyền_Miễn_Đóng_20251015_194832.csv
+2025-10-15 19:48:32 - root - [32mINFO[0m - 📖 Open this file in Excel to view results!
+2025-10-15 19:48:32 - root - [32mINFO[0m - 
+================================================================================
