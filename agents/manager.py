@@ -1,5 +1,5 @@
 """
-Manager Agent - Điều phối và quản lý workflow.
+Manager Agent - Orchestrates AUTONOMOUS AI workflow.
 """
 
 import logging
@@ -15,24 +15,19 @@ logger = logging.getLogger(__name__)
 
 class ManagerAgent(BaseAgent):
     """
-    Manager Agent - Orchestrator của HYBRID WORKFLOW.
+    Manager Agent - Orchestrator for AUTONOMOUS AI workflow.
 
-    Pipeline:
-    1. SEARCH_LAW_LIST → Tìm danh sách dự thảo luật
-    2. DOWNLOAD_PDFS → Download PDFs
-    3. EXTRACT_PDF_CONTENT → Extract nội dung + keywords
-    4. STORE_VECTOR_DB → Lưu Vector DB
-    5. SEARCH_OPINIONS → Tìm opinion URLs
-    6. CRAWL_OPINIONS_FULL → Crawl FULL CONTENT
-    7. NLP_ANALYSIS → Sentiment + Stance + Topics
-    8. EXPORT_DATA → Export CSV
+    AUTONOMOUS WORKFLOW (3 steps):
+    1. AUTONOMOUS_LAW_SEARCH → AI tìm và download PDF luật
+    2. AUTONOMOUS_PDF_ANALYSIS → AI extract PDF + tạo keywords
+    3. AUTONOMOUS_OPINION_SEARCH → AI search + crawl + analyze opinions
     """
 
     def __init__(self):
         super().__init__(
             role=AgentRole.MANAGER,
             name="Manager Agent",
-            description="Orchestrates HYBRID workflow"
+            description="Orchestrates AUTONOMOUS AI workflow"
         )
         self.system_prompt = load_prompt("manager_system.md")
 
@@ -53,22 +48,18 @@ class ManagerAgent(BaseAgent):
             return self.log_error(state, f"Manager execution failed: {str(e)}")
 
     async def _start_workflow(self, state: AgentState) -> AgentState:
-        """Bắt đầu HYBRID workflow."""
-        logger.info("Starting HYBRID workflow...")
-
-        target_url = state.get('target_url')
+        """Start AUTONOMOUS workflow."""
         project_name = state['project_name']
-
+        
+        logger.info("Starting AUTONOMOUS AI workflow...")
         logger.info(f"Project/Topic: {project_name}")
-        if target_url:
-            logger.info(f"Reference URL: {target_url}")
-        else:
-            logger.info("Reference URL: Not provided")
-
-        # Start with SEARCH_LAW_LIST
+        logger.info(f"Max Opinions: {state['max_opinions']}")
+        logger.info(f"Quality Threshold: {state['quality_threshold']}")
+        
+        # Start with AUTONOMOUS_LAW_SEARCH
         task = self.create_task(
-            task_type=TaskType.SEARCH_LAW_LIST.value,
-            input_data={'topic': project_name, 'reference_url': target_url}
+            task_type=TaskType.AUTONOMOUS_LAW_SEARCH.value,
+            input_data={'topic': project_name}
         )
 
         state = self.update_state(state, {'current_task': task})
@@ -79,7 +70,7 @@ class ManagerAgent(BaseAgent):
         return state
 
     async def _monitor_and_decide(self, state: AgentState) -> AgentState:
-        """Monitor progress và quyết định next step."""
+        """Monitor progress and decide next step."""
         current_task = state.get('current_task')
         task_history = state.get('task_history', [])
 
@@ -104,94 +95,38 @@ class ManagerAgent(BaseAgent):
         next_task = None
 
         # ========================================================================
-        # HYBRID WORKFLOW LOGIC (8 Steps)
+        # AUTONOMOUS WORKFLOW LOGIC (3 Steps)
         # ========================================================================
-
-        # Step 1: SEARCH_LAW_LIST → DOWNLOAD_PDFS
-        if TaskType.SEARCH_LAW_LIST in completed_types and TaskType.DOWNLOAD_PDFS not in completed_types:
-            if not task_already_created(TaskType.DOWNLOAD_PDFS):
-                law_documents = state.get('law_documents', [])
-                if law_documents:
-                    next_task = self.create_task(
-                        task_type=TaskType.DOWNLOAD_PDFS.value,
-                        input_data={'law_documents': law_documents}
-                    )
-                    logger.info(f"📥 Next: Download {len(law_documents)} PDFs")
-
-        # Step 2: DOWNLOAD_PDFS → EXTRACT_PDF_CONTENT or EXPORT (skip if no PDFs)
-        elif TaskType.DOWNLOAD_PDFS in completed_types and TaskType.EXTRACT_PDF_CONTENT not in completed_types:
-            if not task_already_created(TaskType.EXTRACT_PDF_CONTENT):
-                pdf_paths = state.get('pdf_paths', [])
-                if pdf_paths:
-                    next_task = self.create_task(
-                        task_type=TaskType.EXTRACT_PDF_CONTENT.value,
-                        input_data={'pdf_paths': pdf_paths}
-                    )
-                    logger.info(f"📄 Next: Extract content from {len(pdf_paths)} PDFs")
-                else:
-                    # No PDFs downloaded - skip to completion
-                    logger.warning("⚠️ No PDFs were downloaded successfully. Marking workflow as complete.")
-                    state['is_complete'] = True
-                    return state
-
-        # Step 3: EXTRACT_PDF_CONTENT → STORE_VECTOR_DB
-        elif TaskType.EXTRACT_PDF_CONTENT in completed_types and TaskType.STORE_VECTOR_DB not in completed_types:
-            if not task_already_created(TaskType.STORE_VECTOR_DB):
-                extracted_keywords = state.get('extracted_keywords')
-                if extracted_keywords:
-                    next_task = self.create_task(
-                        task_type=TaskType.STORE_VECTOR_DB.value,
-                        input_data={'extracted_keywords': extracted_keywords}
-                    )
-                    logger.info("💾 Next: Store PDFs in Vector DB")
-
-        # Step 4: STORE_VECTOR_DB → SEARCH_OPINIONS
-        elif TaskType.STORE_VECTOR_DB in completed_types and TaskType.SEARCH_OPINIONS not in completed_types:
-            if not task_already_created(TaskType.SEARCH_OPINIONS):
-                keywords = state.get('extracted_keywords')
-                if keywords:
-                    next_task = self.create_task(
-                        task_type=TaskType.SEARCH_OPINIONS.value,
-                        input_data={'keywords': keywords}
-                    )
-                    logger.info("🔍 Next: Search for opinion URLs")
-
-        # Step 5: SEARCH_OPINIONS → CRAWL_OPINIONS_FULL
-        elif TaskType.SEARCH_OPINIONS in completed_types and TaskType.CRAWL_OPINIONS_FULL not in completed_types:
-            if not task_already_created(TaskType.CRAWL_OPINIONS_FULL):
-                opinion_urls = state.get('opinion_urls', [])
-                if opinion_urls:
-                    next_task = self.create_task(
-                        task_type=TaskType.CRAWL_OPINIONS_FULL.value,
-                        input_data={'opinion_urls': opinion_urls}
-                    )
-                    logger.info(f"📰 Next: Crawl FULL CONTENT of {len(opinion_urls)} opinions")
-
-        # Step 6: CRAWL_OPINIONS_FULL → NLP_ANALYSIS
-        elif TaskType.CRAWL_OPINIONS_FULL in completed_types and TaskType.NLP_ANALYSIS not in completed_types:
-            if not task_already_created(TaskType.NLP_ANALYSIS):
-                opinions_raw = state.get('opinions_raw', [])
-                if opinions_raw:
-                    next_task = self.create_task(
-                        task_type=TaskType.NLP_ANALYSIS.value,
-                        input_data={'opinions_raw': opinions_raw}
-                    )
-                    logger.info(f"🧠 Next: NLP analysis of {len(opinions_raw)} opinions")
-
-        # Step 7: NLP_ANALYSIS → EXPORT_DATA
-        elif TaskType.NLP_ANALYSIS in completed_types and TaskType.EXPORT_DATA not in completed_types:
-            if not task_already_created(TaskType.EXPORT_DATA):
-                analyzed_opinions = state.get('analyzed_opinions', [])
-                if analyzed_opinions:
-                    next_task = self.create_task(
-                        task_type=TaskType.EXPORT_DATA.value,
-                        input_data={'analyzed_opinions': analyzed_opinions}
-                    )
-                    logger.info(f"💾 Next: Export {len(analyzed_opinions)} analyzed opinions")
-
-        # Step 8: EXPORT_DATA → Complete
-        elif TaskType.EXPORT_DATA in completed_types:
-            logger.info("✅ Workflow completed successfully!")
+        
+        # Step 1: AUTONOMOUS_LAW_SEARCH → AUTONOMOUS_PDF_ANALYSIS
+        if TaskType.AUTONOMOUS_LAW_SEARCH in completed_types and \
+           TaskType.AUTONOMOUS_PDF_ANALYSIS not in completed_types:
+            if not task_already_created(TaskType.AUTONOMOUS_PDF_ANALYSIS):
+                next_task = self.create_task(
+                    task_type=TaskType.AUTONOMOUS_PDF_ANALYSIS.value,
+                    input_data={}
+                )
+                logger.info("📄 Next: AI extract PDF and create keywords")
+        
+        # Step 2: AUTONOMOUS_PDF_ANALYSIS → AUTONOMOUS_OPINION_SEARCH
+        elif TaskType.AUTONOMOUS_PDF_ANALYSIS in completed_types and \
+             TaskType.AUTONOMOUS_OPINION_SEARCH not in completed_types:
+            if not task_already_created(TaskType.AUTONOMOUS_OPINION_SEARCH):
+                max_articles = state.get('max_opinions', 20)
+                quality_threshold = state.get('quality_threshold', 0.6)
+                
+                next_task = self.create_task(
+                    task_type=TaskType.AUTONOMOUS_OPINION_SEARCH.value,
+                    input_data={
+                        'max_articles': max_articles,
+                        'quality_threshold': quality_threshold
+                    }
+                )
+                logger.info(f"🔍 Next: AI autonomous search (max={max_articles}, threshold={quality_threshold})")
+        
+        # Step 3: AUTONOMOUS_OPINION_SEARCH → Complete
+        elif TaskType.AUTONOMOUS_OPINION_SEARCH in completed_types:
+            logger.info("✅ AUTONOMOUS Workflow completed successfully!")
             state['is_complete'] = True
             return state
 
@@ -226,7 +161,7 @@ class ManagerAgent(BaseAgent):
         return state
 
     def generate_report(self, state: AgentState) -> Dict[str, Any]:
-        """Tạo báo cáo tổng hợp về workflow."""
+        """Generate workflow summary report."""
         task_history = state.get('task_history', [])
         completed_tasks = [t for t in task_history if t.status.value == 'completed']
         failed_tasks = [t for t in task_history if t.status.value == 'failed']
@@ -240,16 +175,15 @@ class ManagerAgent(BaseAgent):
             'failed_tasks': len(failed_tasks),
             'errors_count': len(state.get('errors', [])),
             'warnings_count': len(state.get('warnings', [])),
-            # Hybrid workflow metrics
+            # Autonomous workflow metrics
             'law_documents_found': len(state.get('law_documents', [])),
-            'pdfs_downloaded': len(state.get('pdf_paths', [])),
-            'keywords_extracted': state.get('extracted_keywords') is not None,
-            'opinion_urls_found': len(state.get('opinion_urls', [])),
-            'opinions_crawled': len(state.get('opinions_raw', [])),
+            'pdf_downloaded': state.get('pdf_local_path') is not None,
+            'keywords_extracted': len(state.get('search_queries', [])),
             'opinions_analyzed': len(state.get('analyzed_opinions', [])),
             'csv_exported': state.get('csv_output_path') is not None
         }
         return report
+
 
 # Singleton instance
 manager_agent = ManagerAgent()

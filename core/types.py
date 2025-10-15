@@ -10,13 +10,11 @@ from datetime import datetime
 
 
 class AgentRole(str, Enum):
-    """Các vai trò của agents trong hệ thống"""
+    """Agent roles in AUTONOMOUS AI system"""
     MANAGER = "manager"
-    WEB_CRAWLER = "web_crawler"
-    PDF_HANDLER = "pdf_handler"
-    CONTENT_EXTRACTOR = "content_extractor"
-    SEARCH_AGENT = "search_agent"
-    SCRAPER_AGENT = "scraper_agent"
+    WEB_CRAWLER = "web_crawler"  # Used by autonomous agents
+    CONTENT_EXTRACTOR = "content_extractor"  # Used by autonomous agents
+    SEARCH_AGENT = "search_agent"  # Used by autonomous agents
 
 
 class TaskStatus(str, Enum):
@@ -29,31 +27,11 @@ class TaskStatus(str, Enum):
 
 
 class TaskType(str, Enum):
-    """Các loại task trong workflow"""
-    # HYBRID WORKFLOW (Full pipeline - recommended)
-    SEARCH_LAW_LIST = "search_law_list"  # Tìm danh sách văn bản luật (với pagination)
-    DOWNLOAD_PDFS = "download_pdfs"  # Download PDFs (với hash dedup)
-    EXTRACT_PDF_CONTENT = "extract_pdf_content"  # Extract nội dung từ PDFs
-    STORE_VECTOR_DB = "store_vector_db"  # Lưu vào Vector DB
-    CRAWL_OPINIONS_FULL = "crawl_opinions_full"  # Crawl FULL CONTENT opinions
-    NLP_ANALYSIS = "nlp_analysis"  # Phân tích NLP (sentiment + stance + topics)
-
-    # New workflow (article-based, no PDF)
-    SEARCH_NEWS = "search_news"  # Tìm tin tức về dự luật
-    SCRAPE_NEWS_ARTICLES = "scrape_news_articles"  # Scrape nội dung tin tức
-    EXTRACT_KEYWORDS_FROM_NEWS = "extract_keywords_from_news"  # Extract keywords từ tin tức
-
-    # Old PDF workflow (kept for compatibility)
-    CRAWL_WEB = "crawl_web"
-    DOWNLOAD_PDF = "download_pdf"
-    EXTRACT_CONTENT = "extract_content"
-
-    # Opinion gathering (common to both workflows)
-    SEARCH_OPINIONS = "search_opinions"
-    AUTONOMOUS_OPINION_SEARCH = "autonomous_opinion_search"  # AI tự động search + crawl
-    SCRAPE_COMMENTS = "scrape_comments"  # Kept for backward compatibility
-    SCRAPE_ARTICLES = "scrape_articles"  # Scrape opinion articles
-    EXPORT_DATA = "export_data"
+    """Task types for AUTONOMOUS AI-powered workflow"""
+    # AUTONOMOUS WORKFLOW (3 steps)
+    AUTONOMOUS_LAW_SEARCH = "autonomous_law_search"  # AI tự động tìm và download PDF luật
+    AUTONOMOUS_PDF_ANALYSIS = "autonomous_pdf_analysis"  # AI extract PDF và tạo keywords
+    AUTONOMOUS_OPINION_SEARCH = "autonomous_opinion_search"  # AI tự động search + crawl + analyze opinions
 
 
 @dataclass
@@ -133,61 +111,31 @@ class Comment:
 
 class AgentState(TypedDict):
     """
-    State được chia sẻ giữa các agents trong LangGraph.
-    Đây là Local State approach - mỗi node có thể đọc/ghi state.
+    State for LangGraph AI Agent workflow.
+    Optimized for AUTONOMOUS workflow only.
     """
-    # Input ban đầu
-    target_url: Optional[str]  # URL reference (optional, không bắt buộc)
+    # Input configuration
     project_name: str  # Tên dự án/chủ đề (BẮT BUỘC)
+    max_opinions: int  # Số opinions tối đa
+    quality_threshold: float  # Ngưỡng chất lượng (0-1)
 
     # Workflow tracking
     current_task: Optional[Task]
     task_history: Annotated[List[Task], "History of all tasks"]
     current_agent: Optional[AgentRole]
 
-    # PDF Document data
-    pdf_document: Optional[PDFDocument]
-    extracted_keywords: Optional[ExtractedKeywords]
+    # Phase 1: Law document search
+    law_documents: Annotated[List[Dict[str, Any]], "Law documents found"]
+    pdf_local_path: Optional[str]  # Downloaded PDF path
 
-    # Search & Scraping results
-    search_queries: List[str]  # Các query được tạo từ keywords
-    search_results: List[Dict[str, Any]]  # Kết quả tìm kiếm
-    collected_comments: Annotated[List[Comment], "All collected comments"]
-    
-    # Hybrid workflow data
-    law_documents: Annotated[List[Dict[str, Any]], "Law documents from list crawler"]
-    pdf_paths: Annotated[List[str], "Downloaded PDF paths"]
-    opinion_urls: Annotated[List[Dict[str, Any]], "Opinion article URLs"]
-    opinions_raw: Annotated[List[Dict[str, Any]], "Raw opinions with full content"]
+    # Phase 2: PDF analysis
+    search_queries: List[str]  # Keywords extracted from PDF
+
+    # Phase 3: Opinion collection
     analyzed_opinions: Annotated[List[Dict[str, Any]], "Opinions with NLP analysis"]
-    
-    # Article-based workflow data (legacy)
-    news_articles: Annotated[List[Dict[str, Any]], "Initial news articles about the law"]
-    analyzed_articles: Annotated[List[Dict[str, Any]], "Opinion articles with sentiment analysis"]
-    
-    # Tracking and flags
-    processed_urls: Annotated[set, "URLs that have been scraped"]
-    scrape_articles_done: bool  # Flag to indicate scraping is complete
-    scrape_news_done: bool  # Flag to indicate news scraping is complete
-    scrape_loop_count: int  # Counter to prevent infinite loops
-    export_loop_count: int  # Counter for export operations
 
-    # Article scraping and analysis
-    news_articles: Annotated[List[Dict[str, Any]], "Initial news articles about the law"]
-    analyzed_articles: Annotated[List[Dict[str, Any]], "Opinion articles with sentiment analysis"]
-    processed_urls: Annotated[set, "URLs that have been scraped"]
-    scrape_articles_done: bool  # Flag to indicate scraping is complete
-    scrape_news_done: bool  # Flag to indicate news scraping is complete
-    scrape_loop_count: int  # Counter to prevent infinite loops
-    export_loop_count: int  # Counter for export operations
-
-    # Vector DB tracking
-    vector_db_collection: Optional[str]  # Tên collection trong ChromaDB
-    embedded_documents: List[str]  # IDs của documents đã embed
-
-    # Output paths
+    # Output
     csv_output_path: Optional[str]
-    pdf_local_path: Optional[str]
 
     # Error handling
     errors: Annotated[List[Dict[str, Any]], "Error log"]
@@ -229,39 +177,25 @@ class ToolResult:
 
 
 # Helper functions
-def create_initial_state(project_name: str, target_url: str = None) -> AgentState:
-    """Tạo initial state cho workflow"""
+def create_initial_state(
+    project_name: str,
+    max_opinions: int = 20,
+    quality_threshold: float = 0.6
+) -> AgentState:
+    """Create initial state for AUTONOMOUS workflow"""
     now = datetime.now()
     return AgentState(
-        target_url=target_url,
         project_name=project_name,
+        max_opinions=max_opinions,
+        quality_threshold=quality_threshold,
         current_task=None,
         task_history=[],
         current_agent=None,
-        pdf_document=None,
-        extracted_keywords=None,
-        search_queries=[],
-        search_results=[],
-        collected_comments=[],
-        # Hybrid workflow
         law_documents=[],
-        pdf_paths=[],
-        opinion_urls=[],
-        opinions_raw=[],
-        analyzed_opinions=[],
-        # Article-based workflow
-        news_articles=[],
-        analyzed_articles=[],
-        # Tracking
-        processed_urls=set(),
-        scrape_articles_done=False,
-        scrape_news_done=False,
-        scrape_loop_count=0,
-        export_loop_count=0,
-        vector_db_collection=None,
-        embedded_documents=[],
-        csv_output_path=None,
         pdf_local_path=None,
+        search_queries=[],
+        analyzed_opinions=[],
+        csv_output_path=None,
         errors=[],
         warnings=[],
         started_at=now,

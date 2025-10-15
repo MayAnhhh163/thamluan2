@@ -1,19 +1,22 @@
 """
-Configuration settings for AutoData system.
-Quản lý tất cả các settings, API keys, paths, và parameters.
+Configuration for Autonomous AI Agent System.
+Clean, minimal configuration for autonomous workflow only.
 """
 
 import os
 from pathlib import Path
 from typing import Optional
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv is optional
 
 
 class Config:
-    """Main configuration class"""
+    """Configuration class for AUTONOMOUS AI workflow"""
 
     # ========== Paths ==========
     BASE_DIR = Path(__file__).parent.parent
@@ -21,187 +24,122 @@ class Config:
     PDF_DIR = DATA_DIR / "pdfs"
     CSV_DIR = DATA_DIR / "csv"
     LOGS_DIR = BASE_DIR / "logs"
-    VECTOR_DB_DIR = DATA_DIR / "vector_db"
 
-    # Tạo các thư mục nếu chưa tồn tại
-    for dir_path in [DATA_DIR, PDF_DIR, CSV_DIR, LOGS_DIR, VECTOR_DB_DIR]:
+    # Create directories if not exist
+    for dir_path in [DATA_DIR, PDF_DIR, CSV_DIR, LOGS_DIR]:
         dir_path.mkdir(parents=True, exist_ok=True)
 
-    # ========== LLM Settings ==========
+    # ========== LLM Settings (Ollama) ==========
     OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    OLLAMA_ENABLE_OPINION_ENHANCEMENT = os.getenv("OLLAMA_ENABLE_OPINION_ENHANCEMENT", "true").lower() == "true"
-    LLM_MODEL = os.getenv("LLM_MODEL", "llama3.1:8b")
-    LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.7"))
+    LLM_MODEL = os.getenv("LLM_MODEL", "llama3.2:3b")
+    LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.3"))
     LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "2048"))
-
-    # ========== Embedding Settings ==========
-    EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "nomic-embed-text")
-    EMBEDDING_DIMENSION = int(os.getenv("EMBEDDING_DIMENSION", "768"))
-
-    # ========== Vector DB Settings ==========
-    VECTOR_DB_TYPE = os.getenv("VECTOR_DB_TYPE", "chromadb")
-    CHROMA_PERSIST_DIR = str(VECTOR_DB_DIR / "chroma")
-    VECTOR_DB_COLLECTION_PREFIX = "autodata"
 
     # ========== Web Scraping Settings ==========
     USER_AGENT = os.getenv(
         "USER_AGENT",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
     REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "30"))
     MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
     RETRY_DELAY = int(os.getenv("RETRY_DELAY", "2"))
 
-    # Rate limiting
-    RATE_LIMIT_REQUESTS = int(os.getenv("RATE_LIMIT_REQUESTS", "10"))
-    RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))  # seconds
-
     # Selenium settings
-    SELENIUM_HEADLESS = os.getenv("SELENIUM_HEADLESS", "true").lower() == "true"
+    SELENIUM_HEADLESS = os.getenv("SELENIUM_HEADLESS", "false").lower() == "true"
     SELENIUM_WAIT_TIME = int(os.getenv("SELENIUM_WAIT_TIME", "10"))
 
     # ========== PDF Processing Settings ==========
     PDF_MAX_SIZE_MB = int(os.getenv("PDF_MAX_SIZE_MB", "50"))
-    PDF_EXTRACT_IMAGES = os.getenv("PDF_EXTRACT_IMAGES", "false").lower() == "true"
-
-    # ========== Search Settings ==========
-    # Google Search
-    GOOGLE_SEARCH_API_KEY = os.getenv("GOOGLE_SEARCH_API_KEY")
-    GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
-    GOOGLE_SEARCH_MAX_RESULTS = int(os.getenv("GOOGLE_SEARCH_MAX_RESULTS", "20"))
-
-    # Search sources priority (dễ crawl trước)
-    SEARCH_SOURCES_PRIORITY = [
-        "google",  # Google search results
-        "news",  # News websites
-        "forums",  # Vietnamese forums
-        # "facebook",  # Facebook (khó crawl hơn, để sau)
-    ]
-
-    # ========== Comment Scraping Settings ==========
-    MAX_COMMENTS_PER_SOURCE = int(os.getenv("MAX_COMMENTS_PER_SOURCE", "100"))
-    COMMENT_MIN_LENGTH = int(os.getenv("COMMENT_MIN_LENGTH", "10"))
-
-    # ========== Keyword Extraction Settings ==========
+    
+    # Keyword extraction settings
     MIN_KEYWORD_LENGTH = int(os.getenv("MIN_KEYWORD_LENGTH", "3"))
     MAX_KEYWORDS = int(os.getenv("MAX_KEYWORDS", "50"))
     MIN_KEYWORD_FREQUENCY = int(os.getenv("MIN_KEYWORD_FREQUENCY", "2"))
-
-    # Vietnamese stopwords có thể thêm vào
+    
+    # Vietnamese stopwords (common words to ignore)
     VIETNAMESE_STOPWORDS = set([
-        "và", "của", "có", "trong", "được", "cho", "về", "với", "này",
-        "đó", "các", "những", "để", "từ", "theo", "trên", "không", "là",
-        "thì", "sẽ", "đã", "đang", "khi", "nếu", "hoặc", "nhưng", "vì"
+        "và", "của", "có", "các", "được", "là", "cho", "với", "để", "từ",
+        "trong", "này", "đó", "hay", "hoặc", "nhưng", "vì", "nên", "thì",
+        "đã", "sẽ", "bị", "bởi", "theo", "như", "về", "tại", "trên", "dưới",
+        "một", "hai", "ba", "khi", "nếu", "mà", "cũng", "đều", "không", "chỉ"
     ])
-
-    # ========== Export Settings ==========
-    CSV_ENCODING = os.getenv("CSV_ENCODING", "utf-8-sig")  # utf-8-sig để Excel đọc được
-    CSV_DELIMITER = os.getenv("CSV_DELIMITER", ",")
 
     # ========== Logging Settings ==========
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
-    LOG_FORMAT = os.getenv(
-        "LOG_FORMAT",
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    LOG_FILE_MAX_BYTES = int(os.getenv("LOG_FILE_MAX_BYTES", "10485760"))  # 10MB
-    LOG_FILE_BACKUP_COUNT = int(os.getenv("LOG_FILE_BACKUP_COUNT", "5"))
+    LOG_FILE = LOGS_DIR / "autodata.log"
+    LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
-    # ========== Agent Settings ==========
-    AGENT_MAX_ITERATIONS = int(os.getenv("AGENT_MAX_ITERATIONS", "10"))
-    AGENT_TIMEOUT_SECONDS = int(os.getenv("AGENT_TIMEOUT_SECONDS", "300"))
-
-    # ========== Development Settings ==========
-    DEBUG_MODE = os.getenv("DEBUG_MODE", "false").lower() == "true"
-    SAVE_INTERMEDIATE_RESULTS = os.getenv(
-        "SAVE_INTERMEDIATE_RESULTS", "true"
-    ).lower() == "true"
-
-    # ========== Target Domains ==========
-    # Danh sách các trang tin tức/diễn đàn Việt Nam uy tín có thể crawl
-    TRUSTED_DOMAINS = [
-        "vnexpress.net",
-        "tuoitre.vn",
-        "thanhnien.vn",
-        "dantri.com.vn",
-        "vietnamnet.vn",
-        "baomoi.com",
-        "tienphong.vn",
-        "nhandan.vn",
-        "mst.gov.vn",  # Trang web chính thức
-        "most.gov.vn",  # Bộ Khoa học và Công nghệ
-        "chinhphu.vn",  # Cổng thông tin điện tử Chính phủ
-    ]
-
-    @classmethod
-    def get_pdf_path(cls, filename: str) -> Path:
-        """Lấy đường dẫn đầy đủ cho PDF file"""
-        return cls.PDF_DIR / filename
-
-    @classmethod
-    def get_csv_path(cls, filename: str) -> Path:
-        """Lấy đường dẫn đầy đủ cho CSV file"""
-        return cls.CSV_DIR / filename
-
-    @classmethod
-    def get_log_path(cls, filename: str) -> Path:
-        """Lấy đường dẫn đầy đủ cho log file"""
-        return cls.LOGS_DIR / filename
+    # ========== Autonomous Workflow Settings ==========
+    DEFAULT_MAX_OPINIONS = int(os.getenv("DEFAULT_MAX_OPINIONS", "20"))
+    DEFAULT_QUALITY_THRESHOLD = float(os.getenv("DEFAULT_QUALITY_THRESHOLD", "0.6"))
+    
+    # Law crawler settings
+    LAW_CRAWLER_SOURCE = os.getenv("LAW_CRAWLER_SOURCE", "duthaoonline")
+    LAW_SIMILARITY_THRESHOLD = float(os.getenv("LAW_SIMILARITY_THRESHOLD", "0.8"))
 
     @classmethod
     def validate_config(cls) -> bool:
-        """Kiểm tra config có hợp lệ không"""
-        issues = []
-
-        # Kiểm tra Ollama connection
+        """Validate configuration settings"""
         try:
+            # Check Ollama connection
             import requests
             response = requests.get(f"{cls.OLLAMA_BASE_URL}/api/tags", timeout=5)
             if response.status_code != 200:
-                issues.append(f"Cannot connect to Ollama at {cls.OLLAMA_BASE_URL}")
+                print(f"⚠️  Warning: Cannot connect to Ollama at {cls.OLLAMA_BASE_URL}")
+                print("   Make sure Ollama is running: ollama serve")
+                return False
+            
+            # Check required directories
+            for dir_path in [cls.DATA_DIR, cls.PDF_DIR, cls.CSV_DIR, cls.LOGS_DIR]:
+                if not dir_path.exists():
+                    print(f"❌ Directory not found: {dir_path}")
+                    return False
+            
+            return True
+            
         except Exception as e:
-            issues.append(f"Ollama connection error: {str(e)}")
-
-        # Kiểm tra model có tồn tại không
-        try:
-            import requests
-            response = requests.get(f"{cls.OLLAMA_BASE_URL}/api/tags")
-            if response.status_code == 200:
-                models = [m["name"] for m in response.json().get("models", [])]
-                if cls.LLM_MODEL not in models:
-                    issues.append(
-                        f"Model {cls.LLM_MODEL} not found. "
-                        f"Available models: {', '.join(models)}"
-                    )
-        except Exception:
-            pass  # Already logged connection error above
-
-        if issues:
-            print("⚠️  Configuration Issues:")
-            for issue in issues:
-                print(f"  - {issue}")
+            print(f"❌ Config validation error: {str(e)}")
             return False
-
-        return True
 
     @classmethod
     def display_config(cls):
-        """Hiển thị config hiện tại"""
+        """Display current configuration"""
+        print("\n" + "=" * 60)
+        print("⚙️  AUTONOMOUS AI AGENT - Configuration")
         print("=" * 60)
-        print("AutoData Configuration")
-        print("=" * 60)
-        print(f"LLM Model: {cls.LLM_MODEL}")
-        print(f"Ollama URL: {cls.OLLAMA_BASE_URL}")
-        print(f"Embedding Model: {cls.EMBEDDING_MODEL}")
-        print(f"PDF Directory: {cls.PDF_DIR}")
-        print(f"CSV Directory: {cls.CSV_DIR}")
-        print(f"Vector DB: {cls.VECTOR_DB_TYPE} at {cls.CHROMA_PERSIST_DIR}")
-        print(f"Debug Mode: {cls.DEBUG_MODE}")
-        print("=" * 60)
+        
+        print("\n📁 Paths:")
+        print(f"  Base Dir: {cls.BASE_DIR}")
+        print(f"  Data Dir: {cls.DATA_DIR}")
+        print(f"  PDF Dir: {cls.PDF_DIR}")
+        print(f"  CSV Dir: {cls.CSV_DIR}")
+        print(f"  Logs Dir: {cls.LOGS_DIR}")
+        
+        print("\n🤖 LLM (Ollama):")
+        print(f"  Base URL: {cls.OLLAMA_BASE_URL}")
+        print(f"  Model: {cls.LLM_MODEL}")
+        print(f"  Temperature: {cls.LLM_TEMPERATURE}")
+        print(f"  Max Tokens: {cls.LLM_MAX_TOKENS}")
+        
+        print("\n🌐 Web Scraping:")
+        print(f"  Timeout: {cls.REQUEST_TIMEOUT}s")
+        print(f"  Max Retries: {cls.MAX_RETRIES}")
+        print(f"  Selenium Headless: {cls.SELENIUM_HEADLESS}")
+        
+        print("\n📄 PDF Processing:")
+        print(f"  Max Size: {cls.PDF_MAX_SIZE_MB}MB")
+        
+        print("\n🔍 Autonomous Workflow:")
+        print(f"  Default Max Opinions: {cls.DEFAULT_MAX_OPINIONS}")
+        print(f"  Default Quality Threshold: {cls.DEFAULT_QUALITY_THRESHOLD}")
+        print(f"  Law Crawler Source: {cls.LAW_CRAWLER_SOURCE}")
+        
+        print("\n" + "=" * 60)
 
 
-# Singleton instance
+# Create singleton instance
 config = Config()
 
+
 # Export
-__all__ = ["Config", "config"]
+__all__ = ['config', 'Config']
