@@ -10,13 +10,11 @@ from datetime import datetime
 
 
 class AgentRole(str, Enum):
-    """Các vai trò của agents trong hệ thống"""
+    """Agent roles in AUTONOMOUS AI system"""
     MANAGER = "manager"
-    WEB_CRAWLER = "web_crawler"
-    PDF_HANDLER = "pdf_handler"
-    CONTENT_EXTRACTOR = "content_extractor"
-    SEARCH_AGENT = "search_agent"
-    SCRAPER_AGENT = "scraper_agent"
+    WEB_CRAWLER = "web_crawler"  # Used by autonomous agents
+    CONTENT_EXTRACTOR = "content_extractor"  # Used by autonomous agents
+    SEARCH_AGENT = "search_agent"  # Used by autonomous agents
 
 
 class TaskStatus(str, Enum):

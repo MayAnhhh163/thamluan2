@@ -1,8 +1,8 @@
 """
-Utils package for AutoData system.
+Utils package for utilities.
 """
 
-from .logging import setup_logging, get_logger
+from .logging import setup_logging
 from .cli import parse_arguments
 
-__all__ = ["setup_logging", "get_logger", "parse_arguments"]
+__all__ = ['setup_logging', 'parse_arguments']
