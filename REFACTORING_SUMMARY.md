@@ -129,8 +129,7 @@ All original autonomous workflow features are preserved:
 ✅ Automatic PDF download  
 ✅ AI keyword extraction from PDFs  
 ✅ Intelligent search query generation  
-✅ Autonomous web search with Chrome/Selenium  
-✅ Bot detection bypass (undetected-chromedriver)  
+✅ Autonomous web search with DuckDuckGo (no bot detection)  
 ✅ AI content quality assessment  
 ✅ Sentiment and stance analysis  
 ✅ CSV export with full analysis  

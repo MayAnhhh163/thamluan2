@@ -189,10 +189,10 @@ The `ManagerAgent` (`agents/manager.py`) automatically:
 ✅ **Intelligent Document Search**: AI selects most relevant law documents  
 ✅ **Smart Keyword Extraction**: AI extracts key concepts from PDFs  
 ✅ **Autonomous Search**: AI generates diverse search queries  
+✅ **DuckDuckGo Search**: Uses DuckDuckGo for reliable, bot-friendly search  
 ✅ **Quality Assessment**: AI evaluates content quality before saving  
 ✅ **Sentiment Analysis**: Automatic sentiment detection  
 ✅ **Stance Detection**: Identifies support/oppose/neutral stances  
-✅ **Bot Detection Bypass**: Uses undetected-chromedriver  
 
 ### Output
 
@@ -233,9 +233,9 @@ pip install undetected-chromedriver
 sudo apt-get install chromium-browser chromium-chromedriver
 ```
 
-### Google Bot Detection
+### Search Engine
 
-The workflow automatically switches to DuckDuckGo if Google detects bot activity.
+The workflow uses DuckDuckGo for reliable search without bot detection issues.
 
 ## Advanced Usage
 

@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 class OllamaAutonomousSearchAgent:
     """
     AI Agent tự động:
-    1. Mở Chrome và search Google
+    1. Mở Chrome và search DuckDuckGo
     2. Dùng Ollama để đánh giá kết quả search có relevant không
     3. Click vào link relevant
     4. Crawl nội dung
@@ -166,8 +166,8 @@ class OllamaAutonomousSearchAgent:
                 logger.info(f"🔍 Query {query_idx}/{len(search_queries)}: '{query}'")
                 logger.info(f"{'='*60}")
                 
-                # Search Google
-                search_results = self._search_google(query)
+                # Search DuckDuckGo
+                search_results = self._search_duckduckgo(query)
                 logger.info(f"Found {len(search_results)} search results")
                 
                 # Step 3: Evaluate each result with Ollama
@@ -325,7 +325,7 @@ Tạo 5 câu tìm kiếm (search queries) tiếng Việt để tìm ý kiến, b
 Yêu cầu:
 1. Mỗi query khác nhau (đa dạng góc nhìn)
 2. Tập trung vào: ý kiến chuyên gia, phản hồi, góp ý, tranh luận
-3. Tự nhiên như người Việt search Google
+3. Tự nhiên như người Việt search web
 4. 5-10 từ mỗi query
 
 Trả về JSON array: ["query 1", "query 2", ...]
@@ -352,88 +352,8 @@ Chỉ JSON, không giải thích."""
             logger.warning(f"Error generating queries: {str(e)}")
             return [f"{topic} ý kiến", f"{topic} phản hồi"]
     
-    def _search_google(self, query: str) -> List[Dict[str, str]]:
-        """Search Google và lấy kết quả"""
-        try:
-            # Navigate to Google
-            self.driver.get("https://www.google.com")
-            time.sleep(3)  # Wait longer for page load
-            
-            # Check if CAPTCHA or bot detection page
-            page_source = self.driver.page_source.lower()
-            if 'captcha' in page_source or 'unusual traffic' in page_source:
-                logger.warning("⚠️ Google detected bot, trying DuckDuckGo instead...")
-                return self._search_duckduckgo(query)
-            
-            # Find search box
-            try:
-                search_box = self.driver.find_element(By.NAME, "q")
-            except NoSuchElementException:
-                # Try alternative selector
-                try:
-                    search_box = self.driver.find_element(By.CSS_SELECTOR, "textarea[name='q']")
-                except NoSuchElementException:
-                    logger.error("Cannot find Google search box, using DuckDuckGo")
-                    return self._search_duckduckgo(query)
-            
-            search_box.clear()
-            search_box.send_keys(query)
-            search_box.send_keys(Keys.RETURN)
-            
-            # Wait for results
-            time.sleep(4)
-            
-            # Check again for CAPTCHA
-            page_source = self.driver.page_source.lower()
-            if 'captcha' in page_source or 'unusual traffic' in page_source:
-                logger.warning("⚠️ Google CAPTCHA detected, switching to DuckDuckGo...")
-                return self._search_duckduckgo(query)
-            
-            # Parse results
-            results = []
-            
-            # Find all search result divs
-            search_results = self.driver.find_elements(By.CSS_SELECTOR, "div.g")
-            
-            for result in search_results[:10]:  # Top 10 results
-                try:
-                    # Extract link
-                    link_elem = result.find_element(By.CSS_SELECTOR, "a")
-                    url = link_elem.get_attribute("href")
-                    
-                    # Extract title
-                    title_elem = result.find_element(By.CSS_SELECTOR, "h3")
-                    title = title_elem.text
-                    
-                    # Extract snippet
-                    try:
-                        snippet_elem = result.find_element(By.CSS_SELECTOR, "div.VwiC3b")
-                        snippet = snippet_elem.text
-                    except:
-                        snippet = ""
-                    
-                    if url and title and url.startswith('http'):
-                        results.append({
-                            'url': url,
-                            'title': title,
-                            'snippet': snippet
-                        })
-                        
-                except Exception as e:
-                    continue
-            
-            if not results:
-                logger.warning("No results from Google, trying DuckDuckGo...")
-                return self._search_duckduckgo(query)
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"Google search error: {str(e)}, falling back to DuckDuckGo")
-            return self._search_duckduckgo(query)
-    
     def _search_duckduckgo(self, query: str) -> List[Dict[str, str]]:
-        """Search DuckDuckGo (không có bot detection)"""
+        """Search DuckDuckGo"""
         try:
             logger.info("🦆 Searching on DuckDuckGo...")
             
